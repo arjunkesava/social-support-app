@@ -1,0 +1,93 @@
+{
+  "header": {
+    "title": "Foro de Apoyo Social"
+  },
+  "nav": {
+    "toggle_dark": "Modo Oscuro",
+    "toggle_light": "Modo Claro",
+    "language": "Idioma"
+  },
+  "steps": {
+    "personal": "Información Personal",
+    "financial": "Información Familiar y Financiera",
+    "situation": "Descripciones de Situación",
+    "success": "Envío Exitoso"
+  },
+  "buttons": {
+    "next": "Siguiente",
+    "back": "Atrás",
+    "submit": "Enviar",
+    "reset": "Empezar de Nuevo"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "email": "Por favor, introduce una dirección de correo válida",
+    "phone": "Por favor, introduce un número de teléfono válido",
+    "national_id": "El ID Nacional debe ser numérico y tener exactamente 10 dígitos",
+    "min_income": "El ingreso mensual no puede ser negativo",
+    "min_dependents": "Los dependientes no pueden ser negativos",
+    "min_length": "Debe tener al menos 15 caracteres"
+  },
+  "personal": {
+    "title": "Información Personal",
+    "name": "Nombre Completo",
+    "national_id": "ID Nacional",
+    "dob": "Fecha de Nacimiento",
+    "gender": "Género",
+    "gender_options": {
+      "male": "Masculino",
+      "female": "Femenino",
+      "other": "Otro"
+    },
+    "address": "Dirección",
+    "city": "Ciudad",
+    "state": "Estado",
+    "country": "País",
+    "phone": "Número de Teléfono",
+    "email": "Correo Electrónico"
+  },
+  "financial": {
+    "title": "Información Familiar y Financiera",
+    "marital_status": "Estado Civil",
+    "marital_options": {
+      "single": "Soltero/a",
+      "married": "Casado/a",
+      "divorced": "Divorciado/a",
+      "widowed": "Viudo/a"
+    },
+    "dependents": "Número de Dependientes",
+    "employment_status": "Situación Laboral",
+    "employment_options": {
+      "employed": "Empleado",
+      "unemployed": "Desempleado",
+      "student": "Estudiante",
+      "retired": "Jubilado",
+      "self_employed": "Autónomo"
+    },
+    "monthly_income": "Ingreso Mensual",
+    "housing_status": "Estado de la Vivienda",
+    "housing_options": {
+      "own": "Propia",
+      "rent": "Alquiler",
+      "homeless": "Sin hogar",
+      "family": "Viviendo con la familia"
+    }
+  },
+  "situation": {
+    "title": "Descripciones de Situación",
+    "financial_situation": "Situación Financiera Actual",
+    "financial_situation_placeholder": "Describa su situación financiera actual, incluyendo activos, pasivos y deudas pendientes.",
+    "employment_circumstances": "Circunstancias de Empleo",
+    "employment_circumstances_placeholder": "Proporcione detalles de su situación laboral actual, seguridad en el empleo o razones de desempleo.",
+    "reason_for_applying": "Motivo de la Solicitud",
+    "reason_for_applying_placeholder": "Explique por qué solicita apoyo y cómo le ayudará esta asistencia a resolver sus desafíos."
+  },
+  "success": {
+    "title": "¡Solicitud Completada!",
+    "subtitle": "Su solicitud ha sido recibida. Se ha guardado una copia localmente para su persistencia. Puede revisar los detalles a continuación:",
+    "section_personal": "Detalles Personales",
+    "section_financial": "Detalles Financieros y Familiares",
+    "section_situation": "Declaraciones de Circunstancias",
+    "no_value": "No proporcionado"
+  }
+}

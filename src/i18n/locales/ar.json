@@ -1,0 +1,93 @@
+{
+  "header": {
+    "title": "منتدى الدعم الاجتماعي"
+  },
+  "nav": {
+    "toggle_dark": "الوضع الداكن",
+    "toggle_light": "الوضع المضيء",
+    "language": "اللغة"
+  },
+  "steps": {
+    "personal": "معلومات شخصية",
+    "financial": "المعلومات المالية والعائلية",
+    "situation": "وصف الحالة",
+    "success": "تم الإرسال بنجاح"
+  },
+  "buttons": {
+    "next": "التالي",
+    "back": "السابق",
+    "submit": "إرسال",
+    "reset": "البدء من جديد"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "phone": "يرجى إدخال رقم هاتف صحيح",
+    "national_id": "يجب أن يكون المعرف الوطني عدديًا ومكونًا من 10 أرقام بالضبط",
+    "min_income": "لا يمكن أن يكون الدخل الشهري سالبًا",
+    "min_dependents": "لا يمكن أن يكون عدد المعالين سالبًا",
+    "min_length": "يجب أن لا يقل عن 15 حرفًا"
+  },
+  "personal": {
+    "title": "معلومات شخصية",
+    "name": "الاسم الكامل",
+    "national_id": "المعرف الوطني (رقم الهوية)",
+    "dob": "تاريخ الولادة",
+    "gender": "الجنس",
+    "gender_options": {
+      "male": "ذكر",
+      "female": "أنثى",
+      "other": "آخر"
+    },
+    "address": "العنوان كامل",
+    "city": "المدينة",
+    "state": "الولاية / المنطقة",
+    "country": "البلد",
+    "phone": "رقم الهاتف",
+    "email": "البريد الإلكتروني"
+  },
+  "financial": {
+    "title": "المعلومات العائلية والمالية",
+    "marital_status": "الحالة الاجتماعية",
+    "marital_options": {
+      "single": "أعزب / عزباء",
+      "married": "متزوج / متزوجة",
+      "divorced": "مطلق / مطلقة",
+      "widowed": "أرمل / أرملة"
+    },
+    "dependents": "عدد المعالين",
+    "employment_status": "الوضع الوظيفي",
+    "employment_options": {
+      "employed": "موظف",
+      "unemployed": "عاطل عن العمل",
+      "student": "طالب",
+      "retired": "متقاعد",
+      "self_employed": "عمل خاص"
+    },
+    "monthly_income": "الدخل الشهري",
+    "housing_status": "حالة السكن",
+    "housing_options": {
+      "own": "ملك",
+      "rent": "إيجار",
+      "homeless": "بدون مأوى",
+      "family": "العيش مع العائلة"
+    }
+  },
+  "situation": {
+    "title": "وصف الحالة",
+    "financial_situation": "الوضع المالي الحالي",
+    "financial_situation_placeholder": "صف وضعك المالي الحالي، بما في ذلك الأصول والالتزامات وأي ديون معلقة.",
+    "employment_circumstances": "الظروف الوظيفية",
+    "employment_circumstances_placeholder": "يرجى تقديم تفاصيل عن وضعك الوظيفي الحالي، أو أمانك الوظيفي، أو أسباب البطالة.",
+    "reason_for_applying": "سبب التقديم",
+    "reason_for_applying_placeholder": "اشرح سبب طلبك للدعم وكيف ستساعدك هذه المساعدة في حل مشكلاتك."
+  },
+  "success": {
+    "title": "تم إكمال الطلب بنجاح!",
+    "subtitle": "لقد تم استلام طلبك وحفظ نسخة من التفاصيل محليًا للاسترجاع السريع. يمكنك مراجعة البيانات المدخلة أدناه:",
+    "section_personal": "البيانات الشخصية",
+    "section_financial": "البيانات العائلية والمالية",
+    "section_situation": "شروحات الظروف والأسباب",
+    "no_value": "لم يذكر"
+  }
+}

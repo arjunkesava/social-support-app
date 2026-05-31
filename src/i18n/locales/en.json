@@ -1,0 +1,93 @@
+{
+  "header": {
+    "title": "Social Support Forum"
+  },
+  "nav": {
+    "toggle_dark": "Dark Mode",
+    "toggle_light": "Light Mode",
+    "language": "Language"
+  },
+  "steps": {
+    "personal": "Personal Information",
+    "financial": "Family & Financial Info",
+    "situation": "Situation Descriptions",
+    "success": "Submission Success"
+  },
+  "buttons": {
+    "next": "Next",
+    "back": "Back",
+    "submit": "Submit",
+    "reset": "Start Over"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "national_id": "National ID must be numeric and exactly 10 digits",
+    "min_income": "Monthly income cannot be negative",
+    "min_dependents": "Dependents cannot be negative",
+    "min_length": "Must be at least 15 characters"
+  },
+  "personal": {
+    "title": "Personal Information",
+    "name": "Full Name",
+    "national_id": "National ID",
+    "dob": "Date of Birth",
+    "gender": "Gender",
+    "gender_options": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
+    "address": "Address",
+    "city": "City",
+    "state": "State",
+    "country": "Country",
+    "phone": "Phone Number",
+    "email": "Email Address"
+  },
+  "financial": {
+    "title": "Family & Financial Information",
+    "marital_status": "Marital Status",
+    "marital_options": {
+      "single": "Single",
+      "married": "Married",
+      "divorced": "Divorced",
+      "widowed": "Widowed"
+    },
+    "dependents": "Number of Dependents",
+    "employment_status": "Employment Status",
+    "employment_options": {
+      "employed": "Employed",
+      "unemployed": "Unemployed",
+      "student": "Student",
+      "retired": "Retired",
+      "self_employed": "Self-Employed"
+    },
+    "monthly_income": "Monthly Income",
+    "housing_status": "Housing Status",
+    "housing_options": {
+      "own": "Own",
+      "rent": "Rent",
+      "homeless": "Homeless",
+      "family": "Living with Family"
+    }
+  },
+  "situation": {
+    "title": "Situation Descriptions",
+    "financial_situation": "Current Financial Situation",
+    "financial_situation_placeholder": "Describe your current financial situation, including assets, liabilities, and any outstanding debt.",
+    "employment_circumstances": "Employment Circumstances",
+    "employment_circumstances_placeholder": "Provide details of your current employment status, job security, or reasons for unemployment.",
+    "reason_for_applying": "Reason for Applying",
+    "reason_for_applying_placeholder": "Explain why you are seeking support and how this assistance will help resolve your challenges."
+  },
+  "success": {
+    "title": "Application Completed!",
+    "subtitle": "Your application has been received. A copy of your details has been saved locally for persistence. You can review the details below:",
+    "section_personal": "Personal Details",
+    "section_financial": "Financial & Family Details",
+    "section_situation": "Circumstance Statements",
+    "no_value": "Not provided"
+  }
+}
