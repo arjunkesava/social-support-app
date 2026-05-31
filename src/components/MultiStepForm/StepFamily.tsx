@@ -1,10 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { TextField, MenuItem, Button, Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../context/FormContext';
@@ -39,7 +36,7 @@ export const StepFamily: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Grid container spacing={3} sx={formFieldGridStyles}>
         {/* Marital Status */}
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             select
@@ -68,7 +65,7 @@ export const StepFamily: React.FC = () => {
         </Grid>
 
         {/* Dependents */}
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             id="financial-dependents"
@@ -97,7 +94,7 @@ export const StepFamily: React.FC = () => {
         </Grid>
 
         {/* Employment Status */}
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             select
@@ -127,7 +124,7 @@ export const StepFamily: React.FC = () => {
         </Grid>
 
         {/* Monthly Income */}
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             id="financial-monthly-income"
@@ -156,7 +153,7 @@ export const StepFamily: React.FC = () => {
         </Grid>
 
         {/* Housing Status */}
-        <Grid size={{xs: 12}}>
+        <Grid size={12}>
           <TextField
             required
             select

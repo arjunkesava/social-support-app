@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography, Button, Divider, Grid } from '@mui/material';
+import { Box, Typography, Button, Divider } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { CheckCircleOutlined, RestartAlt } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../context/FormContext';
@@ -48,34 +49,34 @@ export const StepSuccess: React.FC = () => {
           {t('success.section_personal')}
         </Typography>
         <Grid container spacing={2}>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.name'), formData.personal.name)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.national_id'), formData.personal.nationalId)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.dob'), formData.personal.dob)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
-            {renderDetailItem(t('personal.gender'), t(`personal.gender_options.${formData.personal.gender}`, formData.personal.gender))}
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            {renderDetailItem(t('personal.gender'), t(`personal.gender_options.${formData.personal.gender}` as any, formData.personal.gender))}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.phone'), formData.personal.phone)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.email'), formData.personal.email)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             {renderDetailItem(t('personal.address'), formData.personal.address)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.city'), formData.personal.city)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.state'), formData.personal.state)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.country'), formData.personal.country)}
           </Grid>
         </Grid>
@@ -87,20 +88,20 @@ export const StepSuccess: React.FC = () => {
           {t('success.section_financial')}
         </Typography>
         <Grid container spacing={2}>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
-            {renderDetailItem(t('financial.marital_status'), t(`financial.marital_options.${formData.family.maritalStatus}`, formData.family.maritalStatus))}
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            {renderDetailItem(t('financial.marital_status'), t(`financial.marital_options.${formData.family.maritalStatus}` as any, formData.family.maritalStatus))}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('financial.dependents'), formData.family.dependents)}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
-            {renderDetailItem(t('financial.employment_status'), t(`financial.employment_options.${formData.family.employmentStatus}`, formData.family.employmentStatus))}
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            {renderDetailItem(t('financial.employment_status'), t(`financial.employment_options.${formData.family.employmentStatus}` as any, formData.family.employmentStatus))}
           </Grid>
-          <Grid size={{xs: 12, sm: 6, md:4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('financial.monthly_income'), formData.family.monthlyIncome)}
           </Grid>
-          <Grid size={{xs: 12, sm: 8 }}>
-            {renderDetailItem(t('financial.housing_status'), t(`financial.housing_options.${formData.family.housingStatus}`, formData.family.housingStatus))}
+          <Grid size={{ xs: 12, sm: 8 }}>
+            {renderDetailItem(t('financial.housing_status'), t(`financial.housing_options.${formData.family.housingStatus}` as any, formData.family.housingStatus))}
           </Grid>
         </Grid>
       </Box>

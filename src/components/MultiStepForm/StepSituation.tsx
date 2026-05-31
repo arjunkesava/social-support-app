@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Grid, TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../context/FormContext';
@@ -35,7 +36,7 @@ export const StepSituation: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Grid container spacing={3} sx={formFieldGridStyles}>
         {/* Financial Situation Description */}
-        <Grid size={{ xs:12 }}>
+        <Grid size={12}>
           <TextField
             required
             id="situation-financial"
@@ -64,7 +65,7 @@ export const StepSituation: React.FC = () => {
         </Grid>
 
         {/* Employment Circumstances Description */}
-        <Grid size={{ xs:12 }}>
+        <Grid size={12}>
           <TextField
             required
             id="situation-employment"
@@ -93,7 +94,7 @@ export const StepSituation: React.FC = () => {
         </Grid>
 
         {/* Reason for Applying */}
-        <Grid size={{ xs:12 }}>
+        <Grid size={12}>
           <TextField
             required
             id="situation-reason"

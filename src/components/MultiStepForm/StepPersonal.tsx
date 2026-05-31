@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Grid, TextField, MenuItem, Button, Box } from '@mui/material';
+import { TextField, MenuItem, Button, Box } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../context/FormContext';
@@ -31,7 +32,7 @@ export const StepPersonal: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Grid container spacing={3} sx={formFieldGridStyles}>
         {/* Name */}
-        <Grid size={{ xs:12 }}>
+        <Grid size={12}>
           <TextField
             required
             id="personal-name"
@@ -80,7 +81,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* Date of Birth */}
-        <Grid size={{ xs:12, sm: 6 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             id="personal-dob"
@@ -94,6 +95,7 @@ export const StepPersonal: React.FC = () => {
             error={!!errors.dob}
             helperText={errors.dob?.message}
             slotProps={{
+              inputLabel: { shrink: true },
               htmlInput: {
                 'aria-required': 'true',
                 'aria-invalid': errors.dob ? 'true' : 'false',
@@ -103,7 +105,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* Gender */}
-        <Grid size={{ xs:12, sm: 6 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             select
@@ -131,7 +133,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* Phone */}
-        <Grid size={{ xs:12, sm: 6 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             required
             id="personal-phone"
@@ -158,7 +160,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* Email */}
-        <Grid size={{ xs:12, sm: 6 }}>
+        <Grid size={12}>
           <TextField
             required
             id="personal-email"
@@ -185,7 +187,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* Address */}
-        <Grid size={{ xs:12, sm: 6 }}>
+        <Grid size={12}>
           <TextField
             required
             id="personal-address"
@@ -207,7 +209,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* City */}
-        <Grid size={{ xs:12, sm: 4 }}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <TextField
             required
             id="personal-city"
@@ -229,7 +231,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* State */}
-        <Grid size={{ xs:12, sm: 4 }}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <TextField
             required
             id="personal-state"
@@ -251,7 +253,7 @@ export const StepPersonal: React.FC = () => {
         </Grid>
 
         {/* Country */}
-        <Grid size={{ xs:12, sm: 4 }}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <TextField
             required
             id="personal-country"

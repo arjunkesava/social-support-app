@@ -11,11 +11,11 @@ export const getLayoutThemeOptions = (mode: 'light' | 'dark', direction: 'ltr' |
         dark: '#7e22ce',
       },
       secondary: {
-        main: '#10b981', // Emerald Green for success/secondary points
+        main: '#10b981', // Emerald Green for success
       },
       background: {
-        default: mode === 'light' ? '#fcfbfd' : '#0d0d11',
-        paper: mode === 'light' ? '#ffffff' : '#14141a',
+        default: mode === 'light' ? '#fcfbfd' : '#0a0a0f',
+        paper: mode === 'light' ? 'rgba(255, 255, 255, 0.45)' : 'rgba(20, 20, 26, 0.45)', // Frosted glass bases
       },
       text: {
         primary: mode === 'light' ? '#1c1921' : '#f3f4f6',
@@ -46,10 +46,13 @@ export const getLayoutThemeOptions = (mode: 'light' | 'dark', direction: 'ltr' |
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 12,
             boxShadow: 'none',
+            backdropFilter: 'blur(4px)',
+            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             '&:hover': {
               boxShadow: 'none',
+              transform: 'translateY(-1px)',
             },
           },
         },
@@ -57,17 +60,27 @@ export const getLayoutThemeOptions = (mode: 'light' | 'dark', direction: 'ltr' |
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 12,
+            backgroundColor: mode === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.02)',
+            backdropFilter: 'blur(4px)',
+            transition: 'all 0.2s ease',
+            '&:hover': {
+              backgroundColor: mode === 'light' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.04)',
+            },
+            '&.Mui-focused': {
+              backgroundColor: mode === 'light' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.06)',
+            },
           },
         },
       },
       MuiCard: {
         styleOverrides: {
           root: {
-            borderRadius: 16,
+            borderRadius: 24,
             boxShadow: mode === 'light' 
-              ? '0 10px 30px -10px rgba(170, 59, 255, 0.08)'
-              : '0 10px 30px -10px rgba(0, 0, 0, 0.5)',
+              ? '0 20px 40px -15px rgba(170, 59, 255, 0.06), 0 0 0 1px rgba(170, 59, 255, 0.04)'
+              : '0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+            backdropFilter: 'blur(20px)',
           },
         },
       },
@@ -80,7 +93,11 @@ export const mainWrapperStyles: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   transition: 'background-color 0.3s ease, color 0.3s ease',
-  backgroundColor: 'background.default',
+  // Sleek multi-blob frosted backdrop gradients
+  background: (theme) => 
+    theme.palette.mode === 'light'
+      ? 'radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.6) 0, transparent 50%), radial-gradient(at 100% 0%, rgba(243, 232, 255, 0.7) 0, transparent 50%), radial-gradient(at 50% 100%, rgba(254, 243, 199, 0.4) 0, transparent 50%), #f8f7fa'
+      : 'radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0, transparent 50%), radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.12) 0, transparent 50%), radial-gradient(at 50% 100%, rgba(20, 20, 26, 0.8) 0, transparent 100%), #08080c',
   color: 'text.primary',
 };
 
