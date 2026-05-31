@@ -1,5 +1,58 @@
 # React + TypeScript + Vite
 
+## Help Me Write OpenAI setup
+
+1. Install dependencies if they are not already installed:
+
+   ```sh
+   yarn install
+   ```
+
+2. Create the backend environment file:
+
+   ```sh
+   cp backend/.env.example backend/.env
+   ```
+
+3. Add your OpenAI API key in `backend/.env`:
+
+   ```sh
+   OPENAI_API_KEY=sk-your-key
+   OPENAI_MODEL=gpt-4o-mini
+   PORT=4000
+   CLIENT_ORIGIN=http://localhost:5173
+   ```
+
+   Keep this key only in `backend/.env`. Do not put a real API key in `backend/.env.example` or commit it to git.
+
+4. Start the backend service:
+
+   ```sh
+   yarn backend
+   ```
+
+5. In another terminal, start the React app:
+
+   ```sh
+   yarn dev
+   ```
+
+The React client calls `http://localhost:4000/api/help-me-write` by default. To use a different backend URL, set `VITE_API_BASE_URL` before starting Vite.
+
+### Fixing local certificate errors
+
+If the backend logs `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`, Node cannot verify the certificate chain for the OpenAI HTTPS request. This usually happens on corporate, school, antivirus, VPN, proxy, or custom local certificate networks.
+
+Use the trusted root CA certificate for your network and add it to `backend/.env`:
+
+```sh
+NODE_EXTRA_CA_CERTS=/absolute/path/to/company-or-local-ca.pem
+```
+
+Then restart `yarn backend`.
+
+Avoid using `NODE_TLS_REJECT_UNAUTHORIZED=0` except as a very short local debugging check. It disables TLS certificate verification for the whole Node process.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
