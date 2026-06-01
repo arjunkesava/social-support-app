@@ -2,7 +2,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
-import OpenAI from 'openai';
+import { GoogleGenAI } from '@google/genai';
+
 
 dotenv.config({ path: fileURLToPath(new URL('.env', import.meta.url)) });
 dotenv.config();
@@ -11,8 +12,8 @@ const app = express();
 const port = process.env.PORT || 4000;
 const allowedOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
 });
 
 app.use(cors({ origin: allowedOrigin }));
@@ -96,34 +97,16 @@ app.post('/api/help-me-write', async (req, res) => {
   }
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-oss-120b',
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You help applicants write truthful, clear, plain-language social support application statements.',
-        },
-        {
-          role: 'user',
-          content: buildPrompt({ field, fieldLabel, existingText, personal, family }),
-        },
-      ],
-      temperature: 0.5,
-      max_tokens: 220,
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: buildPrompt({ field, fieldLabel, existingText, personal, family }),
     });
 
-    const suggestion = completion.choices[0]?.message?.content?.trim();
-
-    if (!suggestion) {
-      return res.status(502).json({ message: 'No writing suggestion was returned.' });
-    }
-
-    return res.json({ suggestion });
+    return res.json({
+      suggestion: response.text,
+    });
   } catch (error) {
-    console.error('OpenAI suggestion error:');
-    console.log('----------------------------');
-    console.error(error);
+    console.error('Gemini AI suggestion error: ', error);
 
     const { status, message } = getOpenAIErrorResponse(error);
     return res.status(status).json({

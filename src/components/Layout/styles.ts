@@ -15,7 +15,7 @@ export const getLayoutThemeOptions = (mode: 'light' | 'dark', direction: 'ltr' |
       },
       background: {
         default: mode === 'light' ? '#fcfbfd' : '#0a0a0f',
-        paper: mode === 'light' ? 'rgba(255, 255, 255, 0.45)' : 'rgba(20, 20, 26, 0.45)', // Frosted glass bases
+        paper: mode === 'light' ? 'rgba(255, 255, 255)' : 'rgba(20, 20, 26)',
       },
       text: {
         primary: mode === 'light' ? '#1c1921' : '#f3f4f6',
