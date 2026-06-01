@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
-import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
-import { useFormContext } from '../../context/FormContext';
+import { createTheme, ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import { useFormContext } from '../../context/FormContext.shared';
 import { getLayoutThemeOptions, mainWrapperStyles, contentContainerStyles } from './styles';
 
 interface LayoutProps {

@@ -1,89 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import i18n from '../i18n/config';
-
-export interface PersonalInfo {
-  name: string;
-  nationalId: string;
-  dob: string;
-  gender: string;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  phone: string;
-  email: string;
-}
-
-export interface FamilyFinancialInfo {
-  maritalStatus: string;
-  dependents: number | '';
-  employmentStatus: string;
-  monthlyIncome: number | '';
-  housingStatus: string;
-}
-
-export interface SituationDescriptions {
-  financialSituation: string;
-  employmentCircumstances: string;
-  reasonForApplying: string;
-}
-
-export interface FormData {
-  personal: PersonalInfo;
-  family: FamilyFinancialInfo;
-  situation: SituationDescriptions;
-}
-
-const initialFormData: FormData = {
-  personal: {
-    name: '',
-    nationalId: '',
-    dob: '',
-    gender: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    phone: '',
-    email: '',
-  },
-  family: {
-    maritalStatus: '',
-    dependents: '',
-    employmentStatus: '',
-    monthlyIncome: '',
-    housingStatus: '',
-  },
-  situation: {
-    financialSituation: '',
-    employmentCircumstances: '',
-    reasonForApplying: '',
-  },
-};
-
-export type ThemeMode = 'light' | 'dark';
-export type Language = 'en' | 'es' | 'ar';
-
-interface FormContextType {
-  formData: FormData;
-  activeStep: number;
-  themeMode: ThemeMode;
-  language: Language;
-  updateStepData: <T extends keyof FormData>(step: T, data: FormData[T]) => void;
-  setActiveStep: (step: number) => void;
-  toggleTheme: () => void;
-  changeLanguage: (lang: Language) => void;
-  resetForm: () => void;
-}
-
-const FormContext = createContext<FormContextType | undefined>(undefined);
+import {
+  FormContext,
+  getInitialFormData,
+  initialFormData,
+  type FormData,
+  type Language,
+  type ThemeMode,
+} from './FormContext.shared';
 
 export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Restore from localStorage
-  const [formData, setFormData] = useState<FormData>(() => {
-    const saved = localStorage.getItem('social_support_form_data');
-    return saved ? JSON.parse(saved) : initialFormData;
-  });
+  const [formData, setFormData] = useState<FormData>(getInitialFormData);
 
   const [activeStep, setActiveStepState] = useState<number>(() => {
     const saved = localStorage.getItem('social_support_step');
@@ -167,12 +95,4 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
       {children}
     </FormContext.Provider>
   );
-};
-
-export const useFormContext = () => {
-  const context = useContext(FormContext);
-  if (!context) {
-    throw new Error('useFormContext must be used within a FormContextProvider');
-  }
-  return context;
 };

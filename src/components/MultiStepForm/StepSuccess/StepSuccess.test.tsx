@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import StepSuccess from './StepSuccess';
-import { FormContextProvider } from '../../context/FormContext';
+import { FormContextProvider } from '../../../context/FormContext';
 import { describe, it, expect } from 'vitest';
-import '../../i18n/config';
+import '../../../i18n/config';
 
 describe('StepSuccess Component', () => {
   it('should render the final summary and the start over action button', () => {

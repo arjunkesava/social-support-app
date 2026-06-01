@@ -90,7 +90,19 @@
     "employment_circumstances": "Circunstancias de Empleo",
     "employment_circumstances_placeholder": "Proporcione detalles de su situación laboral actual, seguridad en el empleo o razones de desempleo.",
     "reason_for_applying": "Motivo de la Solicitud",
-    "reason_for_applying_placeholder": "Explique por qué solicita apoyo y cómo le ayudará esta asistencia a resolver sus desafíos."
+    "reason_for_applying_placeholder": "Explique por qué solicita apoyo y cómo le ayudará esta asistencia a resolver sus desafíos.",
+    "ai_suggestion": {
+      "help_button": "Ayúdame a escribir",
+      "title": "Ayúdame a escribir",
+      "loading_aria": "Generando sugerencia de redacción",
+      "loading": "Generando una sugerencia...",
+      "suggested_text": "Texto sugerido",
+      "discard": "Descartar",
+      "edit": "Editar",
+      "accept": "Aceptar",
+      "timeout_error": "La sugerencia de redacción tardó demasiado. Inténtelo de nuevo.",
+      "generic_error": "No pudimos generar una sugerencia en este momento. Inténtelo de nuevo en unos instantes."
+    }
   },
   "success": {
     "title": "¡Solicitud Completada!",

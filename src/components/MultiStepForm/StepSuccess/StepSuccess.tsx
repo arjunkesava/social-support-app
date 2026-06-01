@@ -1,16 +1,20 @@
 import React from 'react';
-import { Box, Typography, Button, Divider } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
-import { CheckCircleOutlined, RestartAlt } from '@mui/icons-material';
+import RestartAlt from '@mui/icons-material/RestartAlt';
+import CheckCircleOutlined from '@mui/icons-material/CheckCircleOutlined';
 import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../context/FormContext';
+import { useFormContext } from '../../../context/FormContext.shared';
 import {
   successContainerStyles,
   successIconStyles,
   summarySectionCardStyles,
   reviewGridLabelStyles,
   reviewGridValueStyles,
-} from './styles';
+} from '../styles';
 
 export const StepSuccess: React.FC = () => {
   const { t } = useTranslation();

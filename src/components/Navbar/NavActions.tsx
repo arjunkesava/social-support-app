@@ -8,14 +8,12 @@ import {
   InputLabel,
 } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
-import { 
-  LightModeOutlined, 
-  DarkModeOutlined, 
-  TranslateOutlined 
-} from '@mui/icons-material';
+import LightModeOutlined from '@mui/icons-material/LightModeOutlined';
+import DarkModeOutlined from '@mui/icons-material/DarkModeOutlined';
+import TranslateOutlined from '@mui/icons-material/TranslateOutlined';
 import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../context/FormContext';
-import type { Language } from '../../context/FormContext';
+import { useFormContext } from '../../context/FormContext.shared';
+import type { Language } from '../../context/FormContext.shared';
 import { 
   navActionsContainerStyles, 
   switchWrapperStyles, 

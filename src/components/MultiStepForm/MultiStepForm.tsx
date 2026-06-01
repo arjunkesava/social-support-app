@@ -1,11 +1,18 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Stepper, Step, StepLabel, Box, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../context/FormContext';
-import StepPersonal from './StepPersonal';
-import StepFamily from './StepFamily';
-import StepSituation from './StepSituation';
-import StepSuccess from './StepSuccess';
+import { useFormContext } from '../../context/FormContext.shared';
+import StepPersonal from './StepPersonal/StepPersonal';
+import StepFamily from './StepFamily/StepFamily';
+import StepSituation from './StepSituation/StepSituation';
+import StepSuccess from './StepSuccess/StepSuccess';
 import {
   wizardCardStyles,
   cardHeaderStyles,

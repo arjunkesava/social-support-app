@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { FamilyFinancialInfo, PersonalInfo, SituationDescriptions } from '../context/FormContext';
+import type { FamilyFinancialInfo, PersonalInfo, SituationDescriptions } from '../context/FormContext.shared';
 
 export type SituationField = keyof SituationDescriptions;
 

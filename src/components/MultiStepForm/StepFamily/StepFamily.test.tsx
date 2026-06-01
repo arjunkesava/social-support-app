@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import StepFamily from './StepFamily';
-import { FormContextProvider } from '../../context/FormContext';
+import { FormContextProvider } from '../../../context/FormContext';
 import { describe, it, expect } from 'vitest';
-import '../../i18n/config';
+import '../../../i18n/config';
 
 describe('StepFamily Form Component', () => {
   it('should render family inputs and trigger error on negative dependents', async () => {

@@ -90,7 +90,19 @@
     "employment_circumstances": "Employment Circumstances",
     "employment_circumstances_placeholder": "Provide details of your current employment status, job security, or reasons for unemployment.",
     "reason_for_applying": "Reason for Applying",
-    "reason_for_applying_placeholder": "Explain why you are seeking support and how this assistance will help resolve your challenges."
+    "reason_for_applying_placeholder": "Explain why you are seeking support and how this assistance will help resolve your challenges.",
+    "ai_suggestion": {
+      "help_button": "Help me write",
+      "title": "Help me write",
+      "loading_aria": "Generating writing suggestion",
+      "loading": "Generating a suggestion...",
+      "suggested_text": "Suggested text",
+      "discard": "Discard",
+      "edit": "Edit",
+      "accept": "Accept",
+      "timeout_error": "The writing suggestion took too long. Please try again.",
+      "generic_error": "We could not generate a suggestion right now. Please try again in a moment."
+    }
   },
   "success": {
     "title": "Application Completed!",

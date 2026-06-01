@@ -90,7 +90,19 @@
     "employment_circumstances": "الظروف الوظيفية",
     "employment_circumstances_placeholder": "يرجى تقديم تفاصيل عن وضعك الوظيفي الحالي، أو أمانك الوظيفي، أو أسباب البطالة.",
     "reason_for_applying": "سبب التقديم",
-    "reason_for_applying_placeholder": "اشرح سبب طلبك للدعم وكيف ستساعدك هذه المساعدة في حل مشكلاتك."
+    "reason_for_applying_placeholder": "اشرح سبب طلبك للدعم وكيف ستساعدك هذه المساعدة في حل مشكلاتك.",
+    "ai_suggestion": {
+      "help_button": "ساعدني في الكتابة",
+      "title": "ساعدني في الكتابة",
+      "loading_aria": "جارٍ إنشاء اقتراح للكتابة",
+      "loading": "جارٍ إنشاء اقتراح...",
+      "suggested_text": "النص المقترح",
+      "discard": "تجاهل",
+      "edit": "تعديل",
+      "accept": "قبول",
+      "timeout_error": "استغرق اقتراح الكتابة وقتًا طويلاً. يرجى المحاولة مرة أخرى.",
+      "generic_error": "تعذر إنشاء اقتراح الآن. يرجى المحاولة مرة أخرى بعد قليل."
+    }
   },
   "success": {
     "title": "تم إكمال الطلب بنجاح!",

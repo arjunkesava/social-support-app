@@ -1,23 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import { ArrowForward, ArrowBack } from '@mui/icons-material';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import ArrowForward from '@mui/icons-material/ArrowForward';
 import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../context/FormContext';
-import type { SituationDescriptions } from '../../context/FormContext';
-import { formFieldGridStyles, formActionContainerStyles, suggestionProgressSpinnerStyles, suggestionStyles } from './styles';
-import { getWritingSuggestion, type SituationField } from '../../services/writingSuggestions';
+import { useFormContext } from '../../../context/FormContext.shared';
+import type { SituationDescriptions } from '../../../context/FormContext.shared';
+import { formFieldGridStyles, formActionContainerStyles } from '../styles';
+import { getWritingSuggestion, type SituationField } from '../../../services/writingSuggestions';
+import AiGeneratedSuggestion from './AiGeneratedSuggestion';
 
 const helpButtonContainerStyles = {
   display: 'flex',
@@ -25,10 +19,10 @@ const helpButtonContainerStyles = {
   mt: 1,
 };
 
-const situationFieldLabels: Record<SituationField, string> = {
-  financialSituation: 'Current Financial Situation',
-  employmentCircumstances: 'Employment Circumstances',
-  reasonForApplying: 'Reason for Applying',
+const situationFieldLabelKeys: Record<SituationField, string> = {
+  financialSituation: 'situation.financial_situation',
+  employmentCircumstances: 'situation.employment_circumstances',
+  reasonForApplying: 'situation.reason_for_applying',
 };
 
 export const StepSituation: React.FC = () => {
@@ -39,7 +33,6 @@ export const StepSituation: React.FC = () => {
   const [suggestionError, setSuggestionError] = useState('');
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const [isEditingSuggestion, setIsEditingSuggestion] = useState(false);
-  const suggestionInputRef = useRef<HTMLInputElement | null>(null);
   
   const isRtl = i18n.language === 'ar';
 
@@ -73,7 +66,7 @@ export const StepSituation: React.FC = () => {
     try {
       const nextSuggestion = await getWritingSuggestion({
         field,
-        fieldLabel: situationFieldLabels[field],
+        fieldLabel: t(situationFieldLabelKeys[field]),
         existingText: getValues(field),
         personal: formData.personal,
         family: formData.family,
@@ -85,8 +78,8 @@ export const StepSituation: React.FC = () => {
 
       setSuggestionError(
         isTimeout
-          ? 'The writing suggestion took too long. Please try again.'
-          : 'We could not generate a suggestion right now. Please try again in a moment.'
+          ? t('situation.ai_suggestion.timeout_error')
+          : t('situation.ai_suggestion.generic_error')
       );
     } finally {
       setIsSuggestionLoading(false);
@@ -108,7 +101,6 @@ export const StepSituation: React.FC = () => {
 
   const handleEditSuggestion = () => {
     setIsEditingSuggestion(true);
-    window.setTimeout(() => suggestionInputRef.current?.focus(), 0);
   };
 
   const handleCloseSuggestion = () => {
@@ -128,7 +120,7 @@ export const StepSituation: React.FC = () => {
         onClick={() => handleHelpMeWrite(field)}
         disabled={isSuggestionLoading}
       >
-        Help me write
+        {t('situation.ai_suggestion.help_button')}
       </Button>
     </Box>
   );
@@ -249,59 +241,17 @@ export const StepSituation: React.FC = () => {
         </Button>
       </Box>
 
-      <Dialog
+      <AiGeneratedSuggestion
         open={activeSuggestionField !== null}
-        onClose={isSuggestionLoading ? undefined : handleCloseSuggestion}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle>Help me write</DialogTitle>
-        <DialogContent>
-          {isSuggestionLoading ? (
-            <Box sx={suggestionProgressSpinnerStyles}>
-              <CircularProgress aria-label="Generating writing suggestion" />
-              <Box>Generating a suggestion...</Box>
-            </Box>
-          ) : (
-            <Box sx={suggestionStyles}>
-              {suggestionError ? <Alert severity="error">{suggestionError}</Alert> : null}
-              {suggestion ? (
-                <TextField
-                  inputRef={suggestionInputRef}
-                  label="Suggested text"
-                  value={suggestion}
-                  onChange={(event) => setSuggestion(event.target.value)}
-                  multiline
-                  rows={6}
-                  fullWidth
-                  disabled={!isEditingSuggestion}
-                  slotProps={{
-                    htmlInput: {
-                      'aria-label': 'Suggested text',
-                    },
-                  }}
-                />
-              ) : null}
-            </Box>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button type="button" onClick={handleCloseSuggestion} disabled={isSuggestionLoading}>
-            Discard
-          </Button>
-          <Button type="button" onClick={handleEditSuggestion} disabled={isSuggestionLoading || !suggestion}>
-            Edit
-          </Button>
-          <Button
-            type="button"
-            variant="contained"
-            onClick={handleAcceptSuggestion}
-            disabled={isSuggestionLoading || !suggestion}
-          >
-            Accept
-          </Button>
-        </DialogActions>
-      </Dialog>
+        suggestion={suggestion}
+        suggestionError={suggestionError}
+        isLoading={isSuggestionLoading}
+        isEditing={isEditingSuggestion}
+        onAccept={handleAcceptSuggestion}
+        onClose={handleCloseSuggestion}
+        onEdit={handleEditSuggestion}
+        onSuggestionChange={setSuggestion}
+      />
     </form>
   );
 };

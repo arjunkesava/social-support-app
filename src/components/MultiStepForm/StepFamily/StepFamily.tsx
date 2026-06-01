@@ -1,21 +1,20 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import { ArrowForward, ArrowBack } from '@mui/icons-material';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import ArrowForward from '@mui/icons-material/ArrowForward';
 import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../context/FormContext';
-import type { FamilyFinancialInfo } from '../../context/FormContext';
-import { formFieldGridStyles, formActionContainerStyles } from './styles';
+import { useFormContext } from '../../../context/FormContext.shared';
+import type { FamilyFinancialInfo } from '../../../context/FormContext.shared';
+import { formFieldGridStyles, formActionContainerStyles } from '../styles';
 
 const currencyOptions = ['INR', 'AED', 'BHD', 'KWD', 'OMR', 'QAR', 'SAR'];
 
@@ -140,7 +139,7 @@ export const StepFamily: React.FC = () => {
         {/* Monthly Income */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Grid container spacing={2}>
-            <Grid size={{ xs: 12, sm: 7 }}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 required
                 id="financial-monthly-income"
@@ -167,7 +166,7 @@ export const StepFamily: React.FC = () => {
                 }}
               />
             </Grid>
-            <Grid size={{ xs: 12, sm: 5 }}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Controller
                 name="currency"
                 control={control}
