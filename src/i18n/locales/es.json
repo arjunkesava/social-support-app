@@ -65,6 +65,16 @@
       "self_employed": "Autónomo"
     },
     "monthly_income": "Ingreso Mensual",
+    "currency": "Moneda",
+    "currency_options": {
+      "INR": "INR - Rupia india",
+      "AED": "AED - Dírham de EAU",
+      "BHD": "BHD - Dinar bareiní",
+      "KWD": "KWD - Dinar kuwaití",
+      "OMR": "OMR - Rial omaní",
+      "QAR": "QAR - Riyal catarí",
+      "SAR": "SAR - Riyal saudí"
+    },
     "housing_status": "Estado de la Vivienda",
     "housing_options": {
       "own": "Propia",

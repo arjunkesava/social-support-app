@@ -1,12 +1,23 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { TextField, MenuItem, Button, Box } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../context/FormContext';
 import type { FamilyFinancialInfo } from '../../context/FormContext';
 import { formFieldGridStyles, formActionContainerStyles } from './styles';
+
+const currencyOptions = ['INR', 'AED', 'BHD', 'KWD', 'OMR', 'QAR', 'SAR'];
 
 export const StepFamily: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -15,6 +26,7 @@ export const StepFamily: React.FC = () => {
   const isRtl = i18n.language === 'ar';
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -37,31 +49,32 @@ export const StepFamily: React.FC = () => {
       <Grid container spacing={3} sx={formFieldGridStyles}>
         {/* Marital Status */}
         <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            required
-            select
-            id="financial-marital-status"
-            label={t('financial.marital_status')}
-            fullWidth
-            variant="outlined"
-            defaultValue={formData.family.maritalStatus}
-            {...register('maritalStatus', {
-              required: t('validation.required'),
-            })}
-            error={!!errors.maritalStatus}
-            helperText={errors.maritalStatus?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.maritalStatus ? 'true' : 'false',
-              }
-            }}
-          >
-            <MenuItem value="single">{t('financial.marital_options.single')}</MenuItem>
-            <MenuItem value="married">{t('financial.marital_options.married')}</MenuItem>
-            <MenuItem value="divorced">{t('financial.marital_options.divorced')}</MenuItem>
-            <MenuItem value="widowed">{t('financial.marital_options.widowed')}</MenuItem>
-          </TextField>
+          <Controller
+            name="maritalStatus"
+            control={control}
+            rules={{ required: t('validation.required') }}
+            render={({ field }) => (
+              <FormControl required fullWidth error={!!errors.maritalStatus}>
+                <InputLabel id="financial-marital-status-label">{t('financial.marital_status')}</InputLabel>
+                <Select
+                  {...field}
+                  labelId="financial-marital-status-label"
+                  id="financial-marital-status"
+                  label={t('financial.marital_status')}
+                  inputProps={{
+                    'aria-required': 'true',
+                    'aria-invalid': errors.maritalStatus ? 'true' : 'false',
+                  }}
+                >
+                  <MenuItem value="single">{t('financial.marital_options.single')}</MenuItem>
+                  <MenuItem value="married">{t('financial.marital_options.married')}</MenuItem>
+                  <MenuItem value="divorced">{t('financial.marital_options.divorced')}</MenuItem>
+                  <MenuItem value="widowed">{t('financial.marital_options.widowed')}</MenuItem>
+                </Select>
+                <FormHelperText>{errors.maritalStatus?.message}</FormHelperText>
+              </FormControl>
+            )}
+          />
         </Grid>
 
         {/* Dependents */}
@@ -95,90 +108,125 @@ export const StepFamily: React.FC = () => {
 
         {/* Employment Status */}
         <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            required
-            select
-            id="financial-employment-status"
-            label={t('financial.employment_status')}
-            fullWidth
-            variant="outlined"
-            defaultValue={formData.family.employmentStatus}
-            {...register('employmentStatus', {
-              required: t('validation.required'),
-            })}
-            error={!!errors.employmentStatus}
-            helperText={errors.employmentStatus?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.employmentStatus ? 'true' : 'false',
-              }
-            }}
-          >
-            <MenuItem value="employed">{t('financial.employment_options.employed')}</MenuItem>
-            <MenuItem value="unemployed">{t('financial.employment_options.unemployed')}</MenuItem>
-            <MenuItem value="student">{t('financial.employment_options.student')}</MenuItem>
-            <MenuItem value="retired">{t('financial.employment_options.retired')}</MenuItem>
-            <MenuItem value="self_employed">{t('financial.employment_options.self_employed')}</MenuItem>
-          </TextField>
+          <Controller
+            name="employmentStatus"
+            control={control}
+            rules={{ required: t('validation.required') }}
+            render={({ field }) => (
+              <FormControl required fullWidth error={!!errors.employmentStatus}>
+                <InputLabel id="financial-employment-status-label">{t('financial.employment_status')}</InputLabel>
+                <Select
+                  {...field}
+                  labelId="financial-employment-status-label"
+                  id="financial-employment-status"
+                  label={t('financial.employment_status')}
+                  inputProps={{
+                    'aria-required': 'true',
+                    'aria-invalid': errors.employmentStatus ? 'true' : 'false',
+                  }}
+                >
+                  <MenuItem value="employed">{t('financial.employment_options.employed')}</MenuItem>
+                  <MenuItem value="unemployed">{t('financial.employment_options.unemployed')}</MenuItem>
+                  <MenuItem value="student">{t('financial.employment_options.student')}</MenuItem>
+                  <MenuItem value="retired">{t('financial.employment_options.retired')}</MenuItem>
+                  <MenuItem value="self_employed">{t('financial.employment_options.self_employed')}</MenuItem>
+                </Select>
+                <FormHelperText>{errors.employmentStatus?.message}</FormHelperText>
+              </FormControl>
+            )}
+          />
         </Grid>
 
         {/* Monthly Income */}
         <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            required
-            id="financial-monthly-income"
-            label={t('financial.monthly_income')}
-            type="number"
-            fullWidth
-            variant="outlined"
-            {...register('monthlyIncome', {
-              required: t('validation.required'),
-              min: {
-                value: 0,
-                message: t('validation.min_income'),
-              },
-              valueAsNumber: true,
-            })}
-            error={!!errors.monthlyIncome}
-            helperText={errors.monthlyIncome?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.monthlyIncome ? 'true' : 'false',
-                min: 0,
-              }
-            }}
-          />
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12, sm: 7 }}>
+              <TextField
+                required
+                id="financial-monthly-income"
+                label={t('financial.monthly_income')}
+                type="number"
+                fullWidth
+                variant="outlined"
+                {...register('monthlyIncome', {
+                  required: t('validation.required'),
+                  min: {
+                    value: 0,
+                    message: t('validation.min_income'),
+                  },
+                  valueAsNumber: true,
+                })}
+                error={!!errors.monthlyIncome}
+                helperText={errors.monthlyIncome?.message}
+                slotProps={{
+                  htmlInput: {
+                    'aria-required': 'true',
+                    'aria-invalid': errors.monthlyIncome ? 'true' : 'false',
+                    min: 0,
+                  }
+                }}
+              />
+            </Grid>
+            <Grid size={{ xs: 12, sm: 5 }}>
+              <Controller
+                name="currency"
+                control={control}
+                rules={{ required: t('validation.required') }}
+                render={({ field }) => (
+                  <FormControl required fullWidth error={!!errors.currency}>
+                    <InputLabel id="financial-currency-label">{t('financial.currency')}</InputLabel>
+                    <Select
+                      {...field}
+                      labelId="financial-currency-label"
+                      id="financial-currency"
+                      label={t('financial.currency')}
+                      inputProps={{
+                        'aria-required': 'true',
+                        'aria-invalid': errors.currency ? 'true' : 'false',
+                      }}
+                    >
+                      {currencyOptions.map((currency) => (
+                        <MenuItem key={currency} value={currency}>
+                          {t(`financial.currency_options.${currency}`)}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <FormHelperText>{errors.currency?.message}</FormHelperText>
+                  </FormControl>
+                )}
+              />
+            </Grid>
+          </Grid>
         </Grid>
 
         {/* Housing Status */}
         <Grid size={12}>
-          <TextField
-            required
-            select
-            id="financial-housing-status"
-            label={t('financial.housing_status')}
-            fullWidth
-            variant="outlined"
-            defaultValue={formData.family.housingStatus}
-            {...register('housingStatus', {
-              required: t('validation.required'),
-            })}
-            error={!!errors.housingStatus}
-            helperText={errors.housingStatus?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.housingStatus ? 'true' : 'false',
-              }
-            }}
-          >
-            <MenuItem value="own">{t('financial.housing_options.own')}</MenuItem>
-            <MenuItem value="rent">{t('financial.housing_options.rent')}</MenuItem>
-            <MenuItem value="homeless">{t('financial.housing_options.homeless')}</MenuItem>
-            <MenuItem value="family">{t('financial.housing_options.family')}</MenuItem>
-          </TextField>
+          <Controller
+            name="housingStatus"
+            control={control}
+            rules={{ required: t('validation.required') }}
+            render={({ field }) => (
+              <FormControl required fullWidth error={!!errors.housingStatus}>
+                <InputLabel id="financial-housing-status-label">{t('financial.housing_status')}</InputLabel>
+                <Select
+                  {...field}
+                  labelId="financial-housing-status-label"
+                  id="financial-housing-status"
+                  label={t('financial.housing_status')}
+                  inputProps={{
+                    'aria-required': 'true',
+                    'aria-invalid': errors.housingStatus ? 'true' : 'false',
+                  }}
+                >
+                  <MenuItem value="own">{t('financial.housing_options.own')}</MenuItem>
+                  <MenuItem value="rent">{t('financial.housing_options.rent')}</MenuItem>
+                  <MenuItem value="homeless">{t('financial.housing_options.homeless')}</MenuItem>
+                  <MenuItem value="family">{t('financial.housing_options.family')}</MenuItem>
+                </Select>
+                <FormHelperText>{errors.housingStatus?.message}</FormHelperText>
+              </FormControl>
+            )}
+          />
         </Grid>
       </Grid>
 

@@ -1,6 +1,15 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { TextField, MenuItem, Button, Box } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +24,7 @@ export const StepPersonal: React.FC = () => {
   const isRtl = i18n.language === 'ar';
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -106,30 +116,31 @@ export const StepPersonal: React.FC = () => {
 
         {/* Gender */}
         <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            required
-            select
-            id="personal-gender"
-            label={t('personal.gender')}
-            fullWidth
-            variant="outlined"
-            defaultValue={formData.personal.gender}
-            {...register('gender', {
-              required: t('validation.required'),
-            })}
-            error={!!errors.gender}
-            helperText={errors.gender?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.gender ? 'true' : 'false',
-              }
-            }}
-          >
-            <MenuItem value="male">{t('personal.gender_options.male')}</MenuItem>
-            <MenuItem value="female">{t('personal.gender_options.female')}</MenuItem>
-            <MenuItem value="other">{t('personal.gender_options.other')}</MenuItem>
-          </TextField>
+          <Controller
+            name="gender"
+            control={control}
+            rules={{ required: t('validation.required') }}
+            render={({ field }) => (
+              <FormControl required fullWidth error={!!errors.gender}>
+                <InputLabel id="personal-gender-label">{t('personal.gender')}</InputLabel>
+                <Select
+                  {...field}
+                  labelId="personal-gender-label"
+                  id="personal-gender"
+                  label={t('personal.gender')}
+                  inputProps={{
+                    'aria-required': 'true',
+                    'aria-invalid': errors.gender ? 'true' : 'false',
+                  }}
+                >
+                  <MenuItem value="male">{t('personal.gender_options.male')}</MenuItem>
+                  <MenuItem value="female">{t('personal.gender_options.female')}</MenuItem>
+                  <MenuItem value="other">{t('personal.gender_options.other')}</MenuItem>
+                </Select>
+                <FormHelperText>{errors.gender?.message}</FormHelperText>
+              </FormControl>
+            )}
+          />
         </Grid>
 
         {/* Phone */}

@@ -11,6 +11,8 @@ import {
   cardHeaderStyles,
   cardContentStyles,
   stepperStyles,
+  headerTypographyStyles,
+  activeStepFormStyles,
 } from './styles';
 
 export const MultiStepForm: React.FC = () => {
@@ -44,7 +46,7 @@ export const MultiStepForm: React.FC = () => {
       <CardHeader
         sx={cardHeaderStyles}
         title={
-          <Typography variant="h2" sx={{ fontWeight: 800, fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
+          <Typography variant="h2" sx={headerTypographyStyles}>
             {activeStep < 3 ? steps[activeStep] : t('steps.success')}
           </Typography>
         }
@@ -71,7 +73,7 @@ export const MultiStepForm: React.FC = () => {
           </Stepper>
 
           {/* Active Step Form Content */}
-          <Box sx={{ marginTop: { xs: '1.5rem', sm: '2rem' } }}>
+          <Box sx={activeStepFormStyles}>
             {renderActiveStepContent()}
           </Box>
         </Box>

@@ -16,7 +16,7 @@ import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../context/FormContext';
 import type { SituationDescriptions } from '../../context/FormContext';
-import { formFieldGridStyles, formActionContainerStyles } from './styles';
+import { formFieldGridStyles, formActionContainerStyles, suggestionProgressSpinnerStyles, suggestionStyles } from './styles';
 import { getWritingSuggestion, type SituationField } from '../../services/writingSuggestions';
 
 const helpButtonContainerStyles = {
@@ -258,12 +258,12 @@ export const StepSituation: React.FC = () => {
         <DialogTitle>Help me write</DialogTitle>
         <DialogContent>
           {isSuggestionLoading ? (
-            <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', gap: 2, py: 4 }}>
+            <Box sx={suggestionProgressSpinnerStyles}>
               <CircularProgress aria-label="Generating writing suggestion" />
               <Box>Generating a suggestion...</Box>
             </Box>
           ) : (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
+            <Box sx={suggestionStyles}>
               {suggestionError ? <Alert severity="error">{suggestionError}</Alert> : null}
               {suggestion ? (
                 <TextField

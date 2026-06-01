@@ -45,6 +45,23 @@ export const cardContentStyles: SxProps<Theme> = {
   },
 };
 
+export const headerTypographyStyles: SxProps<Theme> = {
+  fontWeight: 800,
+  fontSize: { xs: '1.25rem', sm: '1.5rem' },
+};
+
+export const activeStepFormStyles: SxProps<Theme> = {
+  marginTop: { xs: '1.5rem', sm: '2rem' },
+};
+
+export const suggestionProgressSpinnerStyles: SxProps<Theme> = {
+  alignItems: 'center', display: 'flex', flexDirection: 'column', gap: 2, py: 4
+};
+
+export const suggestionStyles: SxProps<Theme> = {
+  display: 'flex', flexDirection: 'column', gap: 2, pt: 1,
+};
+
 export const stepperStyles: SxProps<Theme> = {
   marginBottom: { xs: '2rem', sm: '3rem' },
   // Smooth animations for stepper icons

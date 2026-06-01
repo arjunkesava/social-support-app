@@ -15,6 +15,10 @@ import {
 export const StepSuccess: React.FC = () => {
   const { t } = useTranslation();
   const { formData, resetForm } = useFormContext();
+  const monthlyIncome = formData.family.monthlyIncome !== ''
+    ? `${formData.family.currency} ${formData.family.monthlyIncome}`
+    : '';
+  const translateOption = (key: string, fallback: string) => t(key, { defaultValue: fallback });
 
   const handleReset = () => {
     resetForm();
@@ -59,7 +63,7 @@ export const StepSuccess: React.FC = () => {
             {renderDetailItem(t('personal.dob'), formData.personal.dob)}
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            {renderDetailItem(t('personal.gender'), t(`personal.gender_options.${formData.personal.gender}` as any, formData.personal.gender))}
+            {renderDetailItem(t('personal.gender'), translateOption(`personal.gender_options.${formData.personal.gender}`, formData.personal.gender))}
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('personal.phone'), formData.personal.phone)}
@@ -89,19 +93,19 @@ export const StepSuccess: React.FC = () => {
         </Typography>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            {renderDetailItem(t('financial.marital_status'), t(`financial.marital_options.${formData.family.maritalStatus}` as any, formData.family.maritalStatus))}
+            {renderDetailItem(t('financial.marital_status'), translateOption(`financial.marital_options.${formData.family.maritalStatus}`, formData.family.maritalStatus))}
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             {renderDetailItem(t('financial.dependents'), formData.family.dependents)}
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            {renderDetailItem(t('financial.employment_status'), t(`financial.employment_options.${formData.family.employmentStatus}` as any, formData.family.employmentStatus))}
+            {renderDetailItem(t('financial.employment_status'), translateOption(`financial.employment_options.${formData.family.employmentStatus}`, formData.family.employmentStatus))}
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            {renderDetailItem(t('financial.monthly_income'), formData.family.monthlyIncome)}
+            {renderDetailItem(t('financial.monthly_income'), monthlyIncome)}
           </Grid>
           <Grid size={{ xs: 12, sm: 8 }}>
-            {renderDetailItem(t('financial.housing_status'), t(`financial.housing_options.${formData.family.housingStatus}` as any, formData.family.housingStatus))}
+            {renderDetailItem(t('financial.housing_status'), translateOption(`financial.housing_options.${formData.family.housingStatus}`, formData.family.housingStatus))}
           </Grid>
         </Grid>
       </Box>

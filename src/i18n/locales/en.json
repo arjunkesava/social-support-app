@@ -65,6 +65,16 @@
       "self_employed": "Self-Employed"
     },
     "monthly_income": "Monthly Income",
+    "currency": "Currency",
+    "currency_options": {
+      "INR": "INR - Indian Rupee",
+      "AED": "AED - UAE Dirham",
+      "BHD": "BHD - Bahraini Dinar",
+      "KWD": "KWD - Kuwaiti Dinar",
+      "OMR": "OMR - Omani Rial",
+      "QAR": "QAR - Qatari Riyal",
+      "SAR": "SAR - Saudi Riyal"
+    },
     "housing_status": "Housing Status",
     "housing_options": {
       "own": "Own",
