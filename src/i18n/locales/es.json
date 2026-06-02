@@ -104,6 +104,14 @@
       "generic_error": "No pudimos generar una sugerencia en este momento. Inténtelo de nuevo en unos instantes."
     }
   },
+  "demo_autofill": {
+    "fab_tooltip": "Autocompletar usuarios de demostración",
+    "title": "Asistente de autocompletado de demostración",
+    "close": "cerrar",
+    "description": "Seleccione un perfil de usuario simulado para rellenar al instante los pasos de <1>Información personal</1> y <2>Información familiar y financiera</2>. El paso de <3>Situación</3> se deja en blanco para probar el generador de IA.",
+    "dependents_short": "Dep: {{count}}",
+    "snackbar_success": "¡Datos de demostración de {{name}} rellenados correctamente!"
+  },
   "success": {
     "title": "¡Solicitud Completada!",
     "subtitle": "Su solicitud ha sido recibida. Se ha guardado una copia localmente para su persistencia. Puede revisar los detalles a continuación:",

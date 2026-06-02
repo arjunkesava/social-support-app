@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import MultiStepForm from './components/MultiStepForm/MultiStepForm';
 import { Layout } from './components/Layout/Layout';
 import StepRouteGuard from './components/MultiStepForm/StepRouteGuard';
-import DemoAutofill from './components/DemoAutofill/DemoAutofill';
+import DemoAutofill from './components/DemoAutofill';
 
 const StepPersonal = lazy(() => import('./components/MultiStepForm/StepPersonal/StepPersonal'));
 const StepFamily = lazy(() => import('./components/MultiStepForm/StepFamily/StepFamily'));

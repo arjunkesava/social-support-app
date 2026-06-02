@@ -104,6 +104,14 @@
       "generic_error": "We could not generate a suggestion right now. Please try again in a moment."
     }
   },
+  "demo_autofill": {
+    "fab_tooltip": "Autofill Demo Users",
+    "title": "Demo Autofill Helper",
+    "close": "close",
+    "description": "Select a mock user profile to instantly autofill the <1>Personal</1> and <2>Family & Financial</2> steps. The <3>Situation</3> step is left blank for testing the AI generator.",
+    "dependents_short": "Dep: {{count}}",
+    "snackbar_success": "Autofilled {{name}}'s demo data successfully!"
+  },
   "success": {
     "title": "Application Completed!",
     "subtitle": "Your application has been received. A copy of your details has been saved locally for persistence. You can review the details below:",
