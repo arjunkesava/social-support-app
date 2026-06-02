@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useFormContext } from '../../context/FormContext.shared';
-import mockUsers from './mockUsers.json';
-import type { DemoAutofillProps, MockUser } from './types';
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useFormContext } from "../../context/FormContext.shared";
+import mockUsers from "./mockUsers.json";
+import type { DemoAutofillProps, MockUser } from "./types";
 
 export const useDemoAutofill = (): DemoAutofillProps => {
   const { applyDemoAutofill, themeMode } = useFormContext();
@@ -11,7 +11,7 @@ export const useDemoAutofill = (): DemoAutofillProps => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [selectedUserName, setSelectedUserName] = useState('');
+  const [selectedUserName, setSelectedUserName] = useState("");
 
   const handleFabClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -27,8 +27,8 @@ export const useDemoAutofill = (): DemoAutofillProps => {
     setSelectedUserName(user.personal.name);
     setSnackbarOpen(true);
 
-    if (location.pathname !== '/personal') {
-      navigate('/personal');
+    if (location.pathname !== "/personal") {
+      navigate("/personal");
     }
 
     handlePopoverClose();
@@ -38,14 +38,14 @@ export const useDemoAutofill = (): DemoAutofillProps => {
     _event?: React.SyntheticEvent | Event,
     reason?: string,
   ) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setSnackbarOpen(false);
   };
 
   const popoverOpen = Boolean(anchorEl);
-  const popoverId = popoverOpen ? 'demo-autofill-popover' : undefined;
+  const popoverId = popoverOpen ? "demo-autofill-popover" : undefined;
 
   return {
     themeMode,

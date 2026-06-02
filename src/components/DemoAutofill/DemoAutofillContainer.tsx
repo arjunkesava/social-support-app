@@ -1,6 +1,6 @@
-import React from 'react';
-import { DemoAutofill } from './DemoAutofill';
-import { useDemoAutofill } from './useDemoAutofill';
+import React from "react";
+import { DemoAutofill } from "./DemoAutofill";
+import { useDemoAutofill } from "./useDemoAutofill";
 
 export const DemoAutofillContainer: React.FC = () => {
   const viewProps = useDemoAutofill();

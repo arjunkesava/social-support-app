@@ -1,9 +1,9 @@
-import React from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import { useTranslation } from 'react-i18next';
-import type { DemoAutofillSnackbarProps } from './types';
-import { snackbarAlertStyles } from './styles';
+import React from "react";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { useTranslation } from "react-i18next";
+import type { DemoAutofillSnackbarProps } from "./types";
+import { snackbarAlertStyles } from "./styles";
 
 export const DemoAutofillSnackbar: React.FC<DemoAutofillSnackbarProps> = ({
   open,
@@ -17,7 +17,7 @@ export const DemoAutofillSnackbar: React.FC<DemoAutofillSnackbarProps> = ({
       open={open}
       autoHideDuration={4000}
       onClose={onClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
       <Alert
         onClose={onClose}
@@ -25,8 +25,8 @@ export const DemoAutofillSnackbar: React.FC<DemoAutofillSnackbarProps> = ({
         variant="filled"
         sx={snackbarAlertStyles}
       >
-        {t('demo_autofill.snackbar_success', {
-          name: open ? selectedUserName : '',
+        {t("demo_autofill.snackbar_success", {
+          name: open ? selectedUserName : "",
         })}
       </Alert>
     </Snackbar>

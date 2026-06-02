@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import i18n from '../i18n/config';
+import React, { useState, useEffect } from "react";
+import i18n from "../i18n/config";
 import {
   FormContext,
   getInitialFormData,
@@ -7,52 +7,57 @@ import {
   type FormData,
   type Language,
   type ThemeMode,
-} from './FormContext.shared';
+} from "./FormContext.shared";
 
-export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   // Restore from localStorage
   const [formData, setFormData] = useState<FormData>(getInitialFormData);
 
   const [activeStep, setActiveStepState] = useState<number>(() => {
-    const saved = localStorage.getItem('social_support_step');
+    const saved = localStorage.getItem("social_support_step");
     return saved ? parseInt(saved, 10) : 0;
   });
 
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    const saved = localStorage.getItem('social_support_theme');
-    return (saved as ThemeMode) || 'light';
+    const saved = localStorage.getItem("social_support_theme");
+    return (saved as ThemeMode) || "light";
   });
 
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('social_support_lang');
-    return (saved as Language) || 'en';
+    const saved = localStorage.getItem("social_support_lang");
+    return (saved as Language) || "en";
   });
 
   // Sync to localStorage
   useEffect(() => {
-    localStorage.setItem('social_support_form_data', JSON.stringify(formData));
+    localStorage.setItem("social_support_form_data", JSON.stringify(formData));
   }, [formData]);
 
   useEffect(() => {
-    localStorage.setItem('social_support_step', activeStep.toString());
+    localStorage.setItem("social_support_step", activeStep.toString());
   }, [activeStep]);
 
   useEffect(() => {
-    localStorage.setItem('social_support_theme', themeMode);
+    localStorage.setItem("social_support_theme", themeMode);
   }, [themeMode]);
 
   useEffect(() => {
-    localStorage.setItem('social_support_lang', language);
+    localStorage.setItem("social_support_lang", language);
     i18n.changeLanguage(language);
 
     // Apply RTL/LTR class and attributes to document elements
-    const dir = language === 'ar' ? 'rtl' : 'ltr';
+    const dir = language === "ar" ? "rtl" : "ltr";
     document.documentElement.dir = dir;
     document.body.dir = dir;
     document.documentElement.lang = language;
   }, [language]);
 
-  const updateStepData = <T extends keyof FormData>(step: T, data: FormData[T]) => {
+  const updateStepData = <T extends keyof FormData>(
+    step: T,
+    data: FormData[T],
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [step]: data,
@@ -60,8 +65,8 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const applyDemoAutofill = (
-    personal: FormData['personal'],
-    family: FormData['family'],
+    personal: FormData["personal"],
+    family: FormData["family"],
   ) => {
     setFormData({
       personal: { ...personal },
@@ -76,7 +81,7 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const toggleTheme = () => {
-    setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setThemeMode((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   const changeLanguage = (lang: Language) => {
@@ -86,8 +91,8 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const resetForm = () => {
     setFormData(initialFormData);
     setActiveStepState(0);
-    localStorage.removeItem('social_support_form_data');
-    localStorage.removeItem('social_support_step');
+    localStorage.removeItem("social_support_form_data");
+    localStorage.removeItem("social_support_step");
   };
 
   return (

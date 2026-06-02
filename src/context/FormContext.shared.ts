@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 export interface PersonalInfo {
   name: string;
@@ -15,9 +15,9 @@ export interface PersonalInfo {
 
 export interface FamilyFinancialInfo {
   maritalStatus: string;
-  dependents: number | '';
+  dependents: number | "";
   employmentStatus: string;
-  monthlyIncome: number | '';
+  monthlyIncome: number | "";
   currency: string;
   housingStatus: string;
 }
@@ -34,15 +34,18 @@ export interface FormData {
   situation: SituationDescriptions;
 }
 
-export type ThemeMode = 'light' | 'dark';
-export type Language = 'en' | 'es' | 'ar';
+export type ThemeMode = "light" | "dark";
+export type Language = "en" | "es" | "ar";
 
 export interface FormContextType {
   formData: FormData;
   activeStep: number;
   themeMode: ThemeMode;
   language: Language;
-  updateStepData: <T extends keyof FormData>(step: T, data: FormData[T]) => void;
+  updateStepData: <T extends keyof FormData>(
+    step: T,
+    data: FormData[T],
+  ) => void;
   applyDemoAutofill: (
     personal: PersonalInfo,
     family: FamilyFinancialInfo,
@@ -55,34 +58,34 @@ export interface FormContextType {
 
 export const initialFormData: FormData = {
   personal: {
-    name: '',
-    nationalId: '',
-    dob: '',
-    gender: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    phone: '',
-    email: '',
+    name: "",
+    nationalId: "",
+    dob: "",
+    gender: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    phone: "",
+    email: "",
   },
   family: {
-    maritalStatus: '',
+    maritalStatus: "",
     dependents: 0,
-    employmentStatus: '',
+    employmentStatus: "",
     monthlyIncome: 0,
-    currency: '',
-    housingStatus: '',
+    currency: "",
+    housingStatus: "",
   },
   situation: {
-    financialSituation: '',
-    employmentCircumstances: '',
-    reasonForApplying: '',
+    financialSituation: "",
+    employmentCircumstances: "",
+    reasonForApplying: "",
   },
 };
 
 export const getInitialFormData = (): FormData => {
-  const saved = localStorage.getItem('social_support_form_data');
+  const saved = localStorage.getItem("social_support_form_data");
 
   if (!saved) {
     return initialFormData;
@@ -110,12 +113,14 @@ export const getInitialFormData = (): FormData => {
   }
 };
 
-export const FormContext = createContext<FormContextType | undefined>(undefined);
+export const FormContext = createContext<FormContextType | undefined>(
+  undefined,
+);
 
 export const useFormContext = () => {
   const context = useContext(FormContext);
   if (!context) {
-    throw new Error('useFormContext must be used within a FormContextProvider');
+    throw new Error("useFormContext must be used within a FormContextProvider");
   }
   return context;
 };

@@ -1,30 +1,30 @@
-import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import ArrowBack from '@mui/icons-material/ArrowBack';
-import ArrowForward from '@mui/icons-material/ArrowForward';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../../context/FormContext.shared';
-import type { FamilyFinancialInfo } from '../../../context/FormContext.shared';
-import { formFieldGridStyles, formActionContainerStyles } from '../styles';
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import ArrowBack from "@mui/icons-material/ArrowBack";
+import ArrowForward from "@mui/icons-material/ArrowForward";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useFormContext } from "../../../context/FormContext.shared";
+import type { FamilyFinancialInfo } from "../../../context/FormContext.shared";
+import { formFieldGridStyles, formActionContainerStyles } from "../styles";
 
-const currencyOptions = ['INR', 'AED', 'BHD', 'KWD', 'OMR', 'QAR', 'SAR'];
+const currencyOptions = ["INR", "AED", "BHD", "KWD", "OMR", "QAR", "SAR"];
 
 export const StepFamily: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { formData, updateStepData, setActiveStep } = useFormContext();
   const navigate = useNavigate();
-  
-  const isRtl = i18n.language === 'ar';
+
+  const isRtl = i18n.language === "ar";
 
   const {
     control,
@@ -36,17 +36,17 @@ export const StepFamily: React.FC = () => {
     resetOptions: {
       keepDirtyValues: true,
     },
-    mode: 'onTouched',
+    mode: "onTouched",
   });
 
   const onSubmit = (data: FamilyFinancialInfo) => {
-    updateStepData('family', data);
+    updateStepData("family", data);
     setActiveStep(2);
-    navigate('/situation');
+    navigate("/situation");
   };
 
   const handleBack = () => {
-    navigate('/personal');
+    navigate("/personal");
   };
 
   return (
@@ -57,24 +57,34 @@ export const StepFamily: React.FC = () => {
           <Controller
             name="maritalStatus"
             control={control}
-            rules={{ required: t('validation.required') }}
+            rules={{ required: t("validation.required") }}
             render={({ field }) => (
               <FormControl required fullWidth error={!!errors.maritalStatus}>
-                <InputLabel id="financial-marital-status-label">{t('financial.marital_status')}</InputLabel>
+                <InputLabel id="financial-marital-status-label">
+                  {t("financial.marital_status")}
+                </InputLabel>
                 <Select
                   {...field}
                   labelId="financial-marital-status-label"
                   id="financial-marital-status"
-                  label={t('financial.marital_status')}
+                  label={t("financial.marital_status")}
                   inputProps={{
-                    'aria-required': 'true',
-                    'aria-invalid': errors.maritalStatus ? 'true' : 'false',
+                    "aria-required": "true",
+                    "aria-invalid": errors.maritalStatus ? "true" : "false",
                   }}
                 >
-                  <MenuItem value="single">{t('financial.marital_options.single')}</MenuItem>
-                  <MenuItem value="married">{t('financial.marital_options.married')}</MenuItem>
-                  <MenuItem value="divorced">{t('financial.marital_options.divorced')}</MenuItem>
-                  <MenuItem value="widowed">{t('financial.marital_options.widowed')}</MenuItem>
+                  <MenuItem value="single">
+                    {t("financial.marital_options.single")}
+                  </MenuItem>
+                  <MenuItem value="married">
+                    {t("financial.marital_options.married")}
+                  </MenuItem>
+                  <MenuItem value="divorced">
+                    {t("financial.marital_options.divorced")}
+                  </MenuItem>
+                  <MenuItem value="widowed">
+                    {t("financial.marital_options.widowed")}
+                  </MenuItem>
                 </Select>
                 <FormHelperText>{errors.maritalStatus?.message}</FormHelperText>
               </FormControl>
@@ -87,15 +97,15 @@ export const StepFamily: React.FC = () => {
           <TextField
             required
             id="financial-dependents"
-            label={t('financial.dependents')}
+            label={t("financial.dependents")}
             type="number"
             fullWidth
             variant="outlined"
-            {...register('dependents', {
-              required: t('validation.required'),
+            {...register("dependents", {
+              required: t("validation.required"),
               min: {
                 value: 0,
-                message: t('validation.min_dependents'),
+                message: t("validation.min_dependents"),
               },
               valueAsNumber: true,
             })}
@@ -103,10 +113,10 @@ export const StepFamily: React.FC = () => {
             helperText={errors.dependents?.message}
             slotProps={{
               htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.dependents ? 'true' : 'false',
+                "aria-required": "true",
+                "aria-invalid": errors.dependents ? "true" : "false",
                 min: 0,
-              }
+              },
             }}
           />
         </Grid>
@@ -116,27 +126,41 @@ export const StepFamily: React.FC = () => {
           <Controller
             name="employmentStatus"
             control={control}
-            rules={{ required: t('validation.required') }}
+            rules={{ required: t("validation.required") }}
             render={({ field }) => (
               <FormControl required fullWidth error={!!errors.employmentStatus}>
-                <InputLabel id="financial-employment-status-label">{t('financial.employment_status')}</InputLabel>
+                <InputLabel id="financial-employment-status-label">
+                  {t("financial.employment_status")}
+                </InputLabel>
                 <Select
                   {...field}
                   labelId="financial-employment-status-label"
                   id="financial-employment-status"
-                  label={t('financial.employment_status')}
+                  label={t("financial.employment_status")}
                   inputProps={{
-                    'aria-required': 'true',
-                    'aria-invalid': errors.employmentStatus ? 'true' : 'false',
+                    "aria-required": "true",
+                    "aria-invalid": errors.employmentStatus ? "true" : "false",
                   }}
                 >
-                  <MenuItem value="employed">{t('financial.employment_options.employed')}</MenuItem>
-                  <MenuItem value="unemployed">{t('financial.employment_options.unemployed')}</MenuItem>
-                  <MenuItem value="student">{t('financial.employment_options.student')}</MenuItem>
-                  <MenuItem value="retired">{t('financial.employment_options.retired')}</MenuItem>
-                  <MenuItem value="self_employed">{t('financial.employment_options.self_employed')}</MenuItem>
+                  <MenuItem value="employed">
+                    {t("financial.employment_options.employed")}
+                  </MenuItem>
+                  <MenuItem value="unemployed">
+                    {t("financial.employment_options.unemployed")}
+                  </MenuItem>
+                  <MenuItem value="student">
+                    {t("financial.employment_options.student")}
+                  </MenuItem>
+                  <MenuItem value="retired">
+                    {t("financial.employment_options.retired")}
+                  </MenuItem>
+                  <MenuItem value="self_employed">
+                    {t("financial.employment_options.self_employed")}
+                  </MenuItem>
                 </Select>
-                <FormHelperText>{errors.employmentStatus?.message}</FormHelperText>
+                <FormHelperText>
+                  {errors.employmentStatus?.message}
+                </FormHelperText>
               </FormControl>
             )}
           />
@@ -147,24 +171,34 @@ export const StepFamily: React.FC = () => {
           <Controller
             name="housingStatus"
             control={control}
-            rules={{ required: t('validation.required') }}
+            rules={{ required: t("validation.required") }}
             render={({ field }) => (
               <FormControl required fullWidth error={!!errors.housingStatus}>
-                <InputLabel id="financial-housing-status-label">{t('financial.housing_status')}</InputLabel>
+                <InputLabel id="financial-housing-status-label">
+                  {t("financial.housing_status")}
+                </InputLabel>
                 <Select
                   {...field}
                   labelId="financial-housing-status-label"
                   id="financial-housing-status"
-                  label={t('financial.housing_status')}
+                  label={t("financial.housing_status")}
                   inputProps={{
-                    'aria-required': 'true',
-                    'aria-invalid': errors.housingStatus ? 'true' : 'false',
+                    "aria-required": "true",
+                    "aria-invalid": errors.housingStatus ? "true" : "false",
                   }}
                 >
-                  <MenuItem value="own">{t('financial.housing_options.own')}</MenuItem>
-                  <MenuItem value="rent">{t('financial.housing_options.rent')}</MenuItem>
-                  <MenuItem value="homeless">{t('financial.housing_options.homeless')}</MenuItem>
-                  <MenuItem value="family">{t('financial.housing_options.family')}</MenuItem>
+                  <MenuItem value="own">
+                    {t("financial.housing_options.own")}
+                  </MenuItem>
+                  <MenuItem value="rent">
+                    {t("financial.housing_options.rent")}
+                  </MenuItem>
+                  <MenuItem value="homeless">
+                    {t("financial.housing_options.homeless")}
+                  </MenuItem>
+                  <MenuItem value="family">
+                    {t("financial.housing_options.family")}
+                  </MenuItem>
                 </Select>
                 <FormHelperText>{errors.housingStatus?.message}</FormHelperText>
               </FormControl>
@@ -179,15 +213,15 @@ export const StepFamily: React.FC = () => {
               <TextField
                 required
                 id="financial-monthly-income"
-                label={t('financial.monthly_income')}
+                label={t("financial.monthly_income")}
                 type="number"
                 fullWidth
                 variant="outlined"
-                {...register('monthlyIncome', {
-                  required: t('validation.required'),
+                {...register("monthlyIncome", {
+                  required: t("validation.required"),
                   min: {
                     value: 0,
-                    message: t('validation.min_income'),
+                    message: t("validation.min_income"),
                   },
                   valueAsNumber: true,
                 })}
@@ -195,10 +229,10 @@ export const StepFamily: React.FC = () => {
                 helperText={errors.monthlyIncome?.message}
                 slotProps={{
                   htmlInput: {
-                    'aria-required': 'true',
-                    'aria-invalid': errors.monthlyIncome ? 'true' : 'false',
+                    "aria-required": "true",
+                    "aria-invalid": errors.monthlyIncome ? "true" : "false",
                     min: 0,
-                  }
+                  },
                 }}
               />
             </Grid>
@@ -207,18 +241,20 @@ export const StepFamily: React.FC = () => {
               <Controller
                 name="currency"
                 control={control}
-                rules={{ required: t('validation.required') }}
+                rules={{ required: t("validation.required") }}
                 render={({ field }) => (
                   <FormControl required fullWidth error={!!errors.currency}>
-                    <InputLabel id="financial-currency-label">{t('financial.currency')}</InputLabel>
+                    <InputLabel id="financial-currency-label">
+                      {t("financial.currency")}
+                    </InputLabel>
                     <Select
                       {...field}
                       labelId="financial-currency-label"
                       id="financial-currency"
-                      label={t('financial.currency')}
+                      label={t("financial.currency")}
                       inputProps={{
-                        'aria-required': 'true',
-                        'aria-invalid': errors.currency ? 'true' : 'false',
+                        "aria-required": "true",
+                        "aria-invalid": errors.currency ? "true" : "false",
                       }}
                     >
                       {currencyOptions.map((currency) => (
@@ -245,7 +281,7 @@ export const StepFamily: React.FC = () => {
           startIcon={isRtl ? <ArrowForward /> : <ArrowBack />}
           size="large"
         >
-          {t('buttons.back')}
+          {t("buttons.back")}
         </Button>
         <Button
           type="submit"
@@ -254,7 +290,7 @@ export const StepFamily: React.FC = () => {
           endIcon={isRtl ? <ArrowBack /> : <ArrowForward />}
           size="large"
         >
-          {t('buttons.next')}
+          {t("buttons.next")}
         </Button>
       </Box>
     </form>

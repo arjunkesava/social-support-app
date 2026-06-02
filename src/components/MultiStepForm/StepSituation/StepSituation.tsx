@@ -1,59 +1,63 @@
-import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import ArrowBack from '@mui/icons-material/ArrowBack';
-import ArrowForward from '@mui/icons-material/ArrowForward';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useFormContext } from '../../../context/FormContext.shared';
-import type { SituationDescriptions } from '../../../context/FormContext.shared';
-import { formFieldGridStyles, formActionContainerStyles } from '../styles';
-import { getWritingSuggestion, type SituationField } from '../../../services/writingSuggestions';
-import AiGeneratedSuggestion from './AiGeneratedSuggestion';
+import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import ArrowBack from "@mui/icons-material/ArrowBack";
+import ArrowForward from "@mui/icons-material/ArrowForward";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useFormContext } from "../../../context/FormContext.shared";
+import type { SituationDescriptions } from "../../../context/FormContext.shared";
+import { formFieldGridStyles, formActionContainerStyles } from "../styles";
+import {
+  getWritingSuggestion,
+  type SituationField,
+} from "../../../services/writingSuggestions";
+import AiGeneratedSuggestion from "./AiGeneratedSuggestion";
 
 const helpButtonContainerStyles = {
-  display: 'flex',
-  justifyContent: 'flex-end',
+  display: "flex",
+  justifyContent: "flex-end",
   mt: 1,
 };
 
 const situationFieldLabelKeys: Record<SituationField, string> = {
-  financialSituation: 'situation.financial_situation',
-  employmentCircumstances: 'situation.employment_circumstances',
-  reasonForApplying: 'situation.reason_for_applying',
+  financialSituation: "situation.financial_situation",
+  employmentCircumstances: "situation.employment_circumstances",
+  reasonForApplying: "situation.reason_for_applying",
 };
 
 export const StepSituation: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { formData, updateStepData, setActiveStep } = useFormContext();
   const navigate = useNavigate();
-  const [activeSuggestionField, setActiveSuggestionField] = useState<SituationField | null>(null);
-  const [suggestion, setSuggestion] = useState('');
-  const [suggestionError, setSuggestionError] = useState('');
+  const [activeSuggestionField, setActiveSuggestionField] =
+    useState<SituationField | null>(null);
+  const [suggestion, setSuggestion] = useState("");
+  const [suggestionError, setSuggestionError] = useState("");
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const [isEditingSuggestion, setIsEditingSuggestion] = useState(false);
 
-  const isRtl = i18n.language === 'ar';
+  const isRtl = i18n.language === "ar";
 
   const situationFields: SituationField[] = [
-    'financialSituation',
-    'employmentCircumstances',
-    'reasonForApplying',
+    "financialSituation",
+    "employmentCircumstances",
+    "reasonForApplying",
   ];
 
   const situationFieldIds: Record<SituationField, string> = {
-    financialSituation: 'situation-financial',
-    employmentCircumstances: 'situation-employment',
-    reasonForApplying: 'situation-reason',
+    financialSituation: "situation-financial",
+    employmentCircumstances: "situation-employment",
+    reasonForApplying: "situation-reason",
   };
 
   const situationPlaceholderKeys: Record<SituationField, string> = {
-    financialSituation: 'situation.financial_situation_placeholder',
-    employmentCircumstances: 'situation.employment_circumstances_placeholder',
-    reasonForApplying: 'situation.reason_for_applying_placeholder',
+    financialSituation: "situation.financial_situation_placeholder",
+    employmentCircumstances: "situation.employment_circumstances_placeholder",
+    reasonForApplying: "situation.reason_for_applying_placeholder",
   };
 
   const {
@@ -64,23 +68,23 @@ export const StepSituation: React.FC = () => {
     formState: { errors },
   } = useForm<SituationDescriptions>({
     defaultValues: formData.situation,
-    mode: 'onTouched',
+    mode: "onTouched",
   });
 
   const onSubmit = (data: SituationDescriptions) => {
-    updateStepData('situation', data);
+    updateStepData("situation", data);
     setActiveStep(3); // Progress to Success step
-    navigate('/success');
+    navigate("/success");
   };
 
   const handleBack = () => {
-    navigate('/family');
+    navigate("/family");
   };
 
   const handleHelpMeWrite = async (field: SituationField) => {
     setActiveSuggestionField(field);
-    setSuggestion('');
-    setSuggestionError('');
+    setSuggestion("");
+    setSuggestionError("");
     setIsEditingSuggestion(false);
     setIsSuggestionLoading(true);
 
@@ -95,12 +99,16 @@ export const StepSituation: React.FC = () => {
 
       setSuggestion(nextSuggestion);
     } catch (error) {
-      const isTimeout = typeof error === 'object' && error !== null && 'code' in error && error.code === 'ECONNABORTED';
+      const isTimeout =
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        error.code === "ECONNABORTED";
 
       setSuggestionError(
         isTimeout
-          ? t('situation.ai_suggestion.timeout_error')
-          : t('situation.ai_suggestion.generic_error')
+          ? t("situation.ai_suggestion.timeout_error")
+          : t("situation.ai_suggestion.generic_error"),
       );
     } finally {
       setIsSuggestionLoading(false);
@@ -112,8 +120,12 @@ export const StepSituation: React.FC = () => {
       return;
     }
 
-    setValue(activeSuggestionField, suggestion, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
-    updateStepData('situation', {
+    setValue(activeSuggestionField, suggestion, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+    updateStepData("situation", {
       ...getValues(),
       [activeSuggestionField]: suggestion,
     });
@@ -126,17 +138,17 @@ export const StepSituation: React.FC = () => {
 
   const handleCloseSuggestion = () => {
     setActiveSuggestionField(null);
-    setSuggestion('');
-    setSuggestionError('');
+    setSuggestion("");
+    setSuggestionError("");
     setIsEditingSuggestion(false);
     setIsSuggestionLoading(false);
   };
 
   const situationFieldRules = {
-    required: t('validation.required'),
+    required: t("validation.required"),
     minLength: {
       value: 15,
-      message: t('validation.min_length'),
+      message: t("validation.min_length"),
     },
   };
 
@@ -149,7 +161,7 @@ export const StepSituation: React.FC = () => {
         onClick={() => handleHelpMeWrite(field)}
         disabled={isSuggestionLoading}
       >
-        {t('situation.ai_suggestion.help_button')}
+        {t("situation.ai_suggestion.help_button")}
       </Button>
     </Box>
   );
@@ -175,9 +187,9 @@ export const StepSituation: React.FC = () => {
             helperText={errors[field]?.message}
             slotProps={{
               htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors[field] ? 'true' : 'false',
-                style: { resize: 'vertical' },
+                "aria-required": "true",
+                "aria-invalid": errors[field] ? "true" : "false",
+                style: { resize: "vertical" },
               },
             }}
           />
@@ -202,7 +214,7 @@ export const StepSituation: React.FC = () => {
           startIcon={isRtl ? <ArrowForward /> : <ArrowBack />}
           size="large"
         >
-          {t('buttons.back')}
+          {t("buttons.back")}
         </Button>
         <Button
           type="submit"
@@ -211,7 +223,7 @@ export const StepSituation: React.FC = () => {
           endIcon={isRtl ? <ArrowBack /> : <ArrowForward />}
           size="large"
         >
-          {t('buttons.submit')}
+          {t("buttons.submit")}
         </Button>
       </Box>
 

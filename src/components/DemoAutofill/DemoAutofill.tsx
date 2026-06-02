@@ -1,9 +1,9 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import { DemoAutofillFab } from './DemoAutofillFab';
-import { DemoAutofillPopover } from './DemoAutofillPopover';
-import { DemoAutofillSnackbar } from './DemoAutofillSnackbar';
-import type { DemoAutofillProps } from './types';
+import React from "react";
+import Box from "@mui/material/Box";
+import { DemoAutofillFab } from "./DemoAutofillFab";
+import { DemoAutofillPopover } from "./DemoAutofillPopover";
+import { DemoAutofillSnackbar } from "./DemoAutofillSnackbar";
+import type { DemoAutofillProps } from "./types";
 
 export const DemoAutofill: React.FC<DemoAutofillProps> = ({
   themeMode,

@@ -1,15 +1,15 @@
-import React, { useRef } from 'react';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import { useTranslation } from 'react-i18next';
-import { suggestionProgressSpinnerStyles, suggestionStyles } from '../styles';
+import React, { useRef } from "react";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import { useTranslation } from "react-i18next";
+import { suggestionProgressSpinnerStyles, suggestionStyles } from "../styles";
 
 type AiGeneratedSuggestionProps = {
   open: boolean;
@@ -49,20 +49,24 @@ export const AiGeneratedSuggestion: React.FC<AiGeneratedSuggestionProps> = ({
       fullWidth
       maxWidth="sm"
     >
-      <DialogTitle>{t('situation.ai_suggestion.title')}</DialogTitle>
+      <DialogTitle>{t("situation.ai_suggestion.title")}</DialogTitle>
       <DialogContent>
         {isLoading ? (
           <Box sx={suggestionProgressSpinnerStyles}>
-            <CircularProgress aria-label={t('situation.ai_suggestion.loading_aria')} />
-            <Box>{t('situation.ai_suggestion.loading')}</Box>
+            <CircularProgress
+              aria-label={t("situation.ai_suggestion.loading_aria")}
+            />
+            <Box>{t("situation.ai_suggestion.loading")}</Box>
           </Box>
         ) : (
           <Box sx={suggestionStyles}>
-            {suggestionError ? <Alert severity="error">{suggestionError}</Alert> : null}
+            {suggestionError ? (
+              <Alert severity="error">{suggestionError}</Alert>
+            ) : null}
             {suggestion ? (
               <TextField
                 inputRef={suggestionInputRef}
-                label={t('situation.ai_suggestion.suggested_text')}
+                label={t("situation.ai_suggestion.suggested_text")}
                 value={suggestion}
                 onChange={(event) => onSuggestionChange(event.target.value)}
                 multiline
@@ -70,12 +74,12 @@ export const AiGeneratedSuggestion: React.FC<AiGeneratedSuggestionProps> = ({
                 fullWidth
                 slotProps={{
                   htmlInput: {
-                    'aria-label': t('situation.ai_suggestion.suggested_text'),
-                    style: { resize: 'vertical' },
+                    "aria-label": t("situation.ai_suggestion.suggested_text"),
+                    style: { resize: "vertical" },
                   },
                   input: {
                     readOnly: !isEditing,
-                  }
+                  },
                 }}
               />
             ) : null}
@@ -84,10 +88,14 @@ export const AiGeneratedSuggestion: React.FC<AiGeneratedSuggestionProps> = ({
       </DialogContent>
       <DialogActions>
         <Button type="button" onClick={onClose} disabled={isLoading}>
-          {t('situation.ai_suggestion.discard')}
+          {t("situation.ai_suggestion.discard")}
         </Button>
-        <Button type="button" onClick={handleEdit} disabled={isLoading || !suggestion}>
-          {t('situation.ai_suggestion.edit')}
+        <Button
+          type="button"
+          onClick={handleEdit}
+          disabled={isLoading || !suggestion}
+        >
+          {t("situation.ai_suggestion.edit")}
         </Button>
         <Button
           type="button"
@@ -95,7 +103,7 @@ export const AiGeneratedSuggestion: React.FC<AiGeneratedSuggestionProps> = ({
           onClick={onAccept}
           disabled={isLoading || !suggestion}
         >
-          {t('situation.ai_suggestion.accept')}
+          {t("situation.ai_suggestion.accept")}
         </Button>
       </DialogActions>
     </Dialog>

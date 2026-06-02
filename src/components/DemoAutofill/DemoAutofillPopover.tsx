@@ -1,17 +1,17 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Popover from '@mui/material/Popover';
-import { Trans } from 'react-i18next';
-import { DemoAutofillPopoverHeader } from './DemoAutofillPopoverHeader';
-import { DemoAutofillUserCard } from './DemoAutofillUserCard';
-import type { DemoAutofillPopoverProps } from './types';
+import React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Popover from "@mui/material/Popover";
+import { Trans } from "react-i18next";
+import { DemoAutofillPopoverHeader } from "./DemoAutofillPopoverHeader";
+import { DemoAutofillUserCard } from "./DemoAutofillUserCard";
+import type { DemoAutofillPopoverProps } from "./types";
 import {
   getPopoverPaperStyles,
   popoverContentStyles,
   popoverDescriptionStyles,
   userListStyles,
-} from './styles';
+} from "./styles";
 
 export const DemoAutofillPopover: React.FC<DemoAutofillPopoverProps> = ({
   popoverId,
@@ -29,12 +29,12 @@ export const DemoAutofillPopover: React.FC<DemoAutofillPopoverProps> = ({
       anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
+        vertical: "top",
+        horizontal: "left",
       }}
       transformOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
+        vertical: "bottom",
+        horizontal: "right",
       }}
       slotProps={{
         paper: {
@@ -53,9 +53,9 @@ export const DemoAutofillPopover: React.FC<DemoAutofillPopoverProps> = ({
           <Trans
             i18nKey="demo_autofill.description"
             components={{
-              1: <Box component="b" sx={{ display: 'inline' }} />,
-              2: <Box component="b" sx={{ display: 'inline' }} />,
-              3: <Box component="b" sx={{ display: 'inline' }} />,
+              1: <Box component="b" sx={{ display: "inline" }} />,
+              2: <Box component="b" sx={{ display: "inline" }} />,
+              3: <Box component="b" sx={{ display: "inline" }} />,
             }}
           />
         </Typography>

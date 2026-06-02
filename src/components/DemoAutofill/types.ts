@@ -1,8 +1,8 @@
-import type { ThemeMode } from '../../context/FormContext.shared';
+import type { ThemeMode } from "../../context/FormContext.shared";
 import type {
   PersonalInfo,
   FamilyFinancialInfo,
-} from '../../context/FormContext.shared';
+} from "../../context/FormContext.shared";
 
 export interface MockUser {
   id: string;

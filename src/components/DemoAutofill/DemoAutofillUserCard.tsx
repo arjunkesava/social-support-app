@@ -1,17 +1,17 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
-import PersonIcon from '@mui/icons-material/Person';
-import WorkIcon from '@mui/icons-material/Work';
-import HomeIcon from '@mui/icons-material/Home';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import PeopleIcon from '@mui/icons-material/People';
-import { useTranslation } from 'react-i18next';
-import type { DemoAutofillUserCardProps } from './types';
+import React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import PersonIcon from "@mui/icons-material/Person";
+import WorkIcon from "@mui/icons-material/Work";
+import HomeIcon from "@mui/icons-material/Home";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import PeopleIcon from "@mui/icons-material/People";
+import { useTranslation } from "react-i18next";
+import type { DemoAutofillUserCardProps } from "./types";
 import {
   userCardContentStyles,
   userCardHeaderRowStyles,
@@ -25,7 +25,7 @@ import {
   capitalizeStatTextStyles,
   dependentsStatTextStyles,
   incomeStatTextStyles,
-} from './styles';
+} from "./styles";
 
 export const DemoAutofillUserCard: React.FC<DemoAutofillUserCardProps> = ({
   user,
@@ -79,7 +79,7 @@ export const DemoAutofillUserCard: React.FC<DemoAutofillUserCardProps> = ({
               color="text.primary"
               sx={dependentsStatTextStyles}
             >
-              {t('demo_autofill.dependents_short', {
+              {t("demo_autofill.dependents_short", {
                 count: user.family.dependents,
               })}
             </Typography>
@@ -92,7 +92,7 @@ export const DemoAutofillUserCard: React.FC<DemoAutofillUserCardProps> = ({
               color="text.primary"
               sx={capitalizeStatTextStyles}
             >
-              {user.family.employmentStatus.replace('_', ' ')}
+              {user.family.employmentStatus.replace("_", " ")}
             </Typography>
           </Box>
 
