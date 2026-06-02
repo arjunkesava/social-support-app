@@ -1,6 +1,8 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -11,6 +13,9 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForward from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../../context/FormContext.shared';
 import type { PersonalInfo } from '../../../context/FormContext.shared';
@@ -19,6 +24,7 @@ import { formFieldGridStyles, formActionContainerStyles } from '../styles';
 export const StepPersonal: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { formData, updateStepData, setActiveStep } = useFormContext();
+  const navigate = useNavigate();
   
   const isRtl = i18n.language === 'ar';
 
@@ -26,18 +32,25 @@ export const StepPersonal: React.FC = () => {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<PersonalInfo>({
     defaultValues: formData.personal,
     mode: 'onTouched',
   });
 
+  React.useEffect(() => {
+    reset(formData.personal);
+  }, [formData.personal, reset]);
+
   const onSubmit = (data: PersonalInfo) => {
     updateStepData('personal', data);
     setActiveStep(1);
+    navigate('/family');
   };
 
   return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Grid container spacing={3} sx={formFieldGridStyles}>
         {/* Name */}
@@ -91,25 +104,48 @@ export const StepPersonal: React.FC = () => {
 
         {/* Date of Birth */}
         <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            required
-            id="personal-dob"
-            label={t('personal.dob')}
-            type="date"
-            fullWidth
-            variant="outlined"
-            {...register('dob', {
+          <Controller
+            name="dob"
+            control={control}
+            rules={{
               required: t('validation.required'),
-            })}
-            error={!!errors.dob}
-            helperText={errors.dob?.message}
-            slotProps={{
-              inputLabel: { shrink: true },
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.dob ? 'true' : 'false',
-              }
+              validate: (value) => {
+                const selectedDate = dayjs(value);
+
+                return selectedDate.isSame(dayjs(), 'day') ||
+                  selectedDate.isBefore(dayjs(), 'day')
+                  ? true
+                  : t('validation.futureDateNotAllowed');
+              },
             }}
+            render={({ field }) => (
+              <DatePicker
+                disableFuture
+                maxDate={dayjs()}
+                label={t('personal.dob')}
+                value={field.value ? dayjs(field.value) : null}
+                onChange={(date) => {
+                  field.onChange(date ? date.format('YYYY-MM-DD') : '');
+                }}
+                sx={{
+                    '& .MuiPickersOutlinedInput-root': {
+                      borderRadius: '12px',
+                  },
+                }}
+                slotProps={{
+                  textField: {
+                    required: true,
+                    fullWidth: true,
+                    error: !!errors.dob,
+                    helperText: errors.dob?.message,
+                  },
+                  field: {
+                    'aria-required': true,
+                    'aria-invalid': !!errors.dob,
+                  },
+                }}
+              />
+            )}
           />
         </Grid>
 
@@ -204,6 +240,9 @@ export const StepPersonal: React.FC = () => {
             label={t('personal.address')}
             fullWidth
             variant="outlined"
+            multiline
+            minRows={3}
+            maxRows={10}
             {...register('address', {
               required: t('validation.required'),
             })}
@@ -213,6 +252,7 @@ export const StepPersonal: React.FC = () => {
               htmlInput: {
                 'aria-required': 'true',
                 'aria-invalid': errors.address ? 'true' : 'false',
+                style: { resize: 'vertical' }
               }
             }}
           />
@@ -287,13 +327,7 @@ export const StepPersonal: React.FC = () => {
 
       {/* Button Actions */}
       <Box sx={formActionContainerStyles}>
-        <Button 
-          disabled 
-          variant="outlined"
-          startIcon={isRtl ? <ArrowForward /> : <ArrowBack />}
-        >
-          {t('buttons.back')}
-        </Button>
+        <Box />
         <Button
           type="submit"
           variant="contained"
@@ -305,6 +339,7 @@ export const StepPersonal: React.FC = () => {
         </Button>
       </Box>
     </form>
+    </ LocalizationProvider>
   );
 };
 export default StepPersonal;

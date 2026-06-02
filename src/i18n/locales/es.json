@@ -21,6 +21,7 @@
   },
   "validation": {
     "required": "Este campo es obligatorio",
+    "futureDateNotAllowed": "La fecha de nacimiento no puede estar en el futuro",
     "email": "Por favor, introduce una dirección de correo válida",
     "phone": "Por favor, introduce un número de teléfono válido",
     "national_id": "El ID Nacional debe ser numérico y tener exactamente 10 dígitos",

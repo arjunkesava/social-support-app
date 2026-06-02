@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import RestartAlt from '@mui/icons-material/RestartAlt';
 import CheckCircleOutlined from '@mui/icons-material/CheckCircleOutlined';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../../context/FormContext.shared';
 import {
@@ -19,6 +20,7 @@ import {
 export const StepSuccess: React.FC = () => {
   const { t } = useTranslation();
   const { formData, resetForm } = useFormContext();
+  const navigate = useNavigate();
   const monthlyIncome = formData.family.monthlyIncome !== ''
     ? `${formData.family.currency} ${formData.family.monthlyIncome}`
     : '';
@@ -26,6 +28,7 @@ export const StepSuccess: React.FC = () => {
 
   const handleReset = () => {
     resetForm();
+    navigate('/personal');
   };
 
   const renderDetailItem = (label: string, value: string | number) => (

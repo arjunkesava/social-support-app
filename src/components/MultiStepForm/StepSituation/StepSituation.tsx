@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForward from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../../context/FormContext.shared';
 import type { SituationDescriptions } from '../../../context/FormContext.shared';
@@ -28,6 +29,7 @@ const situationFieldLabelKeys: Record<SituationField, string> = {
 export const StepSituation: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { formData, updateStepData, setActiveStep } = useFormContext();
+  const navigate = useNavigate();
   const [activeSuggestionField, setActiveSuggestionField] = useState<SituationField | null>(null);
   const [suggestion, setSuggestion] = useState('');
   const [suggestionError, setSuggestionError] = useState('');
@@ -50,10 +52,11 @@ export const StepSituation: React.FC = () => {
   const onSubmit = (data: SituationDescriptions) => {
     updateStepData('situation', data);
     setActiveStep(3); // Progress to Success step
+    navigate('/success');
   };
 
   const handleBack = () => {
-    setActiveStep(1);
+    navigate('/family');
   };
 
   const handleHelpMeWrite = async (field: SituationField) => {
@@ -152,7 +155,8 @@ export const StepSituation: React.FC = () => {
               htmlInput: {
                 'aria-required': 'true',
                 'aria-invalid': errors.financialSituation ? 'true' : 'false',
-              }
+                style: { resize: 'vertical' }
+              },
             }}
           />
           {renderHelpMeWriteButton('financialSituation')}
@@ -182,6 +186,7 @@ export const StepSituation: React.FC = () => {
               htmlInput: {
                 'aria-required': 'true',
                 'aria-invalid': errors.employmentCircumstances ? 'true' : 'false',
+                style: { resize: 'vertical' }
               }
             }}
           />
@@ -212,6 +217,7 @@ export const StepSituation: React.FC = () => {
               htmlInput: {
                 'aria-required': 'true',
                 'aria-invalid': errors.reasonForApplying ? 'true' : 'false',
+                style: { resize: 'vertical' }
               }
             }}
           />

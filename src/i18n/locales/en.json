@@ -21,6 +21,7 @@
   },
   "validation": {
     "required": "This field is required",
+    "futureDateNotAllowed": "Date of birth cannot be in the future",
     "email": "Please enter a valid email address",
     "phone": "Please enter a valid phone number",
     "national_id": "National ID must be numeric and exactly 10 digits",

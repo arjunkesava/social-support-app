@@ -1,0 +1,127 @@
+[
+  {
+    "id": "fatima-uae",
+    "displayName": "Fatima Al-Mansoori (UAE)",
+    "description": "Emirati woman, married, 3 dependents, renting in Abu Dhabi, UAE Dirhams.",
+    "personal": {
+      "name": "Fatima Al-Mansoori",
+      "nationalId": "7841990123",
+      "dob": "14-08-1990",
+      "gender": "female",
+      "address": "Al Khalidiyah, Block 3, Villa 12",
+      "city": "Abu Dhabi",
+      "state": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "phone": "+971501234567",
+      "email": "fatima.almansoori@gmail.com"
+    },
+    "family": {
+      "maritalStatus": "married",
+      "dependents": 3,
+      "employmentStatus": "employed",
+      "monthlyIncome": 18000,
+      "currency": "AED",
+      "housingStatus": "rent"
+    }
+  },
+  {
+    "id": "ahmad-ksa",
+    "displayName": "Ahmad Al-Sudais (Saudi Arabia)",
+    "description": "Saudi man, married, 4 dependents, owning home in Riyadh, Saudi Riyals.",
+    "personal": {
+      "name": "Ahmad Al-Sudais",
+      "nationalId": "1029384756",
+      "dob": "05-11-1985",
+      "gender": "male",
+      "address": "Olaya District, King Fahd Road, Apt 45",
+      "city": "Riyadh",
+      "state": "Riyadh Region",
+      "country": "Saudi Arabia",
+      "phone": "+966509876543",
+      "email": "ahmad.alsudais@yahoo.com"
+    },
+    "family": {
+      "maritalStatus": "married",
+      "dependents": 4,
+      "employmentStatus": "employed",
+      "monthlyIncome": 12500,
+      "currency": "SAR",
+      "housingStatus": "own"
+    }
+  },
+  {
+    "id": "yasmin-qatar",
+    "displayName": "Yasmin Al-Thani (Qatar)",
+    "description": "Qatari woman, divorced, 2 dependents, renting in West Bay, Qatari Riyals.",
+    "personal": {
+      "name": "Yasmin Al-Thani",
+      "nationalId": "2933748291",
+      "dob": "22-03-1993",
+      "gender": "female",
+      "address": "West Bay, Street 980, Building 4",
+      "city": "Doha",
+      "state": "Doha",
+      "country": "Qatar",
+      "phone": "+97455123456",
+      "email": "yasmin.althani@outlook.com"
+    },
+    "family": {
+      "maritalStatus": "divorced",
+      "dependents": 2,
+      "employmentStatus": "self_employed",
+      "monthlyIncome": 15000,
+      "currency": "QAR",
+      "housingStatus": "rent"
+    }
+  },
+  {
+    "id": "tariq-oman",
+    "displayName": "Tariq Al-Saeed (Oman)",
+    "description": "Omani man, widowed, 1 dependent, living with family in Muscat, Omani Rials.",
+    "personal": {
+      "name": "Tariq Al-Saeed",
+      "nationalId": "3847592019",
+      "dob": "19-07-1978",
+      "gender": "male",
+      "address": "Al-Khuwair, Street 33, House 7",
+      "city": "Muscat",
+      "state": "Muscat Governorate",
+      "country": "Oman",
+      "phone": "+96899123456",
+      "email": "tariq.alsaeed@hotmail.com"
+    },
+    "family": {
+      "maritalStatus": "widowed",
+      "dependents": 1,
+      "employmentStatus": "retired",
+      "monthlyIncome": 950,
+      "currency": "OMR",
+      "housingStatus": "family"
+    }
+  },
+  {
+    "id": "mariam-kuwait",
+    "displayName": "Mariam Al-Fadli (Kuwait)",
+    "description": "Kuwaiti woman, single, 0 dependents, living with family in Salmiya, Kuwaiti Dinars.",
+    "personal": {
+      "name": "Mariam Al-Fadli",
+      "nationalId": "2880130005",
+      "dob": "30-01-1988",
+      "gender": "female",
+      "address": "Salmiya, Block 10, Building 14, Apt 8",
+      "city": "Kuwait City",
+      "state": "Hawalli Governorate",
+      "country": "Kuwait",
+      "phone": "+96566123456",
+      "email": "mariam.alfadli@gmail.com"
+    },
+    "family": {
+      "maritalStatus": "single",
+      "dependents": 0,
+      "employmentStatus": "unemployed",
+      "monthlyIncome": 0,
+      "currency": "KWD",
+      "housingStatus": "family"
+    }
+  }
+]

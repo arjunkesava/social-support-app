@@ -68,11 +68,14 @@ export const AiGeneratedSuggestion: React.FC<AiGeneratedSuggestionProps> = ({
                 multiline
                 rows={6}
                 fullWidth
-                disabled={!isEditing}
                 slotProps={{
                   htmlInput: {
                     'aria-label': t('situation.ai_suggestion.suggested_text'),
+                    style: { resize: 'vertical' },
                   },
+                  input: {
+                    readOnly: !isEditing,
+                  }
                 }}
               />
             ) : null}

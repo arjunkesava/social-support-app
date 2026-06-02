@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForward from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from '../../../context/FormContext.shared';
 import type { FamilyFinancialInfo } from '../../../context/FormContext.shared';
@@ -21,6 +22,7 @@ const currencyOptions = ['INR', 'AED', 'BHD', 'KWD', 'OMR', 'QAR', 'SAR'];
 export const StepFamily: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { formData, updateStepData, setActiveStep } = useFormContext();
+  const navigate = useNavigate();
   
   const isRtl = i18n.language === 'ar';
 
@@ -28,19 +30,25 @@ export const StepFamily: React.FC = () => {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FamilyFinancialInfo>({
     defaultValues: formData.family,
     mode: 'onTouched',
   });
 
+  React.useEffect(() => {
+    reset(formData.family);
+  }, [formData.family, reset]);
+
   const onSubmit = (data: FamilyFinancialInfo) => {
     updateStepData('family', data);
     setActiveStep(2);
+    navigate('/situation');
   };
 
   const handleBack = () => {
-    setActiveStep(0);
+    navigate('/personal');
   };
 
   return (
@@ -136,9 +144,39 @@ export const StepFamily: React.FC = () => {
           />
         </Grid>
 
-        {/* Monthly Income */}
+        {/* Housing Status */}
         <Grid size={{ xs: 12, sm: 6 }}>
+          <Controller
+            name="housingStatus"
+            control={control}
+            rules={{ required: t('validation.required') }}
+            render={({ field }) => (
+              <FormControl required fullWidth error={!!errors.housingStatus}>
+                <InputLabel id="financial-housing-status-label">{t('financial.housing_status')}</InputLabel>
+                <Select
+                  {...field}
+                  labelId="financial-housing-status-label"
+                  id="financial-housing-status"
+                  label={t('financial.housing_status')}
+                  inputProps={{
+                    'aria-required': 'true',
+                    'aria-invalid': errors.housingStatus ? 'true' : 'false',
+                  }}
+                >
+                  <MenuItem value="own">{t('financial.housing_options.own')}</MenuItem>
+                  <MenuItem value="rent">{t('financial.housing_options.rent')}</MenuItem>
+                  <MenuItem value="homeless">{t('financial.housing_options.homeless')}</MenuItem>
+                  <MenuItem value="family">{t('financial.housing_options.family')}</MenuItem>
+                </Select>
+                <FormHelperText>{errors.housingStatus?.message}</FormHelperText>
+              </FormControl>
+            )}
+          />
+        </Grid>
+
+        <Grid size={12}>
           <Grid container spacing={2}>
+            {/* Monthly Income */}
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 required
@@ -166,6 +204,7 @@ export const StepFamily: React.FC = () => {
                 }}
               />
             </Grid>
+            {/* Currency Type */}
             <Grid size={{ xs: 12, sm: 6 }}>
               <Controller
                 name="currency"
@@ -196,36 +235,6 @@ export const StepFamily: React.FC = () => {
               />
             </Grid>
           </Grid>
-        </Grid>
-
-        {/* Housing Status */}
-        <Grid size={12}>
-          <Controller
-            name="housingStatus"
-            control={control}
-            rules={{ required: t('validation.required') }}
-            render={({ field }) => (
-              <FormControl required fullWidth error={!!errors.housingStatus}>
-                <InputLabel id="financial-housing-status-label">{t('financial.housing_status')}</InputLabel>
-                <Select
-                  {...field}
-                  labelId="financial-housing-status-label"
-                  id="financial-housing-status"
-                  label={t('financial.housing_status')}
-                  inputProps={{
-                    'aria-required': 'true',
-                    'aria-invalid': errors.housingStatus ? 'true' : 'false',
-                  }}
-                >
-                  <MenuItem value="own">{t('financial.housing_options.own')}</MenuItem>
-                  <MenuItem value="rent">{t('financial.housing_options.rent')}</MenuItem>
-                  <MenuItem value="homeless">{t('financial.housing_options.homeless')}</MenuItem>
-                  <MenuItem value="family">{t('financial.housing_options.family')}</MenuItem>
-                </Select>
-                <FormHelperText>{errors.housingStatus?.message}</FormHelperText>
-              </FormControl>
-            )}
-          />
         </Grid>
       </Grid>
 
