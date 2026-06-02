@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import Header from "./Header";
 import NavActions from "./NavActions";
 import { navbarContainerStyles } from "./styles";
