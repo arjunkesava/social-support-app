@@ -35,7 +35,7 @@ interface MockUser {
 }
 
 export const DemoAutofill: React.FC = () => {
-  const { updateStepData, themeMode } = useFormContext();
+  const { applyDemoAutofill, themeMode } = useFormContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -52,22 +52,15 @@ export const DemoAutofill: React.FC = () => {
   };
 
   const handleAutofill = (user: MockUser) => {
-    // 1. Update Personal Step Data
-    updateStepData("personal", user.personal);
-    // 2. Update Family & Financial Step Data
-    updateStepData("family", user.family);
+    applyDemoAutofill(user.personal, user.family);
 
-    // Set notification states
     setSelectedUserName(user.personal.name);
     setSnackbarOpen(true);
 
-    // 3. Navigate back to /personal if they are in success screen,
-    // so they can see the filled data and go through the flow
-    if (location.pathname === "/success") {
+    if (location.pathname !== "/personal") {
       navigate("/personal");
     }
 
-    // Close the popover
     handleClose();
   };
 
