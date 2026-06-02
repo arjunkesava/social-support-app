@@ -30,16 +30,14 @@ export const StepFamily: React.FC = () => {
     control,
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FamilyFinancialInfo>({
-    defaultValues: formData.family,
+    values: formData.family,
+    resetOptions: {
+      keepDirtyValues: true,
+    },
     mode: 'onTouched',
   });
-
-  React.useEffect(() => {
-    reset(formData.family);
-  }, [formData.family, reset]);
 
   const onSubmit = (data: FamilyFinancialInfo) => {
     updateStepData('family', data);

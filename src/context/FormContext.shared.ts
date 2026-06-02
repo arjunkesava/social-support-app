@@ -43,6 +43,10 @@ export interface FormContextType {
   themeMode: ThemeMode;
   language: Language;
   updateStepData: <T extends keyof FormData>(step: T, data: FormData[T]) => void;
+  applyDemoAutofill: (
+    personal: PersonalInfo,
+    family: FamilyFinancialInfo,
+  ) => void;
   setActiveStep: (step: number) => void;
   toggleTheme: () => void;
   changeLanguage: (lang: Language) => void;

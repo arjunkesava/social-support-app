@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import MultiStepForm from './components/MultiStepForm/MultiStepForm';
 import { Layout } from './components/Layout/Layout';
 import StepRouteGuard from './components/MultiStepForm/StepRouteGuard';
-import DemoAutofill from './components/MultiStepForm/DemoAutofill';
+import DemoAutofill from './components/DemoAutofill/DemoAutofill';
 
 const StepPersonal = lazy(() => import('./components/MultiStepForm/StepPersonal/StepPersonal'));
 const StepFamily = lazy(() => import('./components/MultiStepForm/StepFamily/StepFamily'));
@@ -16,7 +16,6 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Navbar />
-        <DemoAutofill />
         <Routes>
           <Route element={<MultiStepForm />}>
             <Route index element={<Navigate to="/personal" replace />} />
@@ -48,6 +47,7 @@ function App() {
             <Route path="*" element={<Navigate to="/personal" replace />} />
           </Route>
         </Routes>
+        <DemoAutofill />
       </Layout>
     </BrowserRouter>
   );

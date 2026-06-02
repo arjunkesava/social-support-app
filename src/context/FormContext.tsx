@@ -59,6 +59,18 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }));
   };
 
+  const applyDemoAutofill = (
+    personal: FormData['personal'],
+    family: FormData['family'],
+  ) => {
+    setFormData({
+      personal: { ...personal },
+      family: { ...family },
+      situation: { ...initialFormData.situation },
+    });
+    setActiveStepState(0);
+  };
+
   const setActiveStep = (step: number) => {
     setActiveStepState(step);
   };
@@ -86,10 +98,11 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         themeMode,
         language,
         updateStepData,
+        applyDemoAutofill,
         setActiveStep,
+        resetForm,
         toggleTheme,
         changeLanguage,
-        resetForm,
       }}
     >
       {children}

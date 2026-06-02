@@ -32,16 +32,14 @@ export const StepPersonal: React.FC = () => {
     control,
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<PersonalInfo>({
-    defaultValues: formData.personal,
+    values: formData.personal,
+    resetOptions: {
+      keepDirtyValues: true,
+    },
     mode: 'onTouched',
   });
-
-  React.useEffect(() => {
-    reset(formData.personal);
-  }, [formData.personal, reset]);
 
   const onSubmit = (data: PersonalInfo) => {
     updateStepData('personal', data);
