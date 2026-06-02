@@ -6,7 +6,7 @@
     "personal": {
       "name": "Fatima Al-Mansoori",
       "nationalId": "7841990123",
-      "dob": "14-08-1990",
+      "dob": "1990-08-14",
       "gender": "female",
       "address": "Al Khalidiyah, Block 3, Villa 12",
       "city": "Abu Dhabi",
@@ -19,7 +19,7 @@
       "maritalStatus": "married",
       "dependents": 3,
       "employmentStatus": "employed",
-      "monthlyIncome": 18000,
+      "monthlyIncome": 26000,
       "currency": "AED",
       "housingStatus": "rent"
     }
@@ -31,7 +31,7 @@
     "personal": {
       "name": "Ahmad Al-Sudais",
       "nationalId": "1029384756",
-      "dob": "05-11-1985",
+      "dob": "1985-11-05",
       "gender": "male",
       "address": "Olaya District, King Fahd Road, Apt 45",
       "city": "Riyadh",
@@ -56,7 +56,7 @@
     "personal": {
       "name": "Yasmin Al-Thani",
       "nationalId": "2933748291",
-      "dob": "22-03-1993",
+      "dob": "1993-03-22",
       "gender": "female",
       "address": "West Bay, Street 980, Building 4",
       "city": "Doha",
@@ -81,7 +81,7 @@
     "personal": {
       "name": "Tariq Al-Saeed",
       "nationalId": "3847592019",
-      "dob": "19-07-1978",
+      "dob": "1978-07-19",
       "gender": "male",
       "address": "Al-Khuwair, Street 33, House 7",
       "city": "Muscat",
@@ -106,7 +106,7 @@
     "personal": {
       "name": "Mariam Al-Fadli",
       "nationalId": "2880130005",
-      "dob": "30-01-1988",
+      "dob": "1988-01-30",
       "gender": "female",
       "address": "Salmiya, Block 10, Building 14, Apt 8",
       "city": "Kuwait City",
@@ -119,7 +119,7 @@
       "maritalStatus": "single",
       "dependents": 0,
       "employmentStatus": "unemployed",
-      "monthlyIncome": 0,
+      "monthlyIncome": 1354,
       "currency": "KWD",
       "housingStatus": "family"
     }
