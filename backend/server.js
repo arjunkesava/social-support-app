@@ -92,8 +92,8 @@ app.post('/api/help-me-write', async (req, res) => {
     return res.status(400).json({ message: 'Missing required suggestion details.' });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(500).json({ message: 'OpenAI API key is not configured.' });
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(500).json({ message: 'GEMINI API key is not configured.' });
   }
 
   try {

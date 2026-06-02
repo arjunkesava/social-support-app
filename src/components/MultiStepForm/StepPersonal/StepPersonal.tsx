@@ -107,21 +107,13 @@ export const StepPersonal: React.FC = () => {
             control={control}
             rules={{
               required: t('validation.required'),
-              validate: (value) => {
-                const selectedDate = dayjs(value);
-
-                return selectedDate.isSame(dayjs(), 'day') ||
-                  selectedDate.isBefore(dayjs(), 'day')
-                  ? true
-                  : t('validation.futureDateNotAllowed');
-              },
             }}
             render={({ field }) => (
               <DatePicker
                 disableFuture
                 maxDate={dayjs()}
                 label={t('personal.dob')}
-                value={field.value ? dayjs(field.value) : null}
+                value={dayjs(field.value)}
                 onChange={(date) => {
                   field.onChange(date ? date.format('YYYY-MM-DD') : '');
                 }}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -35,11 +35,29 @@ export const StepSituation: React.FC = () => {
   const [suggestionError, setSuggestionError] = useState('');
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const [isEditingSuggestion, setIsEditingSuggestion] = useState(false);
-  
+
   const isRtl = i18n.language === 'ar';
 
+  const situationFields: SituationField[] = [
+    'financialSituation',
+    'employmentCircumstances',
+    'reasonForApplying',
+  ];
+
+  const situationFieldIds: Record<SituationField, string> = {
+    financialSituation: 'situation-financial',
+    employmentCircumstances: 'situation-employment',
+    reasonForApplying: 'situation-reason',
+  };
+
+  const situationPlaceholderKeys: Record<SituationField, string> = {
+    financialSituation: 'situation.financial_situation_placeholder',
+    employmentCircumstances: 'situation.employment_circumstances_placeholder',
+    reasonForApplying: 'situation.reason_for_applying_placeholder',
+  };
+
   const {
-    register,
+    control,
     handleSubmit,
     getValues,
     setValue,
@@ -114,6 +132,14 @@ export const StepSituation: React.FC = () => {
     setIsSuggestionLoading(false);
   };
 
+  const situationFieldRules = {
+    required: t('validation.required'),
+    minLength: {
+      value: 15,
+      message: t('validation.min_length'),
+    },
+  };
+
   const renderHelpMeWriteButton = (field: SituationField) => (
     <Box sx={helpButtonContainerStyles}>
       <Button
@@ -128,101 +154,43 @@ export const StepSituation: React.FC = () => {
     </Box>
   );
 
+  const renderSituationTextField = (field: SituationField) => (
+    <Grid size={12} key={field}>
+      <Controller
+        name={field}
+        control={control}
+        rules={situationFieldRules}
+        render={({ field: rhfField }) => (
+          <TextField
+            {...rhfField}
+            required
+            id={situationFieldIds[field]}
+            label={t(situationFieldLabelKeys[field])}
+            placeholder={t(situationPlaceholderKeys[field])}
+            multiline
+            rows={8}
+            fullWidth
+            variant="outlined"
+            error={!!errors[field]}
+            helperText={errors[field]?.message}
+            slotProps={{
+              htmlInput: {
+                'aria-required': 'true',
+                'aria-invalid': errors[field] ? 'true' : 'false',
+                style: { resize: 'vertical' },
+              },
+            }}
+          />
+        )}
+      />
+      {renderHelpMeWriteButton(field)}
+    </Grid>
+  );
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Grid container spacing={3} sx={formFieldGridStyles}>
-        {/* Financial Situation Description */}
-        <Grid size={12}>
-          <TextField
-            required
-            id="situation-financial"
-            label={t('situation.financial_situation')}
-            placeholder={t('situation.financial_situation_placeholder')}
-            multiline
-            rows={4}
-            fullWidth
-            variant="outlined"
-            {...register('financialSituation', {
-              required: t('validation.required'),
-              minLength: {
-                value: 15,
-                message: t('validation.min_length'),
-              },
-            })}
-            error={!!errors.financialSituation}
-            helperText={errors.financialSituation?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.financialSituation ? 'true' : 'false',
-                style: { resize: 'vertical' }
-              },
-            }}
-          />
-          {renderHelpMeWriteButton('financialSituation')}
-        </Grid>
-
-        {/* Employment Circumstances Description */}
-        <Grid size={12}>
-          <TextField
-            required
-            id="situation-employment"
-            label={t('situation.employment_circumstances')}
-            placeholder={t('situation.employment_circumstances_placeholder')}
-            multiline
-            rows={4}
-            fullWidth
-            variant="outlined"
-            {...register('employmentCircumstances', {
-              required: t('validation.required'),
-              minLength: {
-                value: 15,
-                message: t('validation.min_length'),
-              },
-            })}
-            error={!!errors.employmentCircumstances}
-            helperText={errors.employmentCircumstances?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.employmentCircumstances ? 'true' : 'false',
-                style: { resize: 'vertical' }
-              }
-            }}
-          />
-          {renderHelpMeWriteButton('employmentCircumstances')}
-        </Grid>
-
-        {/* Reason for Applying */}
-        <Grid size={12}>
-          <TextField
-            required
-            id="situation-reason"
-            label={t('situation.reason_for_applying')}
-            placeholder={t('situation.reason_for_applying_placeholder')}
-            multiline
-            rows={4}
-            fullWidth
-            variant="outlined"
-            {...register('reasonForApplying', {
-              required: t('validation.required'),
-              minLength: {
-                value: 15,
-                message: t('validation.min_length'),
-              },
-            })}
-            error={!!errors.reasonForApplying}
-            helperText={errors.reasonForApplying?.message}
-            slotProps={{
-              htmlInput: {
-                'aria-required': 'true',
-                'aria-invalid': errors.reasonForApplying ? 'true' : 'false',
-                style: { resize: 'vertical' }
-              }
-            }}
-          />
-          {renderHelpMeWriteButton('reasonForApplying')}
-        </Grid>
+        {situationFields.map(renderSituationTextField)}
       </Grid>
 
       {/* Button Actions */}
