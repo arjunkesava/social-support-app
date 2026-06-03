@@ -102,6 +102,12 @@
       "accept": "Aceptar",
       "timeout_error": "La sugerencia de redacción tardó demasiado. Inténtelo de nuevo.",
       "generic_error": "No pudimos generar una sugerencia en este momento. Inténtelo de nuevo en unos instantes."
+    },
+    "submission": {
+      "submitting": "Enviando solicitud...",
+      "submitting_aria": "Enviando su solicitud",
+      "timeout_error": "El envío tardó demasiado. Compruebe su conexión e inténtelo de nuevo.",
+      "generic_error": "No pudimos enviar su solicitud en este momento. Inténtelo de nuevo en unos instantes."
     }
   },
   "demo_autofill": {

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import Alert from "@mui/material/Alert";
+import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import ArrowBack from "@mui/icons-material/ArrowBack";
@@ -11,6 +14,10 @@ import { useTranslation } from "react-i18next";
 import { useFormContext } from "../../../context/FormContext.shared";
 import type { SituationDescriptions } from "../../../context/FormContext.shared";
 import { formFieldGridStyles, formActionContainerStyles } from "../styles";
+import {
+  ApplicationSubmissionError,
+  submitApplication,
+} from "../../../services/applicationSubmission";
 import {
   getWritingSuggestion,
   type SituationField,
@@ -39,6 +46,8 @@ export const StepSituation: React.FC = () => {
   const [suggestionError, setSuggestionError] = useState("");
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const [isEditingSuggestion, setIsEditingSuggestion] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const isRtl = i18n.language === "ar";
 
@@ -71,10 +80,28 @@ export const StepSituation: React.FC = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = (data: SituationDescriptions) => {
+  const onSubmit = async (data: SituationDescriptions) => {
+    setSubmitError("");
     updateStepData("situation", data);
-    setActiveStep(3); // Progress to Success step
-    navigate("/success");
+    setIsSubmitting(true);
+
+    try {
+      await submitApplication({ ...formData, situation: data });
+      setActiveStep(3);
+      navigate("/success");
+    } catch (error) {
+      if (
+        error instanceof ApplicationSubmissionError &&
+        error.code === "TIMEOUT"
+      ) {
+        setSubmitError(t("situation.submission.timeout_error"));
+        return;
+      }
+
+      setSubmitError(t("situation.submission.generic_error"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBack = () => {
@@ -205,6 +232,12 @@ export const StepSituation: React.FC = () => {
         {situationFields.map(renderSituationTextField)}
       </Grid>
 
+      {submitError ? (
+        <Alert severity="error" sx={{ mt: 3 }}>
+          {submitError}
+        </Alert>
+      ) : null}
+
       {/* Button Actions */}
       <Box sx={formActionContainerStyles}>
         <Button
@@ -213,6 +246,7 @@ export const StepSituation: React.FC = () => {
           onClick={handleBack}
           startIcon={isRtl ? <ArrowForward /> : <ArrowBack />}
           size="large"
+          disabled={isSubmitting}
         >
           {t("buttons.back")}
         </Button>
@@ -220,12 +254,34 @@ export const StepSituation: React.FC = () => {
           type="submit"
           variant="contained"
           color="primary"
-          endIcon={isRtl ? <ArrowBack /> : <ArrowForward />}
+          endIcon={
+            isSubmitting ? (
+              <CircularProgress size={20} color="inherit" aria-hidden />
+            ) : isRtl ? (
+              <ArrowBack />
+            ) : (
+              <ArrowForward />
+            )
+          }
           size="large"
+          disabled={isSubmitting || isSuggestionLoading}
+          aria-busy={isSubmitting}
         >
-          {t("buttons.submit")}
+          {isSubmitting
+            ? t("situation.submission.submitting")
+            : t("buttons.submit")}
         </Button>
       </Box>
+
+      <Backdrop
+        open={isSubmitting}
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+      >
+        <CircularProgress
+          color="inherit"
+          aria-label={t("situation.submission.submitting_aria")}
+        />
+      </Backdrop>
 
       <AiGeneratedSuggestion
         open={activeSuggestionField !== null}

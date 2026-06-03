@@ -102,6 +102,12 @@
       "accept": "Accept",
       "timeout_error": "The writing suggestion took too long. Please try again.",
       "generic_error": "We could not generate a suggestion right now. Please try again in a moment."
+    },
+    "submission": {
+      "submitting": "Submitting application...",
+      "submitting_aria": "Submitting your application",
+      "timeout_error": "Your submission took too long. Please check your connection and try again.",
+      "generic_error": "We could not submit your application right now. Please try again in a moment."
     }
   },
   "demo_autofill": {
