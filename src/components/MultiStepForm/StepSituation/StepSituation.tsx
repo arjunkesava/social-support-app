@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Typography from "@mui/material/Typography";
 import { Controller, useForm } from "react-hook-form";
 import Alert from "@mui/material/Alert";
 import Backdrop from "@mui/material/Backdrop";
@@ -20,13 +21,20 @@ import {
 } from "../../../services/applicationSubmission";
 import {
   getWritingSuggestion,
+  WritingSuggestionError,
   type SituationField,
 } from "../../../services/writingSuggestions";
 import AiGeneratedSuggestion from "./AiGeneratedSuggestion";
+import { useWritingSuggestionRateLimit } from "../../../hooks/useWritingSuggestionRateLimit";
+import {
+  formatRetryAfterMinutes,
+  formatRetryAfterSeconds,
+} from "../../../utils/writingSuggestionRateLimit";
 
 const helpButtonContainerStyles = {
   display: "flex",
-  justifyContent: "flex-end",
+  flexDirection: "column",
+  alignItems: "flex-end",
   mt: 1,
 };
 
@@ -48,6 +56,11 @@ export const StepSituation: React.FC = () => {
   const [isEditingSuggestion, setIsEditingSuggestion] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [rateLimitMessage, setRateLimitMessage] = useState("");
+  const [rateLimitedField, setRateLimitedField] =
+    useState<SituationField | null>(null);
+
+  const { limitStatus, tryConsumeRequest } = useWritingSuggestionRateLimit();
 
   const isRtl = i18n.language === "ar";
 
@@ -108,7 +121,36 @@ export const StepSituation: React.FC = () => {
     navigate("/family");
   };
 
+  const getRateLimitMessage = (
+    reason: "COOLDOWN" | "QUOTA",
+    retryAfterMs: number,
+  ) => {
+    if (reason === "COOLDOWN") {
+      return t("situation.ai_suggestion.rate_limit_cooldown", {
+        seconds: formatRetryAfterSeconds(retryAfterMs),
+      });
+    }
+
+    return t("situation.ai_suggestion.rate_limit_quota", {
+      minutes: formatRetryAfterMinutes(retryAfterMs),
+    });
+  };
+
+  const isHelpMeWriteBlocked = !limitStatus.allowed;
+
   const handleHelpMeWrite = async (field: SituationField) => {
+    setRateLimitMessage("");
+    setRateLimitedField(null);
+
+    const rateLimitCheck = tryConsumeRequest();
+    if (!rateLimitCheck.allowed) {
+      setRateLimitedField(field);
+      setRateLimitMessage(
+        getRateLimitMessage(rateLimitCheck.reason, rateLimitCheck.retryAfterMs),
+      );
+      return;
+    }
+
     setActiveSuggestionField(field);
     setSuggestion("");
     setSuggestionError("");
@@ -126,17 +168,37 @@ export const StepSituation: React.FC = () => {
 
       setSuggestion(nextSuggestion);
     } catch (error) {
-      const isTimeout =
-        typeof error === "object" &&
-        error !== null &&
-        "code" in error &&
-        error.code === "ECONNABORTED";
+      if (error instanceof WritingSuggestionError) {
+        if (error.code === "TIMEOUT") {
+          setSuggestionError(t("situation.ai_suggestion.timeout_error"));
+          return;
+        }
 
-      setSuggestionError(
-        isTimeout
-          ? t("situation.ai_suggestion.timeout_error")
-          : t("situation.ai_suggestion.generic_error"),
-      );
+        if (
+          error.code === "RATE_LIMIT_COOLDOWN" &&
+          error.retryAfterMs !== undefined
+        ) {
+          setSuggestionError(
+            getRateLimitMessage("COOLDOWN", error.retryAfterMs),
+          );
+          return;
+        }
+
+        if (
+          error.code === "RATE_LIMIT_QUOTA" &&
+          error.retryAfterMs !== undefined
+        ) {
+          setSuggestionError(getRateLimitMessage("QUOTA", error.retryAfterMs));
+          return;
+        }
+
+        setSuggestionError(
+          error.message || t("situation.ai_suggestion.generic_error"),
+        );
+        return;
+      }
+
+      setSuggestionError(t("situation.ai_suggestion.generic_error"));
     } finally {
       setIsSuggestionLoading(false);
     }
@@ -179,19 +241,39 @@ export const StepSituation: React.FC = () => {
     },
   };
 
-  const renderHelpMeWriteButton = (field: SituationField) => (
-    <Box sx={helpButtonContainerStyles}>
-      <Button
-        type="button"
-        variant="text"
-        size="small"
-        onClick={() => handleHelpMeWrite(field)}
-        disabled={isSuggestionLoading}
-      >
-        {t("situation.ai_suggestion.help_button")}
-      </Button>
-    </Box>
-  );
+  const renderHelpMeWriteButton = (field: SituationField) => {
+    const showCooldownLabel =
+      !limitStatus.allowed && limitStatus.reason === "COOLDOWN";
+
+    return (
+      <Box sx={helpButtonContainerStyles}>
+        <Button
+          type="button"
+          variant="text"
+          size="small"
+          onClick={() => handleHelpMeWrite(field)}
+          disabled={isSuggestionLoading || isHelpMeWriteBlocked}
+        >
+          {showCooldownLabel
+            ? t("situation.ai_suggestion.rate_limit_cooldown_button", {
+                seconds: formatRetryAfterSeconds(limitStatus.retryAfterMs),
+              })
+            : t("situation.ai_suggestion.help_button")}
+        </Button>
+        {rateLimitedField === field && rateLimitMessage ? (
+          <Typography
+            component="p"
+            variant="caption"
+            color="error"
+            role="alert"
+            sx={{ mt: 0.5, textAlign: "end" }}
+          >
+            {rateLimitMessage}
+          </Typography>
+        ) : null}
+      </Box>
+    );
+  };
 
   const renderSituationTextField = (field: SituationField) => (
     <Grid size={12} key={field}>

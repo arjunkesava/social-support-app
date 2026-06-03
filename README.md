@@ -39,6 +39,15 @@
 
 The React client calls `http://localhost:4000/api/help-me-write` by default. To use a different backend URL, set `VITE_API_BASE_URL` before starting Vite.
 
+### Help Me Write rate limits
+
+Both the React client and the backend enforce the same limits to reduce OpenAI cost and abuse:
+
+- **30 seconds** between requests (per browser session on the client, per IP on the server)
+- **5 requests** per **10 minutes** (same scope)
+
+The backend returns HTTP `429` with `code` (`COOLDOWN` or `QUOTA`) and `retryAfterMs` when a limit is exceeded. If you deploy behind nginx or similar, set `TRUST_PROXY=true` in `backend/.env` so per-IP limits use `X-Forwarded-For`.
+
 ### Fixing local certificate errors
 
 If the backend logs `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`, Node cannot verify the certificate chain for the OpenAI HTTPS request. This usually happens on corporate, school, antivirus, VPN, proxy, or custom local certificate networks.

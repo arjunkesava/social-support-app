@@ -104,7 +104,10 @@
       "edit": "Editar",
       "accept": "Aceptar",
       "timeout_error": "La sugerencia de redacción tardó demasiado. Inténtelo de nuevo.",
-      "generic_error": "No pudimos generar una sugerencia en este momento. Inténtelo de nuevo en unos instantes."
+      "generic_error": "No pudimos generar una sugerencia en este momento. Inténtelo de nuevo en unos instantes.",
+      "rate_limit_cooldown": "Espere {{seconds}} segundos antes de solicitar otra sugerencia.",
+      "rate_limit_cooldown_button": "Disponible en {{seconds}} s",
+      "rate_limit_quota": "Ha alcanzado el límite de sugerencias de redacción. Inténtelo de nuevo en {{minutes}} minutos."
     },
     "submission": {
       "submitting": "Enviando solicitud...",

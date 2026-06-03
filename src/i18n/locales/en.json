@@ -104,7 +104,10 @@
       "edit": "Edit",
       "accept": "Accept",
       "timeout_error": "The writing suggestion took too long. Please try again.",
-      "generic_error": "We could not generate a suggestion right now. Please try again in a moment."
+      "generic_error": "We could not generate a suggestion right now. Please try again in a moment.",
+      "rate_limit_cooldown": "Please wait {{seconds}} seconds before requesting another suggestion.",
+      "rate_limit_cooldown_button": "Available in {{seconds}}s",
+      "rate_limit_quota": "You've reached the limit for writing suggestions. Try again in {{minutes}} minutes."
     },
     "submission": {
       "submitting": "Submitting application...",
