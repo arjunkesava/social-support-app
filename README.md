@@ -1,4 +1,4 @@
-# Social Support Application Portal
+# Social Support Portal
 
 <video src="public/screen-cast-demo.mp4" controls width="100%">
   Your browser does not support the video tag.
