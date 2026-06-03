@@ -71,7 +71,7 @@ export const StepSituation: React.FC = () => {
           type="button"
           variant="text"
           size="small"
-          onClick={() => handleHelpMeWrite(field)}
+          onClick={(e) => handleHelpMeWrite(field, e.currentTarget)}
           disabled={isSuggestionLoading || isHelpMeWriteBlocked}
         >
           {showCooldownLabel

@@ -53,11 +53,13 @@ const submissionClient = axios.create({
 
 export const submitApplication = async (
   application: FormData,
+  signal?: AbortSignal,
 ): Promise<ApplicationSubmissionResponse> => {
   try {
     const response = await submissionClient.post<ApplicationSubmissionResponse>(
       "/applications",
       application,
+      { signal },
     );
     return response.data;
   } catch (error) {

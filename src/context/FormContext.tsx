@@ -30,29 +30,19 @@ export const FormContextProvider: React.FC<{ children: React.ReactNode }> = ({
     return (saved as Language) || "en";
   });
 
-  // Sync to localStorage
+  // Sync all persisted state to localStorage in a single effect
   useEffect(() => {
     localStorage.setItem("social_support_form_data", JSON.stringify(formData));
-  }, [formData]);
-
-  useEffect(() => {
     localStorage.setItem("social_support_step", activeStep.toString());
-  }, [activeStep]);
-
-  useEffect(() => {
     localStorage.setItem("social_support_theme", themeMode);
-  }, [themeMode]);
-
-  useEffect(() => {
     localStorage.setItem("social_support_lang", language);
     i18n.changeLanguage(language);
 
-    // Apply RTL/LTR class and attributes to document elements
     const dir = language === "ar" ? "rtl" : "ltr";
     document.documentElement.dir = dir;
     document.body.dir = dir;
     document.documentElement.lang = language;
-  }, [language]);
+  }, [formData, activeStep, themeMode, language]);
 
   const updateStepData = <T extends keyof FormData>(
     step: T,

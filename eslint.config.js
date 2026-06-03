@@ -15,6 +15,13 @@ export default defineConfig([
     },
   },
   {
+    files: ["backend/**/*.ts"],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,

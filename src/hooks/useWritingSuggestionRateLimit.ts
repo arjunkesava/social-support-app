@@ -5,9 +5,11 @@ import {
   type WritingSuggestionRateLimitCheck,
 } from "../utils/writingSuggestionRateLimit";
 
+const EMPTY: number[] = [];
+
 export const useWritingSuggestionRateLimit = () => {
-  const [requestTimestamps, setRequestTimestamps] = useState<number[]>([]);
-  const [now, setNow] = useState(() => Date.now());
+  const [requestTimestamps, setRequestTimestamps] = useState<number[]>(EMPTY);
+  const [now, setNow] = useState(Date.now);
 
   const limitStatus = useMemo(
     () => checkWritingSuggestionRateLimit(requestTimestamps, now),
@@ -30,6 +32,7 @@ export const useWritingSuggestionRateLimit = () => {
 
   const tryConsumeRequest = useCallback((): WritingSuggestionRateLimitCheck => {
     const currentTime = Date.now();
+
     const check = checkWritingSuggestionRateLimit(
       requestTimestamps,
       currentTime,
@@ -40,9 +43,15 @@ export const useWritingSuggestionRateLimit = () => {
       return check;
     }
 
-    setRequestTimestamps((previous) =>
-      recordWritingSuggestionRequest(previous, currentTime),
-    );
+    setRequestTimestamps((previous) => {
+      const updated = recordWritingSuggestionRequest(previous, currentTime);
+      const recheck = checkWritingSuggestionRateLimit(updated, currentTime);
+      if (!recheck.allowed) {
+        setNow(currentTime);
+      }
+      return updated;
+    });
+
     setNow(currentTime);
     return { allowed: true };
   }, [requestTimestamps]);

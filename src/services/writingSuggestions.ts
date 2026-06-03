@@ -60,21 +60,18 @@ const parseErrorResponse = (
     return undefined;
   }
 
-  const response = data as WritingSuggestionErrorResponse;
-  if (typeof response.message !== "string") {
-    return undefined;
-  }
-
-  return response;
+  return data as WritingSuggestionErrorResponse;
 };
 
 export const getWritingSuggestion = async (
   payload: WritingSuggestionRequest,
+  signal?: AbortSignal,
 ): Promise<string> => {
   try {
     const response = await apiClient.post<WritingSuggestionResponse>(
       "/api/help-me-write",
       payload,
+      { signal },
     );
 
     const suggestion = response.data.suggestion?.trim();
@@ -107,9 +104,12 @@ export const getWritingSuggestion = async (
             ? errorResponse.retryAfterMs
             : undefined;
 
+        const rateLimitMessage =
+          errorResponse.message ?? "Rate limit exceeded. Please try again.";
+
         if (errorResponse.code === "COOLDOWN") {
           throw new WritingSuggestionError(
-            errorResponse.message,
+            rateLimitMessage,
             "RATE_LIMIT_COOLDOWN",
             retryAfterMs,
           );
@@ -117,7 +117,7 @@ export const getWritingSuggestion = async (
 
         if (errorResponse.code === "QUOTA") {
           throw new WritingSuggestionError(
-            errorResponse.message,
+            rateLimitMessage,
             "RATE_LIMIT_QUOTA",
             retryAfterMs,
           );
@@ -125,7 +125,7 @@ export const getWritingSuggestion = async (
       }
 
       const message =
-        errorResponse?.message ||
+        errorResponse?.message ??
         "Unable to generate a suggestion right now. Please try again.";
 
       throw new WritingSuggestionError(message, "SERVER");

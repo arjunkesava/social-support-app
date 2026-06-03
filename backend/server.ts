@@ -1,9 +1,15 @@
 import cors from "cors";
 import dotenv from "dotenv";
-import express from "express";
+import express, { type Request, type Response } from "express";
 import { fileURLToPath } from "node:url";
 import OpenAI from "openai";
 import { helpMeWriteRateLimiter } from "./writingSuggestionRateLimit.js";
+import type {
+  BuildPromptParams,
+  OpenAIErrorResponse,
+  HelpMeWriteRequest,
+  SituationField,
+} from "./types.js";
 
 dotenv.config({ path: fileURLToPath(new URL(".env", import.meta.url)) });
 dotenv.config();
@@ -24,7 +30,7 @@ const openai = new OpenAI({
 app.use(cors({ origin: allowedOrigin }));
 app.use(express.json({ limit: "1mb" }));
 
-const fieldInstructions = {
+const fieldInstructions: Record<SituationField, string> = {
   financialSituation:
     "current financial situation, including income pressure, debts, assets, and urgent needs",
   employmentCircumstances:
@@ -33,7 +39,7 @@ const fieldInstructions = {
     "reason for applying and how social support would help stabilize the applicant",
 };
 
-const sanitizeText = (value) => {
+const sanitizeText = (value: unknown): string => {
   if (value === undefined || value === null || value === "") {
     return "Not provided";
   }
@@ -48,15 +54,18 @@ const buildPrompt = ({
   personal,
   family,
   language = "en",
-}) => {
-  const fieldFocus = fieldInstructions[field] || fieldLabel;
+}: BuildPromptParams): string => {
+  const fieldFocus =
+    field in fieldInstructions
+      ? fieldInstructions[field as SituationField]
+      : fieldLabel;
 
   const languageInstruction =
     {
       en: "Write in English.",
       es: "Write in Spanish.",
       ar: "Write in Modern Standard Arabic.",
-    }[language] ||
+    }[language] ??
     `Write in the same language as the target field label (${fieldLabel}).`;
 
   return [
@@ -90,9 +99,24 @@ const buildPrompt = ({
   ].join("\n");
 };
 
-const getOpenAIErrorResponse = (error) => {
+type OpenAIErrorLike = {
+  status?: number;
+  error?: { message?: string };
+  message?: string;
+  code?: string;
+  cause?: {
+    code?: string;
+    cause?: {
+      code?: string;
+    };
+  };
+};
+
+const getOpenAIErrorResponse = (error: unknown): OpenAIErrorResponse => {
+  const err = error as OpenAIErrorLike;
+
   const certificateErrorCode =
-    error?.cause?.cause?.code || error?.cause?.code || error?.code;
+    err?.cause?.cause?.code || err?.cause?.code || err?.code;
 
   if (certificateErrorCode === "UNABLE_TO_GET_ISSUER_CERT_LOCALLY") {
     return {
@@ -102,8 +126,8 @@ const getOpenAIErrorResponse = (error) => {
     };
   }
 
-  const status = error?.status;
-  const apiMessage = error?.error?.message || error?.message;
+  const status = err?.status;
+  const apiMessage = err?.error?.message || err?.message;
 
   if (status === 401) {
     return {
@@ -139,70 +163,74 @@ const getOpenAIErrorResponse = (error) => {
   };
 };
 
-app.get("/health", (_req, res) => {
+app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
-app.post("/api/help-me-write", helpMeWriteRateLimiter, async (req, res) => {
-  const {
-    field,
-    fieldLabel,
-    existingText = "",
-    personal,
-    family,
-  } = req.body || {};
+app.post(
+  "/api/help-me-write",
+  helpMeWriteRateLimiter,
+  async (req: Request, res: Response) => {
+    const {
+      field,
+      fieldLabel,
+      existingText = "",
+      personal,
+      family,
+    } = (req.body as HelpMeWriteRequest) || {};
 
-  if (!field || !fieldLabel || !personal || !family) {
-    return res
-      .status(400)
-      .json({ message: "Missing required suggestion details." });
-  }
-
-  if (!process.env.OPENAI_API_KEY) {
-    return res
-      .status(500)
-      .json({ message: "OpenAI API key is not configured." });
-  }
-
-  try {
-    const completion = await openai.chat.completions.create({
-      model: openaiModel,
-      messages: [
-        {
-          role: "system",
-          content:
-            "You help applicants write concise, respectful first-person statements for social support applications. Reply with only the suggested paragraph text—no headings, quotes, or commentary.",
-        },
-        {
-          role: "user",
-          content: buildPrompt({
-            field,
-            fieldLabel,
-            existingText,
-            personal,
-            family,
-          }),
-        },
-      ],
-      temperature: 0.7,
-    });
-
-    const suggestion = completion.choices[0]?.message?.content?.trim();
-
-    if (!suggestion) {
-      return res.status(502).json({
-        message: "OpenAI returned an empty suggestion. Please try again.",
-      });
+    if (!field || !fieldLabel || !personal || !family) {
+      return res
+        .status(400)
+        .json({ message: "Missing required suggestion details." });
     }
 
-    return res.json({ suggestion });
-  } catch (error) {
-    console.error("OpenAI suggestion error:", error);
+    if (!process.env.OPENAI_API_KEY) {
+      return res
+        .status(500)
+        .json({ message: "OpenAI API key is not configured." });
+    }
 
-    const { status, message } = getOpenAIErrorResponse(error);
-    return res.status(status).json({ message });
-  }
-});
+    try {
+      const completion = await openai.chat.completions.create({
+        model: openaiModel,
+        messages: [
+          {
+            role: "system",
+            content:
+              "You help applicants write concise, respectful first-person statements for social support applications. Reply with only the suggested paragraph text—no headings, quotes, or commentary.",
+          },
+          {
+            role: "user",
+            content: buildPrompt({
+              field,
+              fieldLabel,
+              existingText,
+              personal,
+              family,
+            }),
+          },
+        ],
+        temperature: 0.7,
+      });
+
+      const suggestion = completion.choices[0]?.message?.content?.trim();
+
+      if (!suggestion) {
+        return res.status(502).json({
+          message: "OpenAI returned an empty suggestion. Please try again.",
+        });
+      }
+
+      return res.json({ suggestion });
+    } catch (error) {
+      console.error("OpenAI suggestion error:", error);
+
+      const { status, message } = getOpenAIErrorResponse(error);
+      return res.status(status).json({ message });
+    }
+  },
+);
 
 app.listen(port, () => {
   console.log(`Help Me Write backend is running on http://localhost:${port}`);

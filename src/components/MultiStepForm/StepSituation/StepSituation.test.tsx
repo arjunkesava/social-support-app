@@ -134,6 +134,7 @@ describe("StepSituation AI suggestions", () => {
         field: "financialSituation",
         existingText: "",
       }),
+      expect.any(AbortSignal),
     );
   });
 
@@ -273,6 +274,7 @@ describe("StepSituation submission", () => {
             reasonForApplying: validSituationText,
           }),
         }),
+        expect.any(AbortSignal),
       );
     });
 

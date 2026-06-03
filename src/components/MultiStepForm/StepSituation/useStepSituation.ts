@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -37,6 +37,10 @@ export const useStepSituation = () => {
     useState<SituationField | null>(null);
   const [piiConsentGiven, setPiiConsentGiven] = useState<boolean | null>(null);
 
+  const suggestionAbortRef = useRef<AbortController | null>(null);
+  const submitAbortRef = useRef<AbortController | null>(null);
+  const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
+
   const { limitStatus, tryConsumeRequest } = useWritingSuggestionRateLimit();
 
   const isRtl = i18n.language === "ar";
@@ -48,7 +52,10 @@ export const useStepSituation = () => {
     setValue,
     formState: { errors },
   } = useForm<SituationDescriptions>({
-    defaultValues: formData.situation,
+    values: formData.situation,
+    resetOptions: {
+      keepDirtyValues: true,
+    },
     mode: "onTouched",
   });
 
@@ -57,11 +64,21 @@ export const useStepSituation = () => {
     updateStepData("situation", data);
     setIsSubmitting(true);
 
+    submitAbortRef.current?.abort();
+    submitAbortRef.current = new AbortController();
+
     try {
-      await submitApplication({ ...formData, situation: data });
+      await submitApplication(
+        { ...formData, situation: data },
+        submitAbortRef.current.signal,
+      );
       setActiveStep(3);
       navigate("/success");
     } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return;
+      }
+
       if (
         error instanceof ApplicationSubmissionError &&
         error.code === "TIMEOUT"
@@ -73,6 +90,7 @@ export const useStepSituation = () => {
       setSubmitError(t("situation.submission.generic_error"));
     } finally {
       setIsSubmitting(false);
+      submitAbortRef.current = null;
     }
   };
 
@@ -97,9 +115,13 @@ export const useStepSituation = () => {
 
   const isHelpMeWriteBlocked = !limitStatus.allowed || piiConsentGiven !== true;
 
-  const handleHelpMeWrite = async (field: SituationField) => {
+  const handleHelpMeWrite = async (
+    field: SituationField,
+    triggerButton?: HTMLButtonElement | null,
+  ) => {
     setRateLimitMessage("");
     setRateLimitedField(null);
+    triggerButtonRef.current = triggerButton ?? null;
 
     const rateLimitCheck = tryConsumeRequest();
     if (!rateLimitCheck.allowed) {
@@ -116,17 +138,27 @@ export const useStepSituation = () => {
     setIsEditingSuggestion(false);
     setIsSuggestionLoading(true);
 
+    suggestionAbortRef.current?.abort();
+    suggestionAbortRef.current = new AbortController();
+
     try {
-      const nextSuggestion = await getWritingSuggestion({
-        field,
-        fieldLabel: t(situationFieldLabelKeys[field]),
-        existingText: getValues(field),
-        personal: formData.personal,
-        family: formData.family,
-      });
+      const nextSuggestion = await getWritingSuggestion(
+        {
+          field,
+          fieldLabel: t(situationFieldLabelKeys[field]),
+          existingText: getValues(field),
+          personal: formData.personal,
+          family: formData.family,
+        },
+        suggestionAbortRef.current.signal,
+      );
 
       setSuggestion(nextSuggestion);
     } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return;
+      }
+
       if (error instanceof WritingSuggestionError) {
         if (error.code === "TIMEOUT") {
           setSuggestionError(t("situation.ai_suggestion.timeout_error"));
@@ -160,6 +192,7 @@ export const useStepSituation = () => {
       setSuggestionError(t("situation.ai_suggestion.generic_error"));
     } finally {
       setIsSuggestionLoading(false);
+      suggestionAbortRef.current = null;
     }
   };
 
@@ -185,11 +218,14 @@ export const useStepSituation = () => {
   };
 
   const handleCloseSuggestion = () => {
+    suggestionAbortRef.current?.abort();
+    suggestionAbortRef.current = null;
     setActiveSuggestionField(null);
     setSuggestion("");
     setSuggestionError("");
     setIsEditingSuggestion(false);
     setIsSuggestionLoading(false);
+    window.setTimeout(() => triggerButtonRef.current?.focus(), 0);
   };
 
   const situationFieldRules = {

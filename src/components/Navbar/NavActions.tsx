@@ -45,7 +45,20 @@ export const NavActions: React.FC = () => {
 
       {/* Language Selector */}
       <FormControl variant="outlined" size="small">
-        <InputLabel id="language-select-label" sx={{ display: "none" }}>
+        <InputLabel
+          id="language-select-label"
+          sx={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            padding: 0,
+            margin: -1,
+            overflow: "hidden",
+            clip: "rect(0, 0, 0, 0)",
+            whiteSpace: "nowrap",
+            border: 0,
+          }}
+        >
           {t("nav.language")}
         </InputLabel>
         <Select

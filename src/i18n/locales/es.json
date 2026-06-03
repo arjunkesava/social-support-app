@@ -116,6 +116,11 @@
       "generic_error": "No pudimos enviar su solicitud en este momento. Inténtelo de nuevo en unos instantes."
     }
   },
+  "error_boundary": {
+    "title": "Algo salió mal",
+    "default_message": "Ocurrió un error inesperado.",
+    "retry": "Intentar de nuevo"
+  },
   "demo_autofill": {
     "fab_tooltip": "Autocompletar usuarios de demostración",
     "title": "Asistente de autocompletado de demostración",

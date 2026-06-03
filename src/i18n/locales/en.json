@@ -122,6 +122,11 @@
     "decline": "No, I don't consent",
     "declined_message": "You have declined consent. The \"Help me write\" feature is disabled."
   },
+  "error_boundary": {
+    "title": "Something went wrong",
+    "default_message": "An unexpected error occurred.",
+    "retry": "Try again"
+  },
   "demo_autofill": {
     "fab_tooltip": "Autofill Demo Users",
     "title": "Demo Autofill Helper",
