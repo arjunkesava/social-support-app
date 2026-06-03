@@ -1,13 +1,8 @@
-import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useFormContext } from "../../context/FormContext.shared";
+import type { StepRouteGuardProps } from "./types";
 
 const stepRoutes = ["/personal", "/family", "/situation", "/success"];
-
-interface StepRouteGuardProps {
-  children: ReactNode;
-  stepIndex: number;
-}
 
 export const StepRouteGuard = ({
   children,

@@ -48,6 +48,15 @@ vi.mock("../../../services/applicationSubmission", async (importOriginal) => {
 const validSituationText =
   "This is a valid description that meets the minimum length requirement.";
 
+const givePiiConsent = () => {
+  fireEvent.click(screen.getByRole("button", { name: /yes, i consent/i }));
+};
+
+const renderAndConsent = () => {
+  renderWithProviders(<StepSituation />);
+  givePiiConsent();
+};
+
 const fillValidSituationFields = () => {
   fireEvent.change(screen.getByLabelText(/current financial situation/i), {
     target: { value: validSituationText },
@@ -105,7 +114,7 @@ describe("StepSituation AI suggestions", () => {
       "Suggested financial situation text for the applicant.",
     );
 
-    renderWithProviders(<StepSituation />);
+    renderAndConsent();
 
     const [helpButton] = screen.getAllByRole("button", {
       name: /help me write/i,
@@ -133,7 +142,7 @@ describe("StepSituation AI suggestions", () => {
       "Accepted AI suggestion for financial situation.",
     );
 
-    renderWithProviders(<StepSituation />);
+    renderAndConsent();
 
     const [helpButton] = screen.getAllByRole("button", {
       name: /help me write/i,
@@ -160,7 +169,7 @@ describe("StepSituation AI suggestions", () => {
       new WritingSuggestionError("Writing suggestion timed out.", "TIMEOUT"),
     );
 
-    renderWithProviders(<StepSituation />);
+    renderAndConsent();
 
     const [helpButton] = screen.getAllByRole("button", {
       name: /help me write/i,
@@ -182,7 +191,7 @@ describe("StepSituation AI suggestions", () => {
       ),
     );
 
-    renderWithProviders(<StepSituation />);
+    renderAndConsent();
 
     const [helpButton] = screen.getAllByRole("button", {
       name: /help me write/i,
@@ -208,7 +217,7 @@ describe("StepSituation AI suggestion rate limiting", () => {
       "Suggested financial situation text for the applicant.",
     );
 
-    renderWithProviders(<StepSituation />);
+    renderAndConsent();
 
     const [helpButton] = screen.getAllByRole("button", {
       name: /help me write/i,

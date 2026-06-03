@@ -8,10 +8,7 @@ import {
   mainWrapperStyles,
   contentContainerStyles,
 } from "./styles";
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
+import type { LayoutProps } from "./types";
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { themeMode, language } = useFormContext();

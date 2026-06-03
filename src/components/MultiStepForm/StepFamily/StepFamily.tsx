@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
@@ -11,47 +11,19 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useFormContext } from "../../../context/FormContext.shared";
-import type { FamilyFinancialInfo } from "../../../context/FormContext.shared";
+import { useStepFamily } from "./useStepFamily";
+import { currencyOptions } from "./types";
 import { formFieldGridStyles, formActionContainerStyles } from "../styles";
 
-const currencyOptions = ["INR", "AED", "BHD", "KWD", "OMR", "QAR", "SAR"];
-
 export const StepFamily: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const { formData, updateStepData, setActiveStep } = useFormContext();
-  const navigate = useNavigate();
-
-  const isRtl = i18n.language === "ar";
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FamilyFinancialInfo>({
-    values: formData.family,
-    resetOptions: {
-      keepDirtyValues: true,
-    },
-    mode: "onTouched",
-  });
-
-  const onSubmit = (data: FamilyFinancialInfo) => {
-    updateStepData("family", data);
-    setActiveStep(2);
-    navigate("/situation");
-  };
-
-  const handleBack = () => {
-    navigate("/personal");
-  };
+  const { t } = useTranslation();
+  const { isRtl, control, errors, handleSubmit, onSubmit, handleBack } =
+    useStepFamily();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Grid container spacing={3} sx={formFieldGridStyles}>
-        {/* Marital Status */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
             name="maritalStatus"
@@ -91,7 +63,6 @@ export const StepFamily: React.FC = () => {
           />
         </Grid>
 
-        {/* Dependents */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
             name="dependents"
@@ -131,7 +102,6 @@ export const StepFamily: React.FC = () => {
           />
         </Grid>
 
-        {/* Employment Status */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
             name="employmentStatus"
@@ -176,7 +146,6 @@ export const StepFamily: React.FC = () => {
           />
         </Grid>
 
-        {/* Housing Status */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
             name="housingStatus"
@@ -218,7 +187,6 @@ export const StepFamily: React.FC = () => {
 
         <Grid size={12}>
           <Grid container spacing={2}>
-            {/* Monthly Income */}
             <Grid size={{ xs: 12, sm: 6 }}>
               <Controller
                 name="monthlyIncome"
@@ -257,7 +225,6 @@ export const StepFamily: React.FC = () => {
                 )}
               />
             </Grid>
-            {/* Currency Type */}
             <Grid size={{ xs: 12, sm: 6 }}>
               <Controller
                 name="currency"
@@ -293,7 +260,6 @@ export const StepFamily: React.FC = () => {
         </Grid>
       </Grid>
 
-      {/* Button Actions */}
       <Box sx={formActionContainerStyles}>
         <Button
           variant="outlined"

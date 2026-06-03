@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -13,45 +13,21 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import ArrowForward from "@mui/icons-material/ArrowForward";
-import { useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
-import { useFormContext } from "../../../context/FormContext.shared";
-import type { PersonalInfo } from "../../../context/FormContext.shared";
 import { EMIRATES_ID_PATTERN } from "../../../utils/emiratesId";
+import { useStepPersonal } from "./useStepPersonal";
 import { formFieldGridStyles, formActionContainerStyles } from "../styles";
 
 export const StepPersonal: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const { formData, updateStepData, setActiveStep } = useFormContext();
-  const navigate = useNavigate();
-
-  const isRtl = i18n.language === "ar";
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PersonalInfo>({
-    values: formData.personal,
-    resetOptions: {
-      keepDirtyValues: true,
-    },
-    mode: "onTouched",
-  });
-
-  const onSubmit = (data: PersonalInfo) => {
-    updateStepData("personal", data);
-    setActiveStep(1);
-    navigate("/family");
-  };
+  const { t } = useTranslation();
+  const { isRtl, control, errors, handleSubmit, onSubmit } = useStepPersonal();
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={3} sx={formFieldGridStyles}>
-          {/* Name */}
           <Grid size={12}>
             <Controller
               name="name"
@@ -79,7 +55,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* National ID */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <Controller
               name="nationalId"
@@ -114,14 +89,11 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* Date of Birth */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <Controller
               name="dob"
               control={control}
-              rules={{
-                required: t("validation.required"),
-              }}
+              rules={{ required: t("validation.required") }}
               render={({ field }) => (
                 <DatePicker
                   disableFuture
@@ -153,7 +125,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* Gender */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <Controller
               name="gender"
@@ -190,7 +161,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* Phone */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <Controller
               name="phone"
@@ -224,7 +194,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* Email */}
           <Grid size={12}>
             <Controller
               name="email"
@@ -258,7 +227,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* Address */}
           <Grid size={12}>
             <Controller
               name="address"
@@ -289,7 +257,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* City */}
           <Grid size={{ xs: 12, sm: 4 }}>
             <Controller
               name="city"
@@ -316,7 +283,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* State */}
           <Grid size={{ xs: 12, sm: 4 }}>
             <Controller
               name="state"
@@ -343,7 +309,6 @@ export const StepPersonal: React.FC = () => {
             />
           </Grid>
 
-          {/* Country */}
           <Grid size={{ xs: 12, sm: 4 }}>
             <Controller
               name="country"
@@ -371,7 +336,6 @@ export const StepPersonal: React.FC = () => {
           </Grid>
         </Grid>
 
-        {/* Button Actions */}
         <Box sx={formActionContainerStyles}>
           <Box />
           <Button

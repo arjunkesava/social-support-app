@@ -9,12 +9,7 @@ import {
   piiConsentActionsStyles,
   piiConsentDeclinedStyles,
 } from "./styles";
-
-type PiiConsentProps = {
-  consentGiven: boolean | null;
-  onConsent: () => void;
-  onDecline: () => void;
-};
+import type { PiiConsentProps } from "./types";
 
 export const PiiConsent: React.FC<PiiConsentProps> = ({
   consentGiven,

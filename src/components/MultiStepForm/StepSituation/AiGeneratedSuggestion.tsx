@@ -10,18 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { useTranslation } from "react-i18next";
 import { suggestionProgressSpinnerStyles, suggestionStyles } from "../styles";
-
-type AiGeneratedSuggestionProps = {
-  open: boolean;
-  suggestion: string;
-  suggestionError: string;
-  isLoading: boolean;
-  isEditing: boolean;
-  onAccept: () => void;
-  onClose: () => void;
-  onEdit: () => void;
-  onSuggestionChange: (suggestion: string) => void;
-};
+import type { AiGeneratedSuggestionProps } from "./AiGeneratedSuggestion/types";
 
 export const AiGeneratedSuggestion: React.FC<AiGeneratedSuggestionProps> = ({
   open,

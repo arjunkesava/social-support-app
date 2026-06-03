@@ -5,26 +5,19 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import type { SelectChangeEvent } from "@mui/material";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 import TranslateOutlined from "@mui/icons-material/TranslateOutlined";
-import { useTranslation } from "react-i18next";
-import { useFormContext } from "../../context/FormContext.shared";
-import type { Language } from "../../context/FormContext.shared";
 import {
   navActionsContainerStyles,
   switchWrapperStyles,
   selectLanguageStyles,
 } from "./styles";
+import { useNavActions } from "./useNavActions";
 
 export const NavActions: React.FC = () => {
-  const { t } = useTranslation();
-  const { themeMode, toggleTheme, language, changeLanguage } = useFormContext();
-
-  const handleLanguageChange = (event: SelectChangeEvent<Language>) => {
-    changeLanguage(event.target.value as Language);
-  };
+  const { t, themeMode, toggleTheme, language, handleLanguageChange } =
+    useNavActions();
 
   return (
     <Box sx={navActionsContainerStyles}>

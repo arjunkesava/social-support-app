@@ -6,41 +6,23 @@ import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import RestartAlt from "@mui/icons-material/RestartAlt";
 import CheckCircleOutlined from "@mui/icons-material/CheckCircleOutlined";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useFormContext } from "../../../context/FormContext.shared";
+import { useStepSuccess } from "./useStepSuccess";
 import {
   successContainerStyles,
   successIconStyles,
   summarySectionCardStyles,
-  reviewGridLabelStyles,
-  reviewGridValueStyles,
 } from "../styles";
 
 export const StepSuccess: React.FC = () => {
   const { t } = useTranslation();
-  const { formData, resetForm } = useFormContext();
-  const navigate = useNavigate();
-  const monthlyIncome =
-    formData.family.monthlyIncome !== ""
-      ? `${formData.family.currency} ${formData.family.monthlyIncome}`
-      : "";
-  const translateOption = (key: string, fallback: string) =>
-    t(key, { defaultValue: fallback });
-
-  const handleReset = () => {
-    resetForm();
-    navigate("/personal");
-  };
-
-  const renderDetailItem = (label: string, value: string | number) => (
-    <Box sx={{ marginBottom: "1.25rem" }}>
-      <Typography sx={reviewGridLabelStyles}>{label}</Typography>
-      <Typography sx={reviewGridValueStyles}>
-        {value !== undefined && value !== "" ? value : t("success.no_value")}
-      </Typography>
-    </Box>
-  );
+  const {
+    formData,
+    monthlyIncome,
+    translateOption,
+    renderDetailItem,
+    handleReset,
+  } = useStepSuccess();
 
   return (
     <Box sx={successContainerStyles}>
