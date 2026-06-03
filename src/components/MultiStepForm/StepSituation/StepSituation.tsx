@@ -25,6 +25,7 @@ import {
   type SituationField,
 } from "../../../services/writingSuggestions";
 import AiGeneratedSuggestion from "./AiGeneratedSuggestion";
+import { PiiConsent } from "../../PiiConsent/PiiConsent";
 import { useWritingSuggestionRateLimit } from "../../../hooks/useWritingSuggestionRateLimit";
 import {
   formatRetryAfterMinutes,
@@ -59,6 +60,7 @@ export const StepSituation: React.FC = () => {
   const [rateLimitMessage, setRateLimitMessage] = useState("");
   const [rateLimitedField, setRateLimitedField] =
     useState<SituationField | null>(null);
+  const [piiConsentGiven, setPiiConsentGiven] = useState<boolean | null>(null);
 
   const { limitStatus, tryConsumeRequest } = useWritingSuggestionRateLimit();
 
@@ -136,7 +138,7 @@ export const StepSituation: React.FC = () => {
     });
   };
 
-  const isHelpMeWriteBlocked = !limitStatus.allowed;
+  const isHelpMeWriteBlocked = !limitStatus.allowed || piiConsentGiven !== true;
 
   const handleHelpMeWrite = async (field: SituationField) => {
     setRateLimitMessage("");
@@ -310,6 +312,12 @@ export const StepSituation: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <PiiConsent
+        consentGiven={piiConsentGiven}
+        onConsent={() => setPiiConsentGiven(true)}
+        onDecline={() => setPiiConsentGiven(false)}
+      />
+
       <Grid container spacing={3} sx={formFieldGridStyles}>
         {situationFields.map(renderSituationTextField)}
       </Grid>

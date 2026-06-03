@@ -28,7 +28,6 @@ export const StepFamily: React.FC = () => {
 
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FamilyFinancialInfo>({
@@ -94,30 +93,41 @@ export const StepFamily: React.FC = () => {
 
         {/* Dependents */}
         <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            required
-            id="financial-dependents"
-            label={t("financial.dependents")}
-            type="number"
-            fullWidth
-            variant="outlined"
-            {...register("dependents", {
+          <Controller
+            name="dependents"
+            control={control}
+            rules={{
               required: t("validation.required"),
               min: {
                 value: 0,
                 message: t("validation.min_dependents"),
               },
-              valueAsNumber: true,
-            })}
-            error={!!errors.dependents}
-            helperText={errors.dependents?.message}
-            slotProps={{
-              htmlInput: {
-                "aria-required": "true",
-                "aria-invalid": errors.dependents ? "true" : "false",
-                min: 0,
-              },
             }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                onChange={(e) =>
+                  field.onChange(
+                    e.target.value === "" ? "" : Number(e.target.value),
+                  )
+                }
+                required
+                id="financial-dependents"
+                label={t("financial.dependents")}
+                type="number"
+                fullWidth
+                variant="outlined"
+                error={!!errors.dependents}
+                helperText={errors.dependents?.message}
+                slotProps={{
+                  htmlInput: {
+                    "aria-required": "true",
+                    "aria-invalid": errors.dependents ? "true" : "false",
+                    min: 0,
+                  },
+                }}
+              />
+            )}
           />
         </Grid>
 
@@ -210,30 +220,41 @@ export const StepFamily: React.FC = () => {
           <Grid container spacing={2}>
             {/* Monthly Income */}
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField
-                required
-                id="financial-monthly-income"
-                label={t("financial.monthly_income")}
-                type="number"
-                fullWidth
-                variant="outlined"
-                {...register("monthlyIncome", {
+              <Controller
+                name="monthlyIncome"
+                control={control}
+                rules={{
                   required: t("validation.required"),
                   min: {
                     value: 0,
                     message: t("validation.min_income"),
                   },
-                  valueAsNumber: true,
-                })}
-                error={!!errors.monthlyIncome}
-                helperText={errors.monthlyIncome?.message}
-                slotProps={{
-                  htmlInput: {
-                    "aria-required": "true",
-                    "aria-invalid": errors.monthlyIncome ? "true" : "false",
-                    min: 0,
-                  },
                 }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value === "" ? "" : Number(e.target.value),
+                      )
+                    }
+                    required
+                    id="financial-monthly-income"
+                    label={t("financial.monthly_income")}
+                    type="number"
+                    fullWidth
+                    variant="outlined"
+                    error={!!errors.monthlyIncome}
+                    helperText={errors.monthlyIncome?.message}
+                    slotProps={{
+                      htmlInput: {
+                        "aria-required": "true",
+                        "aria-invalid": errors.monthlyIncome ? "true" : "false",
+                        min: 0,
+                      },
+                    }}
+                  />
+                )}
               />
             </Grid>
             {/* Currency Type */}

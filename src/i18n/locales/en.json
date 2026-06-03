@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "Social Support Forum"
+    "title": "Social Support Portal"
   },
   "nav": {
     "toggle_dark": "Dark Mode",
@@ -115,6 +115,12 @@
       "timeout_error": "Your submission took too long. Please check your connection and try again.",
       "generic_error": "We could not submit your application right now. Please try again in a moment."
     }
+  },
+  "pii_consent": {
+    "notice": "Your personal and financial information will be used to generate AI-powered writing suggestions. Do you consent?",
+    "accept": "Yes, I consent",
+    "decline": "No, I don't consent",
+    "declined_message": "You have declined consent. The \"Help me write\" feature is disabled."
   },
   "demo_autofill": {
     "fab_tooltip": "Autofill Demo Users",

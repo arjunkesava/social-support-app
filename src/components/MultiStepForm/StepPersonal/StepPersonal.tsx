@@ -31,7 +31,6 @@ export const StepPersonal: React.FC = () => {
 
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<PersonalInfo>({
@@ -54,52 +53,64 @@ export const StepPersonal: React.FC = () => {
         <Grid container spacing={3} sx={formFieldGridStyles}>
           {/* Name */}
           <Grid size={12}>
-            <TextField
-              required
-              autoFocus
-              id="personal-name"
-              label={t("personal.name")}
-              fullWidth
-              variant="outlined"
-              {...register("name", {
-                required: t("validation.required"),
-              })}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.name ? "true" : "false",
-                },
-              }}
+            <Controller
+              name="name"
+              control={control}
+              rules={{ required: t("validation.required") }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  autoFocus
+                  id="personal-name"
+                  label={t("personal.name")}
+                  fullWidth
+                  variant="outlined"
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.name ? "true" : "false",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
           {/* National ID */}
           <Grid size={{ xs: 12, sm: 6 }}>
-            <TextField
-              required
-              id="personal-national-id"
-              label={t("personal.national_id")}
-              fullWidth
-              variant="outlined"
-              placeholder={t("personal.national_id_placeholder")}
-              {...register("nationalId", {
+            <Controller
+              name="nationalId"
+              control={control}
+              rules={{
                 required: t("validation.required"),
                 pattern: {
                   value: EMIRATES_ID_PATTERN,
                   message: t("validation.national_id"),
                 },
-              })}
-              error={!!errors.nationalId}
-              helperText={errors.nationalId?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.nationalId ? "true" : "false",
-                  autoComplete: "off",
-                },
               }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-national-id"
+                  label={t("personal.national_id")}
+                  fullWidth
+                  variant="outlined"
+                  placeholder={t("personal.national_id_placeholder")}
+                  error={!!errors.nationalId}
+                  helperText={errors.nationalId?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.nationalId ? "true" : "false",
+                      autoComplete: "off",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
@@ -181,147 +192,181 @@ export const StepPersonal: React.FC = () => {
 
           {/* Phone */}
           <Grid size={{ xs: 12, sm: 6 }}>
-            <TextField
-              required
-              id="personal-phone"
-              label={t("personal.phone")}
-              fullWidth
-              variant="outlined"
-              {...register("phone", {
+            <Controller
+              name="phone"
+              control={control}
+              rules={{
                 required: t("validation.required"),
                 pattern: {
                   value: /^\+?[\d\s-]{7,15}$/,
                   message: t("validation.phone"),
                 },
-              })}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.phone ? "true" : "false",
-                  type: "tel",
-                },
               }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-phone"
+                  label={t("personal.phone")}
+                  fullWidth
+                  variant="outlined"
+                  error={!!errors.phone}
+                  helperText={errors.phone?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.phone ? "true" : "false",
+                      type: "tel",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
           {/* Email */}
           <Grid size={12}>
-            <TextField
-              required
-              id="personal-email"
-              label={t("personal.email")}
-              fullWidth
-              variant="outlined"
-              {...register("email", {
+            <Controller
+              name="email"
+              control={control}
+              rules={{
                 required: t("validation.required"),
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: t("validation.email"),
                 },
-              })}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.email ? "true" : "false",
-                  type: "email",
-                },
               }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-email"
+                  label={t("personal.email")}
+                  fullWidth
+                  variant="outlined"
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.email ? "true" : "false",
+                      type: "email",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
           {/* Address */}
           <Grid size={12}>
-            <TextField
-              required
-              id="personal-address"
-              label={t("personal.address")}
-              fullWidth
-              variant="outlined"
-              multiline
-              minRows={3}
-              maxRows={10}
-              {...register("address", {
-                required: t("validation.required"),
-              })}
-              error={!!errors.address}
-              helperText={errors.address?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.address ? "true" : "false",
-                  style: { resize: "vertical" },
-                },
-              }}
+            <Controller
+              name="address"
+              control={control}
+              rules={{ required: t("validation.required") }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-address"
+                  label={t("personal.address")}
+                  fullWidth
+                  variant="outlined"
+                  multiline
+                  minRows={3}
+                  maxRows={10}
+                  error={!!errors.address}
+                  helperText={errors.address?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.address ? "true" : "false",
+                      style: { resize: "vertical" },
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
           {/* City */}
           <Grid size={{ xs: 12, sm: 4 }}>
-            <TextField
-              required
-              id="personal-city"
-              label={t("personal.city")}
-              fullWidth
-              variant="outlined"
-              {...register("city", {
-                required: t("validation.required"),
-              })}
-              error={!!errors.city}
-              helperText={errors.city?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.city ? "true" : "false",
-                },
-              }}
+            <Controller
+              name="city"
+              control={control}
+              rules={{ required: t("validation.required") }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-city"
+                  label={t("personal.city")}
+                  fullWidth
+                  variant="outlined"
+                  error={!!errors.city}
+                  helperText={errors.city?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.city ? "true" : "false",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
           {/* State */}
           <Grid size={{ xs: 12, sm: 4 }}>
-            <TextField
-              required
-              id="personal-state"
-              label={t("personal.state")}
-              fullWidth
-              variant="outlined"
-              {...register("state", {
-                required: t("validation.required"),
-              })}
-              error={!!errors.state}
-              helperText={errors.state?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.state ? "true" : "false",
-                },
-              }}
+            <Controller
+              name="state"
+              control={control}
+              rules={{ required: t("validation.required") }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-state"
+                  label={t("personal.state")}
+                  fullWidth
+                  variant="outlined"
+                  error={!!errors.state}
+                  helperText={errors.state?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.state ? "true" : "false",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
 
           {/* Country */}
           <Grid size={{ xs: 12, sm: 4 }}>
-            <TextField
-              required
-              id="personal-country"
-              label={t("personal.country")}
-              fullWidth
-              variant="outlined"
-              {...register("country", {
-                required: t("validation.required"),
-              })}
-              error={!!errors.country}
-              helperText={errors.country?.message}
-              slotProps={{
-                htmlInput: {
-                  "aria-required": "true",
-                  "aria-invalid": errors.country ? "true" : "false",
-                },
-              }}
+            <Controller
+              name="country"
+              control={control}
+              rules={{ required: t("validation.required") }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  id="personal-country"
+                  label={t("personal.country")}
+                  fullWidth
+                  variant="outlined"
+                  error={!!errors.country}
+                  helperText={errors.country?.message}
+                  slotProps={{
+                    htmlInput: {
+                      "aria-required": "true",
+                      "aria-invalid": errors.country ? "true" : "false",
+                    },
+                  }}
+                />
+              )}
             />
           </Grid>
         </Grid>
