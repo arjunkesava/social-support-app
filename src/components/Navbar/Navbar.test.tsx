@@ -1,8 +1,10 @@
-import { screen } from "@testing-library/react";
-import Navbar from "./Navbar";
-import { describe, it, expect } from "vitest";
 import "../../i18n/config";
+
+import { screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+
 import { renderWithProviders } from "../../test/testUtils";
+import Navbar from "./Navbar";
 
 describe("Navbar Component", () => {
   it("should render the brand title and navigation controls", () => {

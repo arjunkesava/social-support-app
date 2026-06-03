@@ -1,18 +1,19 @@
-import React from "react";
+import CheckCircleOutlined from "@mui/icons-material/CheckCircleOutlined";
+import RestartAlt from "@mui/icons-material/RestartAlt";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
-import RestartAlt from "@mui/icons-material/RestartAlt";
-import CheckCircleOutlined from "@mui/icons-material/CheckCircleOutlined";
+import Typography from "@mui/material/Typography";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useStepSuccess } from "./useStepSuccess";
+
 import {
   successContainerStyles,
   successIconStyles,
   summarySectionCardStyles,
 } from "../styles";
+import { useStepSuccess } from "./useStepSuccess";
 
 export const StepSuccess: React.FC = () => {
   const { t } = useTranslation();

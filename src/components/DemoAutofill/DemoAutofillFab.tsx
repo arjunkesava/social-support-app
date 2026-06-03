@@ -1,11 +1,12 @@
-import React from "react";
-import Fab from "@mui/material/Fab";
-import Tooltip from "@mui/material/Tooltip";
-import { useTheme } from "@mui/material/styles";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import Fab from "@mui/material/Fab";
+import { useTheme } from "@mui/material/styles";
+import Tooltip from "@mui/material/Tooltip";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import type { DemoAutofillFabProps } from "./types";
+
 import { fabStyles } from "./styles";
+import type { DemoAutofillFabProps } from "./types";
 
 export const DemoAutofillFab: React.FC<DemoAutofillFabProps> = ({
   popoverId,

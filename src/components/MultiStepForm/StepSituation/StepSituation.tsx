@@ -1,28 +1,29 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import { Controller } from "react-hook-form";
+import ArrowBack from "@mui/icons-material/ArrowBack";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 import Alert from "@mui/material/Alert";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import ArrowBack from "@mui/icons-material/ArrowBack";
-import ArrowForward from "@mui/icons-material/ArrowForward";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import React from "react";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useStepSituation } from "./useStepSituation";
+
+import { formatRetryAfterSeconds } from "../../../utils/writingSuggestionRateLimit";
+import { PiiConsent } from "../../PiiConsent/PiiConsent";
+import { formActionContainerStyles, formFieldGridStyles } from "../styles";
+import AiGeneratedSuggestion from "./AiGeneratedSuggestion";
 import {
-  situationFields,
+  type SituationField,
   situationFieldIds,
   situationFieldLabelKeys,
+  situationFields,
   situationPlaceholderKeys,
-  type SituationField,
 } from "./types";
-import AiGeneratedSuggestion from "./AiGeneratedSuggestion";
-import { PiiConsent } from "../../PiiConsent/PiiConsent";
-import { formFieldGridStyles, formActionContainerStyles } from "../styles";
-import { formatRetryAfterSeconds } from "../../../utils/writingSuggestionRateLimit";
+import { useStepSituation } from "./useStepSituation";
 
 const helpButtonContainerStyles = {
   display: "flex",

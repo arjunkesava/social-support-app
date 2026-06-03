@@ -1,7 +1,8 @@
 import { screen } from "@testing-library/react";
-import { Layout } from "./Layout";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+
 import { renderWithProviders } from "../../test/testUtils";
+import { Layout } from "./Layout";
 
 describe("Layout Component", () => {
   it("should render children within the ThemeProvider and Layout shell", () => {

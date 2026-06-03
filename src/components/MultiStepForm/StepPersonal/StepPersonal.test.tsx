@@ -1,8 +1,10 @@
-import { screen, fireEvent, waitFor } from "@testing-library/react";
-import StepPersonal from "./StepPersonal";
-import { describe, it, expect } from "vitest";
 import "../../../i18n/config";
+
+import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+
 import { renderWithProviders } from "../../../test/testUtils";
+import StepPersonal from "./StepPersonal";
 
 describe("StepPersonal Form Component", () => {
   it("should render form inputs and trigger validation errors on invalid values", async () => {

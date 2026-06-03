@@ -1,8 +1,10 @@
-import { screen, fireEvent } from "@testing-library/react";
-import StepSuccess from "./StepSuccess";
-import { describe, it, expect, vi } from "vitest";
 import "../../../i18n/config";
+
+import { fireEvent, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+
 import { renderWithProviders } from "../../../test/testUtils";
+import StepSuccess from "./StepSuccess";
 
 const navigateMock = vi.fn();
 

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import i18n from "../i18n/config";
 import {
   FormContext,
+  type FormData,
   getInitialFormData,
   initialFormData,
-  type FormData,
   type Language,
   type ThemeMode,
 } from "./FormContext.shared";

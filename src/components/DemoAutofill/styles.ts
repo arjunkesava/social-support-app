@@ -1,4 +1,5 @@
 import type { SxProps, Theme } from "@mui/material";
+
 import type { ThemeMode } from "../../context/FormContext.shared";
 
 export const fabStyles: SxProps<Theme> = {

@@ -1,17 +1,18 @@
-import React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import React from "react";
 import { Trans } from "react-i18next";
+
 import { DemoAutofillPopoverHeader } from "./DemoAutofillPopoverHeader";
 import { DemoAutofillUserCard } from "./DemoAutofillUserCard";
-import type { DemoAutofillPopoverProps } from "./types";
 import {
   getPopoverPaperStyles,
   popoverContentStyles,
   popoverDescriptionStyles,
   userListStyles,
 } from "./styles";
+import type { DemoAutofillPopoverProps } from "./types";
 
 export const DemoAutofillPopover: React.FC<DemoAutofillPopoverProps> = ({
   popoverId,

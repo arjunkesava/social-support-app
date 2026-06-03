@@ -1,24 +1,25 @@
-import React from "react";
-import { Controller } from "react-hook-form";
+import ArrowBack from "@mui/icons-material/ArrowBack";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 import Box from "@mui/material/Box";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import ArrowBack from "@mui/icons-material/ArrowBack";
-import ArrowForward from "@mui/icons-material/ArrowForward";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import React from "react";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+
 import { EMIRATES_ID_PATTERN } from "../../../utils/emiratesId";
+import { formActionContainerStyles, formFieldGridStyles } from "../styles";
 import { useStepPersonal } from "./useStepPersonal";
-import { formFieldGridStyles, formActionContainerStyles } from "../styles";
 
 export const StepPersonal: React.FC = () => {
   const { t } = useTranslation();

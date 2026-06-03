@@ -1,7 +1,8 @@
-import { useTranslation } from "react-i18next";
-import { useFormContext } from "../../context/FormContext.shared";
-import type { Language } from "../../context/FormContext.shared";
 import type { SelectChangeEvent } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
+import type { Language } from "../../context/FormContext.shared";
+import { useFormContext } from "../../context/FormContext.shared";
 
 export const useNavActions = () => {
   const { t } = useTranslation();

@@ -1,13 +1,14 @@
-import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
 import {
-  piiConsentContainerStyles,
-  piiConsentTextStyles,
   piiConsentActionsStyles,
+  piiConsentContainerStyles,
   piiConsentDeclinedStyles,
+  piiConsentTextStyles,
 } from "./styles";
 import type { PiiConsentProps } from "./types";
 

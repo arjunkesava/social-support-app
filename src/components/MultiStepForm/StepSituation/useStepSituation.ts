@@ -1,19 +1,20 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useFormContext } from "../../../context/FormContext.shared";
+import { useNavigate } from "react-router-dom";
+
 import type { SituationDescriptions } from "../../../context/FormContext.shared";
+import { useFormContext } from "../../../context/FormContext.shared";
+import { useWritingSuggestionRateLimit } from "../../../hooks/useWritingSuggestionRateLimit";
 import {
   ApplicationSubmissionError,
   submitApplication,
 } from "../../../services/applicationSubmission";
 import {
   getWritingSuggestion,
-  WritingSuggestionError,
   type SituationField,
+  WritingSuggestionError,
 } from "../../../services/writingSuggestions";
-import { useWritingSuggestionRateLimit } from "../../../hooks/useWritingSuggestionRateLimit";
 import {
   formatRetryAfterMinutes,
   formatRetryAfterSeconds,

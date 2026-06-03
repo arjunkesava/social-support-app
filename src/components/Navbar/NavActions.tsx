@@ -1,17 +1,18 @@
-import React from "react";
+import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
+import TranslateOutlined from "@mui/icons-material/TranslateOutlined";
 import Box from "@mui/material/Box";
-import Switch from "@mui/material/Switch";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
-import TranslateOutlined from "@mui/icons-material/TranslateOutlined";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import React from "react";
+
 import {
   navActionsContainerStyles,
-  switchWrapperStyles,
   selectLanguageStyles,
+  switchWrapperStyles,
 } from "./styles";
 import { useNavActions } from "./useNavActions";
 

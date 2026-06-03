@@ -5,8 +5,8 @@
  * @module writingSuggestionRateLimit
  */
 
-/** Cooldown between consecutive requests (30 seconds). */
-export const WRITING_SUGGESTION_COOLDOWN_MS = 30_000;
+/** Cooldown between consecutive requests (15 seconds). */
+export const WRITING_SUGGESTION_COOLDOWN_MS = 15_000;
 
 /** Maximum requests allowed within the rolling window (5 per 10 minutes). */
 export const WRITING_SUGGESTION_MAX_REQUESTS = 5;

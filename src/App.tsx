@@ -1,11 +1,12 @@
 import { lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import MultiStepForm from "./components/MultiStepForm/MultiStepForm";
-import { Layout } from "./components/Layout/Layout";
-import StepRouteGuard from "./components/MultiStepForm/StepRouteGuard";
+
 import DemoAutofill from "./components/DemoAutofill";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import { Layout } from "./components/Layout/Layout";
+import MultiStepForm from "./components/MultiStepForm/MultiStepForm";
+import StepRouteGuard from "./components/MultiStepForm/StepRouteGuard";
+import Navbar from "./components/Navbar/Navbar";
 
 const StepPersonal = lazy(
   () => import("./components/MultiStepForm/StepPersonal/StepPersonal"),

@@ -1,24 +1,25 @@
-import React, { Suspense } from "react";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import Stepper from "@mui/material/Stepper";
+import CardHeader from "@mui/material/CardHeader";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
-import { Outlet, useLocation } from "react-router-dom";
+import React, { Suspense } from "react";
 import { useTranslation } from "react-i18next";
+import { Outlet, useLocation } from "react-router-dom";
+
 import StepFormSkeleton from "./StepFormSkeleton";
-import { stepPathIndexes } from "./types";
 import {
-  wizardCardStyles,
-  cardHeaderStyles,
-  cardContentStyles,
-  stepperStyles,
-  headerTypographyStyles,
   activeStepFormStyles,
+  cardContentStyles,
+  cardHeaderStyles,
+  headerTypographyStyles,
+  stepperStyles,
+  wizardCardStyles,
 } from "./styles";
+import { stepPathIndexes } from "./types";
 
 export const MultiStepForm: React.FC = () => {
   const { t } = useTranslation();

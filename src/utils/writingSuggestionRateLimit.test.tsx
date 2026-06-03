@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
+
 import {
-  WRITING_SUGGESTION_COOLDOWN_MS,
-  WRITING_SUGGESTION_MAX_REQUESTS,
-  WRITING_SUGGESTION_WINDOW_MS,
   checkWritingSuggestionRateLimit,
   formatRetryAfterSeconds,
   recordWritingSuggestionRequest,
+  WRITING_SUGGESTION_COOLDOWN_MS,
+  WRITING_SUGGESTION_MAX_REQUESTS,
+  WRITING_SUGGESTION_WINDOW_MS,
 } from "./writingSuggestionRateLimit";
 
 describe("checkWritingSuggestionRateLimit", () => {

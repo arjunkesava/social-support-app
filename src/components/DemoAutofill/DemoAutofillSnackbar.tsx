@@ -1,9 +1,10 @@
-import React from "react";
-import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import type { DemoAutofillSnackbarProps } from "./types";
+
 import { snackbarAlertStyles } from "./styles";
+import type { DemoAutofillSnackbarProps } from "./types";
 
 export const DemoAutofillSnackbar: React.FC<DemoAutofillSnackbarProps> = ({
   open,

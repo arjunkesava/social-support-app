@@ -1,11 +1,12 @@
-import React from "react";
-import { withTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import React from "react";
 import type { WithTranslation } from "react-i18next";
-import type { ErrorBoundaryProps } from "./types";
+import { withTranslation } from "react-i18next";
+
 import { errorContainer } from "./styles";
+import type { ErrorBoundaryProps } from "./types";
 
 interface ErrorBoundaryState {
   hasError: boolean;

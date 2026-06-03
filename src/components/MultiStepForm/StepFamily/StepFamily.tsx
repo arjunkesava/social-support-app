@@ -1,20 +1,21 @@
-import React from "react";
-import { Controller } from "react-hook-form";
+import ArrowBack from "@mui/icons-material/ArrowBack";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import ArrowBack from "@mui/icons-material/ArrowBack";
-import ArrowForward from "@mui/icons-material/ArrowForward";
+import React from "react";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useStepFamily } from "./useStepFamily";
+
+import { formActionContainerStyles, formFieldGridStyles } from "../styles";
 import { currencyOptions } from "./types";
-import { formFieldGridStyles, formActionContainerStyles } from "../styles";
+import { useStepFamily } from "./useStepFamily";
 
 export const StepFamily: React.FC = () => {
   const { t } = useTranslation();

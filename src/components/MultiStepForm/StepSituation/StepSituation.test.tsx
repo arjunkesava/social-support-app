@@ -1,17 +1,19 @@
-import { screen, fireEvent, waitFor } from "@testing-library/react";
-import StepSituation from "./StepSituation";
-import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
-import * as writingSuggestionRateLimitHook from "../../../hooks/useWritingSuggestionRateLimit";
 import "../../../i18n/config";
-import { renderWithProviders } from "../../../test/testUtils";
-import {
-  getWritingSuggestion,
-  WritingSuggestionError,
-} from "../../../services/writingSuggestions";
+
+import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+import * as writingSuggestionRateLimitHook from "../../../hooks/useWritingSuggestionRateLimit";
 import {
   ApplicationSubmissionError,
   submitApplication,
 } from "../../../services/applicationSubmission";
+import {
+  getWritingSuggestion,
+  WritingSuggestionError,
+} from "../../../services/writingSuggestions";
+import { renderWithProviders } from "../../../test/testUtils";
+import StepSituation from "./StepSituation";
 
 const navigateMock = vi.fn();
 

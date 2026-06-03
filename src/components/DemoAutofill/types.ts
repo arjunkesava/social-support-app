@@ -1,7 +1,7 @@
 import type { ThemeMode } from "../../context/FormContext.shared";
 import type {
-  PersonalInfo,
   FamilyFinancialInfo,
+  PersonalInfo,
 } from "../../context/FormContext.shared";
 
 export interface MockUser {

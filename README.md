@@ -1,114 +1,14 @@
 # Social Support Application Portal
 
-![Project Screenshot](https://via.placeholder.com/1200x600/1a1a2e/e0e0e0?text=Social+Support+App+Screenshot)
-
-> _Screenshot or demo video goes here – replace the placeholder above with an actual image/video link._
+<video src="public/screen-cast-demo.mp4" controls width="100%">
+  Your browser does not support the video tag.
+</video>
 
 ---
 
 ## Overview
 
 A multi-step social support application form built with **React, TypeScript, and Material UI**. Users fill in personal, financial, and situational details across four steps. The form includes an **AI-powered "Help me write"** feature (powered by OpenAI) that drafts contextual paragraphs for each situation field. The app supports **English, Spanish, and Arabic** with full RTL layout for Arabic.
-
-### Features
-
-- [x] **Multi-step wizard** – Personal → Family & Financial → Situation → Success
-- [x] **AI writing assistant** – "Help me write" generates draft text via OpenAI for each situation field
-- [x] **Rate limiting** – 30s cooldown / 5 requests per 10 min (client + server)
-- [x] **Demo Autofill** – FAB with mock user profiles for quick testing
-- [x] **PII Consent** – Explicit user consent before personal data is used for AI prompts
-- [x] **Internationalization** – English, Spanish, Arabic (full RTL support)
-- [x] **Dark / Light mode** – Theme toggle persisted across sessions
-- [x] **Route guard** – Prevents skipping steps out of order
-- [x] **localStorage persistence** – Form data, step progress, theme and language preferences saved
-- [x] **Glassmorphism UI** – Polished MUI design with frosted-glass cards
-- [x] **Mock submission** – Simulated API submission with configurable success/failure
-- [x] **Accessibility** – ARIA labels, keyboard navigation, screen reader support
-- [x] **React Compiler** – Optimized re-renders with React Compiler enabled
-- [x] **Code quality** – ESLint, Prettier, Husky pre-commit hooks, lint-staged
-
----
-
-## Folder Structure
-
-```
-social-support-app/
-├── backend/                        # Express + OpenAI server
-│   ├── server.js                   # /api/help-me-write endpoint
-│   └── writingSuggestionRateLimit.js
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── Layout/                 # ThemeProvider, CssBaseline, global styles
-│   │   ├── Navbar/                 # App header, theme/language controls
-│   │   ├── MultiStepForm/          # Wizard card, stepper, route guard
-│   │   │   ├── StepPersonal/       # Personal information step
-│   │   │   ├── StepFamily/         # Family & financial info step
-│   │   │   ├── StepSituation/      # Situation descriptions + "Help me write"
-│   │   │   │   ├── AiGeneratedSuggestion.tsx  # AI suggestion dialog
-│   │   │   │   └── StepSituation.test.tsx
-│   │   │   ├── StepSuccess/        # Submission review & confirmation
-│   │   │   └── StepFormSkeleton/   # Lazy-load loading skeleton
-│   │   ├── DemoAutofill/           # FAB + popover + mock user cards
-│   │   └── PiiConsent/             # PII consent banner (new)
-│   ├── context/
-│   │   ├── FormContext.shared.ts   # Types, interfaces, initial state
-│   │   └── FormContext.tsx         # Provider, persistence, autofill
-│   ├── hooks/
-│   │   └── useWritingSuggestionRateLimit.ts
-│   ├── services/
-│   │   ├── writingSuggestions.ts   # Axios client for AI endpoint
-│   │   └── applicationSubmission.ts # Mock submission service
-│   ├── utils/
-│   │   ├── emiratesId.ts           # Emirates ID regex pattern
-│   │   ├── writingSuggestionRateLimit.ts
-│   │   └── writingSuggestionRateLimit.test.tsx
-│   ├── i18n/
-│   │   ├── config.ts               # i18next setup
-│   │   └── locales/                # en.json, es.json, ar.json
-│   ├── test/                       # Vitest setup & test utilities
-│   ├── App.tsx                     # Router, lazy-loaded steps
-│   └── main.tsx                    # Entry point
-├── .husky/                         # Pre-commit hooks
-├── eslint.config.js
-├── vite.config.ts
-├── tsconfig.json
-└── package.json
-```
-
----
-
-## Architecture Diagram
-
-```
-┌──────────────────────────────────────────────────────────┐
-│                    Browser (Vite + React 19)              │
-│                                                          │
-│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────┐  │
-│  │ Personal  │──►│  Family  │──►│ Situation│──►│Success│  │
-│  │   Step    │   │   Step   │   │   Step   │   │ Step │  │
-│  └──────────┘   └──────────┘   └──────────┘   └──────┘  │
-│        │              │              │                    │
-│        └──────────────┴──────────────┘                    │
-│                        │  FormContext (React Context)     │
-│                        ▼                                  │
-│              ┌─────────────────┐                          │
-│              │  localStorage   │  (persistence)           │
-│              └─────────────────┘                          │
-│                                                          │
-│  ┌──────────────────┐    ┌────────────────────┐          │
-│  │  Demo Autofill   │    │  "Help me write"   │          │
-│  │  (mock users)    │    │  AI Suggestion     │          │
-│  └──────────────────┘    └─────────┬──────────┘          │
-│                                    │ POST /api/help-me-write
-└────────────────────────────────────┼──────────────────────┘
-                                     │
-                                     ▼
-                     ┌──────────────────────────┐
-                     │  Express (port 4000)      │
-                     │  Rate Limiter → OpenAI    │
-                     └──────────────────────────┘
-```
 
 ---
 
@@ -137,7 +37,7 @@ cp backend/.env.example backend/.env
 ```bash
 # 4. Edit backend/.env with your OpenAI key
 OPENAI_API_KEY=sk-your-key-here
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_MODEL=gpt-3.5-turbo
 PORT=4000
 CLIENT_ORIGIN=http://localhost:5173
 ```
@@ -156,6 +56,61 @@ yarn dev
 
 Open **http://localhost:5173** in your browser.
 
+---
+
+### Features
+
+- [x] **Multi-step wizard** – Personal → Family & Financial → Situation → Success
+- [x] **AI writing assistant** – "Help me write" generates draft text via OpenAI for each situation field
+- [x] **Rate limiting** – 30s cooldown / 5 requests per 10 min (client + server)
+- [x] **Demo Autofill** – FAB with mock user profiles for quick testing
+- [x] **PII Consent** – Explicit user consent before personal data is used for AI prompts
+- [x] **Internationalization** – English, Spanish, Arabic (full RTL support)
+- [x] **Dark / Light mode** – Theme toggle persisted across sessions
+- [x] **Route guard** – Prevents skipping steps out of order
+- [x] **localStorage persistence** – Form data, step progress, theme and language preferences saved
+- [x] **Glassmorphism UI** – Polished MUI design with frosted-glass cards
+- [x] **Mock submission** – Simulated API submission with configurable success/failure
+- [x] **Accessibility** – ARIA labels, keyboard navigation, screen reader support
+- [x] **React Compiler** – Optimized re-renders with React Compiler enabled
+- [x] **Code quality** – ESLint, Prettier, Husky pre-commit hooks, lint-staged
+
+---
+
+## Architecture Diagram
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                    Browser (Vite + React 19)               │
+│                                                            │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌─────────┐  │
+│  │ Personal │──►│  Family  │──►│ Situation│──►│ Success │  │
+│  │   Step   │   │   Step   │   │   Step   │   │   Step  │  │
+│  └──────────┘   └──────────┘   └──────────┘   └─────────┘  │
+│        │              │              │                     │
+│        └──────────────┴──────────────┘                     │
+│                        │  FormContext (React Context)      │
+│                        ▼                                   │
+│              ┌─────────────────┐                           │
+│              │  localStorage   │  (persistence)            │
+│              └─────────────────┘                           │
+│                                                            │
+│  ┌──────────────────┐    ┌────────────────────┐            │
+│  │  Demo Autofill   │    │  "Help me write"   │            │
+│  │  (mock users)    │    │  AI Suggestion     │            │
+│  └──────────────────┘    └─────────┬──────────┘            │
+│                                    │ POST /api/help-me-write
+└────────────────────────────────────┼───────────────────────┘
+                                     │
+                                     ▼
+                     ┌──────────────────────────┐
+                     │  Express (port 4000)     │
+                     │  Rate Limiter → OpenAI   │
+                     └──────────────────────────┘
+```
+
+---
+
 ### Configuration
 
 | Env Variable                   | Default                 | Description                                                                                                                           |
@@ -163,7 +118,7 @@ Open **http://localhost:5173** in your browser.
 | `VITE_API_BASE_URL`            | `http://localhost:4000` | Backend URL for AI suggestions                                                                                                        |
 | `VITE_MOCK_SUBMIT_FAIL`        | `false`                 | Set to `true` to simulate submission failure                                                                                          |
 | `PORT`                         | `4000`                  | Backend server port                                                                                                                   |
-| `OPENAI_MODEL`                 | `gpt-4o-mini`           | OpenAI model for text generation                                                                                                      |
+| `OPENAI_MODEL`                 | `gpt-3.5-turbo`         | OpenAI model for text generation                                                                                                      |
 | `CLIENT_ORIGIN`                | `http://localhost:5173` | CORS allowed origin                                                                                                                   |
 | `TRUST_PROXY`                  | –                       | Set to `true` behind nginx for IP-based rate limiting                                                                                 |
 | `NODE_TLS_REJECT_UNAUTHORIZED` | `0`                     | Set to `0` to disable TLS certificate verification for local development (avoids local CA chain issues). **Never use in production.** |

@@ -1,31 +1,32 @@
-import React from "react";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import HomeIcon from "@mui/icons-material/Home";
+import PeopleIcon from "@mui/icons-material/People";
+import PersonIcon from "@mui/icons-material/Person";
+import WorkIcon from "@mui/icons-material/Work";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
-import PersonIcon from "@mui/icons-material/Person";
-import WorkIcon from "@mui/icons-material/Work";
-import HomeIcon from "@mui/icons-material/Home";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import PeopleIcon from "@mui/icons-material/People";
+import Typography from "@mui/material/Typography";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import type { DemoAutofillUserCardProps } from "./types";
+
 import {
-  userCardContentStyles,
-  userCardHeaderRowStyles,
-  userNameStyles,
-  countryChipStyles,
-  userDescriptionStyles,
-  userStatsDividerStyles,
-  userStatsRowStyles,
-  userStatItemStyles,
-  userStatIconStyles,
   capitalizeStatTextStyles,
+  countryChipStyles,
   dependentsStatTextStyles,
   incomeStatTextStyles,
+  userCardContentStyles,
+  userCardHeaderRowStyles,
+  userDescriptionStyles,
+  userNameStyles,
+  userStatIconStyles,
+  userStatItemStyles,
+  userStatsDividerStyles,
+  userStatsRowStyles,
 } from "./styles";
+import type { DemoAutofillUserCardProps } from "./types";
 
 export const DemoAutofillUserCard: React.FC<DemoAutofillUserCardProps> = ({
   user,
