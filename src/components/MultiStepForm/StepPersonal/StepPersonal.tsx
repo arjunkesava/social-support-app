@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { useFormContext } from "../../../context/FormContext.shared";
 import type { PersonalInfo } from "../../../context/FormContext.shared";
+import { EMIRATES_ID_PATTERN } from "../../../utils/emiratesId";
 import { formFieldGridStyles, formActionContainerStyles } from "../styles";
 
 export const StepPersonal: React.FC = () => {
@@ -82,10 +83,11 @@ export const StepPersonal: React.FC = () => {
               label={t("personal.national_id")}
               fullWidth
               variant="outlined"
+              placeholder={t("personal.national_id_placeholder")}
               {...register("nationalId", {
                 required: t("validation.required"),
                 pattern: {
-                  value: /^\d{10}$/,
+                  value: EMIRATES_ID_PATTERN,
                   message: t("validation.national_id"),
                 },
               })}
@@ -95,7 +97,7 @@ export const StepPersonal: React.FC = () => {
                 htmlInput: {
                   "aria-required": "true",
                   "aria-invalid": errors.nationalId ? "true" : "false",
-                  inputMode: "numeric",
+                  autoComplete: "off",
                 },
               }}
             />

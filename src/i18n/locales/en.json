@@ -11,7 +11,9 @@
     "personal": "Personal Information",
     "financial": "Family & Financial Info",
     "situation": "Situation Descriptions",
-    "success": "Submission Success"
+    "success": "Submission Success",
+    "progress_label": "Application progress",
+    "progress_status": "Step {{current}} of {{total}}: {{label}}"
   },
   "buttons": {
     "next": "Next",
@@ -23,7 +25,7 @@
     "required": "This field is required",
     "email": "Please enter a valid email address",
     "phone": "Please enter a valid phone number",
-    "national_id": "National ID must be numeric and exactly 10 digits",
+    "national_id": "Enter a valid Emirates ID (format: 784-YYYY-NNNNNNN-C)",
     "min_income": "Monthly income cannot be negative",
     "min_dependents": "Dependents cannot be negative",
     "min_length": "Must be at least 15 characters"
@@ -31,7 +33,8 @@
   "personal": {
     "title": "Personal Information",
     "name": "Full Name",
-    "national_id": "National ID",
+    "national_id": "Emirates ID",
+    "national_id_placeholder": "784-1990-1234567-1",
     "dob": "Date of Birth",
     "gender": "Gender",
     "gender_options": {

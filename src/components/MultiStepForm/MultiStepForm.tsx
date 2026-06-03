@@ -37,6 +37,9 @@ export const MultiStepForm: React.FC = () => {
     t("steps.situation"),
   ];
 
+  const isSuccessPage = pathname === "/success";
+  const stepperActiveStep = Math.min(activeRouteStep, steps.length - 1);
+
   return (
     <Card sx={wizardCardStyles} className="form-wizard-card">
       {/* Dynamic Header based on active step */}
@@ -50,24 +53,58 @@ export const MultiStepForm: React.FC = () => {
       />
 
       <CardContent sx={cardContentStyles}>
-        {/* MUI Stepper - only show or customize if form is not completed */}
         <Box sx={{ width: "100%" }}>
-          <Stepper
-            activeStep={activeRouteStep}
-            sx={stepperStyles}
-            alternativeLabel
-            aria-label="Application progress"
-          >
-            {steps.map((label) => {
-              const stepProps: { completed?: boolean } = {};
-              const labelProps: { optional?: React.ReactNode } = {};
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
+          {!isSuccessPage ? (
+            <Stepper
+              activeStep={stepperActiveStep}
+              sx={stepperStyles}
+              alternativeLabel
+              nonLinear={false}
+              role="group"
+              aria-label={t("steps.progress_label")}
+              aria-describedby="application-step-status"
+            >
+              {steps.map((label, index) => (
+                <Step
+                  key={index}
+                  completed={index < stepperActiveStep}
+                  aria-current={
+                    index === stepperActiveStep ? "step" : undefined
+                  }
+                  aria-labelledby={`application-step-label-${index}`}
+                >
+                  <StepLabel id={`application-step-label-${index}`}>
+                    {label}
+                  </StepLabel>
                 </Step>
-              );
-            })}
-          </Stepper>
+              ))}
+            </Stepper>
+          ) : null}
+
+          <Typography
+            id="application-step-status"
+            component="p"
+            variant="body2"
+            sx={{
+              position: "absolute",
+              width: 1,
+              height: 1,
+              padding: 0,
+              margin: -1,
+              overflow: "hidden",
+              clip: "rect(0, 0, 0, 0)",
+              whiteSpace: "nowrap",
+              border: 0,
+            }}
+          >
+            {isSuccessPage
+              ? t("steps.success")
+              : t("steps.progress_status", {
+                  current: stepperActiveStep + 1,
+                  total: steps.length,
+                  label: steps[stepperActiveStep],
+                })}
+          </Typography>
 
           {/* Active Step Form Content */}
           <Box sx={activeStepFormStyles}>

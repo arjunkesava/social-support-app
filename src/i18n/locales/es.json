@@ -11,7 +11,9 @@
     "personal": "Información Personal",
     "financial": "Información Familiar y Financiera",
     "situation": "Descripciones de Situación",
-    "success": "Envío Exitoso"
+    "success": "Envío Exitoso",
+    "progress_label": "Progreso de la solicitud",
+    "progress_status": "Paso {{current}} de {{total}}: {{label}}"
   },
   "buttons": {
     "next": "Siguiente",
@@ -23,7 +25,7 @@
     "required": "Este campo es obligatorio",
     "email": "Por favor, introduce una dirección de correo válida",
     "phone": "Por favor, introduce un número de teléfono válido",
-    "national_id": "El ID Nacional debe ser numérico y tener exactamente 10 dígitos",
+    "national_id": "Introduzca un Emirates ID válido (formato: 784-AAAA-NNNNNNN-C)",
     "min_income": "El ingreso mensual no puede ser negativo",
     "min_dependents": "Los dependientes no pueden ser negativos",
     "min_length": "Debe tener al menos 15 caracteres"
@@ -31,7 +33,8 @@
   "personal": {
     "title": "Información Personal",
     "name": "Nombre Completo",
-    "national_id": "ID Nacional",
+    "national_id": "Emirates ID",
+    "national_id_placeholder": "784-1990-1234567-1",
     "dob": "Fecha de Nacimiento",
     "gender": "Género",
     "gender_options": {

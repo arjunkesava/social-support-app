@@ -74,7 +74,7 @@ export const initialFormData: FormData = {
     dependents: 0,
     employmentStatus: "",
     monthlyIncome: 0,
-    currency: "",
+    currency: "AED",
     housingStatus: "",
   },
   situation: {
@@ -102,6 +102,7 @@ export const getInitialFormData = (): FormData => {
       family: {
         ...initialFormData.family,
         ...parsed.family,
+        currency: parsed.family?.currency || initialFormData.family.currency,
       },
       situation: {
         ...initialFormData.situation,
