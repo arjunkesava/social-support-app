@@ -1,137 +1,211 @@
-# React + TypeScript + Vite
+# Social Support Application Portal
 
-## Help Me Write OpenAI setup
+![Project Screenshot](https://via.placeholder.com/1200x600/1a1a2e/e0e0e0?text=Social+Support+App+Screenshot)
 
-1. Install dependencies if they are not already installed:
+> _Screenshot or demo video goes here – replace the placeholder above with an actual image/video link._
 
-   ```sh
-   yarn install
-   ```
+---
 
-2. Create the backend environment file:
+## Overview
 
-   ```sh
-   cp backend/.env.example backend/.env
-   ```
+A multi-step social support application form built with **React, TypeScript, and Material UI**. Users fill in personal, financial, and situational details across four steps. The form includes an **AI-powered "Help me write"** feature (powered by OpenAI) that drafts contextual paragraphs for each situation field. The app supports **English, Spanish, and Arabic** with full RTL layout for Arabic.
 
-3. Add your OpenAI API key in `backend/.env`:
+### Features
 
-   ```sh
-   OPENAI_API_KEY=sk-your-key
-   OPENAI_MODEL=gpt-4o-mini
-   PORT=4000
-   CLIENT_ORIGIN=http://localhost:5173
-   ```
+- [x] **Multi-step wizard** – Personal → Family & Financial → Situation → Success
+- [x] **AI writing assistant** – "Help me write" generates draft text via OpenAI for each situation field
+- [x] **Rate limiting** – 30s cooldown / 5 requests per 10 min (client + server)
+- [x] **Demo Autofill** – FAB with mock user profiles for quick testing
+- [x] **PII Consent** – Explicit user consent before personal data is used for AI prompts
+- [x] **Internationalization** – English, Spanish, Arabic (full RTL support)
+- [x] **Dark / Light mode** – Theme toggle persisted across sessions
+- [x] **Route guard** – Prevents skipping steps out of order
+- [x] **localStorage persistence** – Form data, step progress, theme and language preferences saved
+- [x] **Glassmorphism UI** – Polished MUI design with frosted-glass cards
+- [x] **Mock submission** – Simulated API submission with configurable success/failure
+- [x] **Accessibility** – ARIA labels, keyboard navigation, screen reader support
+- [x] **React Compiler** – Optimized re-renders with React Compiler enabled
+- [x] **Code quality** – ESLint, Prettier, Husky pre-commit hooks, lint-staged
 
-   Keep this key only in `backend/.env`. Do not put a real API key in `backend/.env.example` or commit it to git.
+---
 
-4. Start the backend service:
+## Folder Structure
 
-   ```sh
-   yarn backend
-   ```
-
-5. In another terminal, start the React app:
-
-   ```sh
-   yarn dev
-   ```
-
-The React client calls `http://localhost:4000/api/help-me-write` by default. To use a different backend URL, set `VITE_API_BASE_URL` before starting Vite.
-
-### Help Me Write rate limits
-
-Both the React client and the backend enforce the same limits to reduce OpenAI cost and abuse:
-
-- **30 seconds** between requests (per browser session on the client, per IP on the server)
-- **5 requests** per **10 minutes** (same scope)
-
-The backend returns HTTP `429` with `code` (`COOLDOWN` or `QUOTA`) and `retryAfterMs` when a limit is exceeded. If you deploy behind nginx or similar, set `TRUST_PROXY=true` in `backend/.env` so per-IP limits use `X-Forwarded-For`.
-
-### Fixing local certificate errors
-
-If the backend logs `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`, Node cannot verify the certificate chain for the OpenAI HTTPS request. This usually happens on corporate, school, antivirus, VPN, proxy, or custom local certificate networks.
-
-Use the trusted root CA certificate for your network and add it to `backend/.env`:
-
-```sh
-NODE_EXTRA_CA_CERTS=/absolute/path/to/company-or-local-ca.pem
+```
+social-support-app/
+├── backend/                        # Express + OpenAI server
+│   ├── server.js                   # /api/help-me-write endpoint
+│   └── writingSuggestionRateLimit.js
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Layout/                 # ThemeProvider, CssBaseline, global styles
+│   │   ├── Navbar/                 # App header, theme/language controls
+│   │   ├── MultiStepForm/          # Wizard card, stepper, route guard
+│   │   │   ├── StepPersonal/       # Personal information step
+│   │   │   ├── StepFamily/         # Family & financial info step
+│   │   │   ├── StepSituation/      # Situation descriptions + "Help me write"
+│   │   │   │   ├── AiGeneratedSuggestion.tsx  # AI suggestion dialog
+│   │   │   │   └── StepSituation.test.tsx
+│   │   │   ├── StepSuccess/        # Submission review & confirmation
+│   │   │   └── StepFormSkeleton/   # Lazy-load loading skeleton
+│   │   ├── DemoAutofill/           # FAB + popover + mock user cards
+│   │   └── PiiConsent/             # PII consent banner (new)
+│   ├── context/
+│   │   ├── FormContext.shared.ts   # Types, interfaces, initial state
+│   │   └── FormContext.tsx         # Provider, persistence, autofill
+│   ├── hooks/
+│   │   └── useWritingSuggestionRateLimit.ts
+│   ├── services/
+│   │   ├── writingSuggestions.ts   # Axios client for AI endpoint
+│   │   └── applicationSubmission.ts # Mock submission service
+│   ├── utils/
+│   │   ├── emiratesId.ts           # Emirates ID regex pattern
+│   │   ├── writingSuggestionRateLimit.ts
+│   │   └── writingSuggestionRateLimit.test.tsx
+│   ├── i18n/
+│   │   ├── config.ts               # i18next setup
+│   │   └── locales/                # en.json, es.json, ar.json
+│   ├── test/                       # Vitest setup & test utilities
+│   ├── App.tsx                     # Router, lazy-loaded steps
+│   └── main.tsx                    # Entry point
+├── .husky/                         # Pre-commit hooks
+├── eslint.config.js
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
 ```
 
-Then restart `yarn backend`.
+---
 
-Avoid using `NODE_TLS_REJECT_UNAUTHORIZED=0` except as a very short local debugging check. It disables TLS certificate verification for the whole Node process.
+## Architecture Diagram
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+┌──────────────────────────────────────────────────────────┐
+│                    Browser (Vite + React 19)              │
+│                                                          │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────┐  │
+│  │ Personal  │──►│  Family  │──►│ Situation│──►│Success│  │
+│  │   Step    │   │   Step   │   │   Step   │   │ Step │  │
+│  └──────────┘   └──────────┘   └──────────┘   └──────┘  │
+│        │              │              │                    │
+│        └──────────────┴──────────────┘                    │
+│                        │  FormContext (React Context)     │
+│                        ▼                                  │
+│              ┌─────────────────┐                          │
+│              │  localStorage   │  (persistence)           │
+│              └─────────────────┘                          │
+│                                                          │
+│  ┌──────────────────┐    ┌────────────────────┐          │
+│  │  Demo Autofill   │    │  "Help me write"   │          │
+│  │  (mock users)    │    │  AI Suggestion     │          │
+│  └──────────────────┘    └─────────┬──────────┘          │
+│                                    │ POST /api/help-me-write
+└────────────────────────────────────┼──────────────────────┘
+                                     │
+                                     ▼
+                     ┌──────────────────────────┐
+                     │  Express (port 4000)      │
+                     │  Rate Limiter → OpenAI    │
+                     └──────────────────────────┘
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+## Installation & Setup
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### Prerequisites
+
+- **Node.js** >= 18
+- **Yarn** (or npm)
+- **OpenAI API key** (for the AI writing feature)
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone <repo-url>
+cd social-support-app
+
+# 2. Install frontend dependencies
+yarn install
+
+# 3. Configure the backend environment
+cp backend/.env.example backend/.env
 ```
+
+```bash
+# 4. Edit backend/.env with your OpenAI key
+OPENAI_API_KEY=sk-your-key-here
+OPENAI_MODEL=gpt-4o-mini
+PORT=4000
+CLIENT_ORIGIN=http://localhost:5173
+```
+
+> **⚠️ TLS certificate note:** The default `backend/.env` sets `NODE_TLS_REJECT_UNAUTHORIZED=0` to bypass local certificate chain issues when connecting to OpenAI from a development machine. This is safe for local dev but **must never be used in production**. If your environment verifies TLS correctly, remove or set it to `1`.
+
+```bash
+# 5. Start the backend (AI suggestion service)
+yarn backend
+```
+
+```bash
+# 6. In a separate terminal, start the React dev server
+yarn dev
+```
+
+Open **http://localhost:5173** in your browser.
+
+### Configuration
+
+| Env Variable                   | Default                 | Description                                                                                                                           |
+| ------------------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_API_BASE_URL`            | `http://localhost:4000` | Backend URL for AI suggestions                                                                                                        |
+| `VITE_MOCK_SUBMIT_FAIL`        | `false`                 | Set to `true` to simulate submission failure                                                                                          |
+| `PORT`                         | `4000`                  | Backend server port                                                                                                                   |
+| `OPENAI_MODEL`                 | `gpt-4o-mini`           | OpenAI model for text generation                                                                                                      |
+| `CLIENT_ORIGIN`                | `http://localhost:5173` | CORS allowed origin                                                                                                                   |
+| `TRUST_PROXY`                  | –                       | Set to `true` behind nginx for IP-based rate limiting                                                                                 |
+| `NODE_TLS_REJECT_UNAUTHORIZED` | `0`                     | Set to `0` to disable TLS certificate verification for local development (avoids local CA chain issues). **Never use in production.** |
+
+### Available Scripts
+
+| Script         | Description                         |
+| -------------- | ----------------------------------- |
+| `yarn dev`     | Start Vite dev server               |
+| `yarn backend` | Start Express backend               |
+| `yarn build`   | TypeScript check + production build |
+| `yarn test`    | Run tests (Vitest)                  |
+| `yarn lint`    | ESLint check                        |
+| `yarn format`  | Prettier formatting                 |
+| `yarn preview` | Preview production build            |
+
+---
+
+## Project Deliverables
+
+- [x] Multi-step form with validation (react-hook-form + Controller)
+- [x] Personal info fields: name, Emirates ID, DOB, gender, phone, email, address
+- [x] Family & financial fields: marital status, dependents, employment, income, housing
+- [x] Situation description text areas with "Help me write" AI integration
+- [x] AI suggestion dialog with edit/accept/discard flow
+- [x] Rate limiting (30s cooldown + 5/10min quota) on client and server
+- [x] PII consent notice – blocks "Help me write" until user agrees
+- [x] Demo Autofill – FAB with 3 mock user profiles for rapid testing
+- [x] Glassmorphism UI with dark/light theme toggle
+- [x] Internationalization (English, Spanish, Arabic) with RTL layout
+- [x] Step route guard – prevents navigating to incomplete steps
+- [x] localStorage persistence (form data, step progress, theme, language)
+- [x] Mock application submission with configurable success/failure
+- [x] Lazy-loaded step components with Suspense + skeleton
+- [x] ESLint + Prettier + Husky pre-commit hooks
+- [x] Accessibility – ARIA labels, semantic HTML, keyboard navigation
+- [x] Unit tests (Vitest + React Testing Library)
+- [x] React Compiler enabled for optimized re-renders
+- [x] TypeScript strict mode throughout
+
+---
+
+## License
+
+MIT
